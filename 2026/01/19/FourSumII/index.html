@@ -19,28 +19,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="算法-两数之和 背景  算法--两数之和 博主以代码随想录算法公开课进行学习">
+    <meta name="description" content="算法-四数相加 背景  算法--四数相加 博主以代码随想录算法公开课进行学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="两数之和">
-<meta property="og:url" content="http://seeya-ch.github.io/2026/01/19/sumOfTwoNumbers/index.html">
+<meta property="og:title" content="四数相加">
+<meta property="og:url" content="http://seeya-ch.github.io/2026/01/19/FourSumII/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="算法-两数之和 背景  算法--两数之和 博主以代码随想录算法公开课进行学习">
+<meta property="og:description" content="算法-四数相加 背景  算法--四数相加 博主以代码随想录算法公开课进行学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-01-19T07:34:23.000Z">
-<meta property="article:modified_time" content="2026-01-19T15:12:47.486Z">
+<meta property="article:modified_time" content="2026-01-20T09:33:37.131Z">
 <meta property="article:author" content="seeya-ch">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://seeya-ch.github.io/2026/01/19/sumOfTwoNumbers/">
+<link rel="canonical" href="http://seeya-ch.github.io/2026/01/19/FourSumII/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://seeya-ch.github.io/2026/01/19/sumOfTwoNumbers/","path":"2026/01/19/sumOfTwoNumbers/","title":"两数之和"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://seeya-ch.github.io/2026/01/19/FourSumII/","path":"2026/01/19/FourSumII/","title":"四数相加"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>两数之和 | seeya-ch 博客</title>
+<title>四数相加 | seeya-ch 博客</title>
   
 
 
@@ -251,7 +251,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-number">1.</span> <span class="nav-text">算法-两数之和</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95-%E5%9B%9B%E6%95%B0%E7%9B%B8%E5%8A%A0"><span class="nav-number">1.</span> <span class="nav-text">算法-四数相加</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -297,7 +297,7 @@ mjx-container[display="true"] + br {
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://seeya-ch.github.io/2026/01/19/sumOfTwoNumbers/">
+    <link itemprop="mainEntityOfPage" href="http://seeya-ch.github.io/2026/01/19/FourSumII/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -310,12 +310,12 @@ mjx-container[display="true"] + br {
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="两数之和 | seeya-ch 博客">
+      <meta itemprop="name" content="四数相加 | seeya-ch 博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          两数之和
+          四数相加
         </h1>
 
         <div class="post-meta-container">
@@ -325,9 +325,15 @@ mjx-container[display="true"] + br {
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2026-01-19 15:34:23 / 修改时间：23:12:47" itemprop="dateCreated datePublished" datetime="2026-01-19T15:34:23+08:00">2026-01-19</time>
+      <time title="创建时间：2026-01-19 15:34:23" itemprop="dateCreated datePublished" datetime="2026-01-19T15:34:23+08:00">2026-01-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-01-20 17:33:37" itemprop="dateModified" datetime="2026-01-20T17:33:37+08:00">2026-01-20</time>
     </span>
 
   
@@ -339,53 +345,64 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="算法-两数之和">算法-两数之和</h1>
+    <div class="post-body" itemprop="articleBody"><h1 id="算法-四数相加">算法-四数相加</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li><p>算法--两数之和</p></li>
+<li><p>算法--四数相加</p></li>
 <li><p>博主以代码随想录算法公开课进行学习</p>
 <span id="more"></span></li>
 </ul>
 <h2 id="题目">题目</h2>
 <ul>
-<li><p>给定一个整数数组 nums 和一个目标值
-target，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。</p>
-<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。</p>
-<p><strong>示例:</strong></p>
-<p>给定 nums = [2, 7, 11, 15], target = 9</p>
-<p>因为 nums[0] + nums[1] = 2 + 7 = 9</p>
-<p>所以返回 [0, 1]</p></li>
+<li><p>给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j,
+k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
+<p>为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500
+。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1
+。</p>
+<p><strong>例如:</strong></p>
+<p>输入:</p>
+<ul>
+<li>A = [ 1, 2]</li>
+<li>B = [-2,-1]</li>
+<li>C = [-1, 2]</li>
+<li>D = [ 0, 2]</li>
+</ul>
+<p>输出:</p>
+<p>2</p>
+<p><strong>解释:</strong></p>
+<p>两个元组如下:</p>
+<ol type="1">
+<li>(0, 0, 0, 1) -&gt; A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 =
+0</li>
+<li>(1, 1, 0, 0) -&gt; A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 =
+0</li>
+</ol></li>
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
-<li>使用哈希法的时候：当我们需要查询一个元素是否在集合里的时候</li>
-<li>本题需要一个集合来存放我们遍历后的元素，在遍历数组的时候再询问这个集合，看元素是否遍历过</li>
-<li>map是一种key value的存储结构，key = 数值，value = 下标</li>
+<li>定义一个哈希map，key放a和b俩数之和，value放a和b俩数和出现的次数</li>
+<li>遍历A、B数组，统计两数和和出现次数</li>
+<li>再遍历C、D数组、找到0-（c+d）在map中出现，count+value（value即出现的次数）</li>
 </ul>
 <h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] twoSum(<span class="type">int</span>[] nums, <span class="type">int</span> target) {</span><br><span class="line">         <span class="type">int</span>[] r = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>];<span class="comment">//储存两个下标</span></span><br><span class="line">         <span class="keyword">if</span>(nums == <span class="literal">null</span> || nums.length == <span class="number">0</span>){</span><br><span class="line">            <span class="keyword">return</span> r;</span><br><span class="line">         }</span><br><span class="line">         Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++){</span><br><span class="line">                <span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> target - nums[i]; <span class="comment">//通过相减得出另一个数是什么</span></span><br><span class="line">                <span class="keyword">if</span>(map.containsKey(t)){ <span class="comment">// 关键判断：HashMap中是否存在补数t（说明之前遍历过这个数）</span></span><br><span class="line">                    r[<span class="number">1</span>] = i;</span><br><span class="line">                    r[<span class="number">0</span>] = map.get(t);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">                map.put(nums[i],i);  <span class="comment">// 若补数不存在，把当前元素的“数值-下标”存入HashMap，供后续元素查询</span></span><br><span class="line"></span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">         <span class="keyword">return</span> r;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fourSumCount</span><span class="params">(<span class="type">int</span>[] nums1, <span class="type">int</span>[] nums2, <span class="type">int</span>[] nums3, <span class="type">int</span>[] nums4)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Integer,Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums1){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums2){</span><br><span class="line">                <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> i + j;</span><br><span class="line">                map.put(sum,map.getOrDefault(sum,<span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums3){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums4){</span><br><span class="line">                r += map.getOrDefault(<span class="number">0</span> - i - j,<span class="number">0</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <h2 id="总结">总结</h2>
 <ul>
-<li>为什么会想到用哈希表
+<li><code>getOrDefault</code> 核心作用：<strong>简化 Map 中 “获取值 +
+处理键不存在” 的逻辑</strong>，避免手动判断 <code>containsKey</code>。
 <ul>
-<li>当我们需要查询一个元素是否在集合里的时候</li>
+<li>尝试从 <code>Map</code> 中获取指定 <code>key</code> 对应的
+<code>value</code>；</li>
+<li>如果 <code>key</code> <strong>存在</strong>，返回对应的
+<code>value</code>；</li>
+<li>如果 <code>key</code> <strong>不存在</strong>，返回你指定的
+<code>defaultValue</code>（默认值）。</li>
 </ul></li>
-<li>哈希表为什么用map
-<ul>
-<li>Set 只能存
-“值”，只能判断补数是否存在；而我们需要同时获取补数的下标，Map 的
-“键值对” 结构刚好能满足 “存数值 + 存下标” 的需求。</li>
-</ul></li>
-<li>本题map是用来存什么的
-<ul>
-<li>存已遍历过的数组元素及其下标，相当于
-“遍历账本”，供后续元素快速查补数</li>
-</ul></li>
-<li>map中的key和value用来存什么的
-<ul>
-<li>key：数值</li>
-<li>value：数组下标</li>
-</ul></li>
+<li>语法规则：<code>map.getOrDefault(键, 默认值)</code>，返回值类型和
+“默认值” 类型一致（比如键是 Integer，默认值也得是 Integer）。</li>
+<li>典型场景：计数统计（如四数相加的次数统计）、避免空值（NPE）、默认值兜底等。</li>
+<li>关键逻辑：利用 <code>a + b + c + d = 0</code> 等价于
+<code>a + b = -(c + d)</code>，通过哈希表快速匹配目标值。</li>
 </ul>
 
     </div>
@@ -403,14 +420,11 @@ target，请你在该数组中找出和为目标值的那两个整数，并返�
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/11/05/StackSimulatorCalculator/" rel="prev" title="栈模拟计算器">
-                  <i class="fa fa-angle-left"></i> 栈模拟计算器
+                <a href="/2026/01/19/sumOfTwoNumbers/" rel="prev" title="两数之和">
+                  <i class="fa fa-angle-left"></i> 两数之和
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2026/01/19/FourSumII/" rel="next" title="四数相加">
-                  四数相加 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
