@@ -19,20 +19,20 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="链表模拟栈 背景  数据结构——链表模拟栈 博主以b站尚硅谷Java数据结构与算法课进行学习">
+    <meta name="description" content="链表模拟栈 背景   数据结构——链表模拟栈   博主以b站尚硅谷Java数据结构与算法课进行学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="链表模拟栈">
 <meta property="og:url" content="http://seeya-ch.github.io/2024/10/08/linkdist-stack/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="链表模拟栈 背景  数据结构——链表模拟栈 博主以b站尚硅谷Java数据结构与算法课进行学习">
+<meta property="og:description" content="链表模拟栈 背景   数据结构——链表模拟栈   博主以b站尚硅谷Java数据结构与算法课进行学习">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://seeya-ch.github.io/2024/10/08/linkdist-stack/seeya-ch.github.io/source_posts/linkdist-stack/%E5%80%92%E6%8F%92%E6%B3%95%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
+<meta property="og:image" content="http://seeya-ch.github.io/2024/10/08/linkdist-stack/D:%5Cseeya-ch.github.io%5Csource_posts%5Clinkdist-stack%5C%E5%80%92%E6%8F%92%E6%B3%95%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
 <meta property="article:published_time" content="2024-10-08T07:34:23.000Z">
 <meta property="article:modified_time" content="2024-10-08T08:38:13.592Z">
 <meta property="article:author" content="seeya-ch">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://seeya-ch.github.io/2024/10/08/linkdist-stack/seeya-ch.github.io/source_posts/linkdist-stack/%E5%80%92%E6%8F%92%E6%B3%95%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
+<meta name="twitter:image" content="http://seeya-ch.github.io/2024/10/08/linkdist-stack/D:%5Cseeya-ch.github.io%5Csource_posts%5Clinkdist-stack%5C%E5%80%92%E6%8F%92%E6%B3%95%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
 
 
 <link rel="canonical" href="http://seeya-ch.github.io/2024/10/08/linkdist-stack/">
@@ -253,7 +253,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E6%A8%A1%E6%8B%9F%E6%A0%88"><span class="nav-number">1.</span> <span class="nav-text">链表模拟栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E9%87%8D%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">本章重点</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">链表模拟栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E9%87%8D%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">本章重点</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -266,7 +266,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -341,81 +341,133 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="链表模拟栈">链表模拟栈</h1>
+    <div class="post-body" itemprop="articleBody"><h1>链表模拟栈</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li><p>数据结构——链表模拟栈</p></li>
-<li><p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
-<span id="more"></span></li>
+<li>
+<p>数据结构——链表模拟栈</p>
+</li>
+<li>
+<p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
+<span id="more"></span>
+</li>
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
-<li><p>定义一个<strong>HeroNode</strong>类，每一个<strong>HeroNode</strong>对象就是一个节点</p>
+<li>
+<p>定义一个<strong>HeroNode</strong>类，每一个<strong>HeroNode</strong>对象就是一个节点</p>
 <ul>
-<li><p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HeroNode</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> no;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> value;</span><br><span class="line">    <span class="keyword">public</span> HeroNode next;<span class="comment">//指向下个节点</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HeroNode</span><span class="params">(<span class="type">int</span> no, <span class="type">int</span> value)</span> {</span><br><span class="line">        <span class="built_in">this</span>.no = no;</span><br><span class="line">        <span class="built_in">this</span>.value = value;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为了显示方便，重写toString方法</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"HeroNode{"</span> +</span><br><span class="line">                <span class="string">"no="</span> + no +</span><br><span class="line">                <span class="string">", value="</span> + value +</span><br><span class="line">                <span class="string">'}'</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
-</ul></li>
-<li><p>链表模拟栈<strong>Linkdist_stack</strong>类</p>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HeroNode</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> no;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> value;</span><br><span class="line">    <span class="keyword">public</span> HeroNode next;<span class="comment">//指向下个节点</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HeroNode</span><span class="params">(<span class="type">int</span> no, <span class="type">int</span> value)</span> {</span><br><span class="line">        <span class="built_in">this</span>.no = no;</span><br><span class="line">        <span class="built_in">this</span>.value = value;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为了显示方便，重写toString方法</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"HeroNode{"</span> +</span><br><span class="line">                <span class="string">"no="</span> + no +</span><br><span class="line">                <span class="string">", value="</span> + value +</span><br><span class="line">                <span class="string">'}'</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>链表模拟栈<strong>Linkdist_stack</strong>类</p>
 <ul>
-<li><p>初始化一个头节点<strong>head</strong>，不存放数据</p>
+<li>
+<p>初始化一个头节点<strong>head</strong>，不存放数据</p>
 <ul>
-<li><p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">HeroNode</span> <span class="variable">head</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HeroNode</span>(-<span class="number">1</span>,<span class="number">0</span>);</span><br></pre></td></tr></table></figure></li>
-</ul></li>
-<li><p><strong>top</strong>为栈顶指针，初始化为<strong>-1</strong></p>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">HeroNode</span> <span class="variable">head</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HeroNode</span>(-<span class="number">1</span>,<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>top</strong>为栈顶指针，初始化为**-1**</p>
 <ul>
-<li><p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="variable">top</span> <span class="operator">=</span>-<span class="number">1</span>;<span class="comment">//栈顶指针</span></span><br></pre></td></tr></table></figure></li>
-</ul></li>
-<li><p><strong>maxLength</strong>为栈的最大容量</p>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="variable">top</span> <span class="operator">=</span>-<span class="number">1</span>;<span class="comment">//栈顶指针</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>maxLength</strong>为栈的最大容量</p>
 <ul>
-<li><p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> maxLength;<span class="comment">//定义最大长度</span></span><br><span class="line"><span class="comment">//设置栈最大容量</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Linkdist_stack</span><span class="params">(<span class="type">int</span> maxLength)</span> {</span><br><span class="line">    <span class="built_in">this</span>.maxLength = maxLength;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
-</ul></li>
-<li><p>判断栈是否为空<strong>isEmpty</strong></p>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> maxLength;<span class="comment">//定义最大长度</span></span><br><span class="line"><span class="comment">//设置栈最大容量</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Linkdist_stack</span><span class="params">(<span class="type">int</span> maxLength)</span> {</span><br><span class="line">    <span class="built_in">this</span>.maxLength = maxLength;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>判断栈是否为空<strong>isEmpty</strong></p>
 <ul>
-<li><p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>{</span><br><span class="line">   <span class="keyword">return</span> top == -<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
-</ul></li>
-<li><p>判断栈是否满<strong>isFull</strong></p>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>{</span><br><span class="line">   <span class="keyword">return</span> top == -<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>判断栈是否满<strong>isFull</strong></p>
 <ul>
-<li><p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isFull</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> top&gt;=maxLength-<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
-</ul></li>
-<li><p>使用倒插法入栈<strong>push</strong></p>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isFull</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> top&gt;=maxLength-<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>使用倒插法入栈<strong>push</strong></p>
 <ul>
-<li><p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> value)</span>{<span class="comment">//为新节点传入新值</span></span><br><span class="line"></span><br><span class="line">     <span class="type">HeroNode</span> <span class="variable">heroNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HeroNode</span>(top,value);</span><br><span class="line">     <span class="keyword">if</span> (isFull()){</span><br><span class="line">         System.out.println(<span class="string">"栈满"</span>);</span><br><span class="line">         <span class="keyword">return</span>;</span><br><span class="line">     }</span><br><span class="line">     top++;</span><br><span class="line">     <span class="keyword">if</span>(head.next==<span class="literal">null</span>){<span class="comment">//说明没有新节点，可以直接添加</span></span><br><span class="line">         head.next = heroNode;</span><br><span class="line">     }<span class="keyword">else</span>{</span><br><span class="line">         heroNode.next = head.next;</span><br><span class="line">         head.next = heroNode;</span><br><span class="line">     }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
-</ul></li>
-<li><p>出栈<strong>pop</strong></p>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> value)</span>{<span class="comment">//为新节点传入新值</span></span><br><span class="line"></span><br><span class="line">     <span class="type">HeroNode</span> <span class="variable">heroNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HeroNode</span>(top,value);</span><br><span class="line">     <span class="keyword">if</span> (isFull()){</span><br><span class="line">         System.out.println(<span class="string">"栈满"</span>);</span><br><span class="line">         <span class="keyword">return</span>;</span><br><span class="line">     }</span><br><span class="line">     top++;</span><br><span class="line">     <span class="keyword">if</span>(head.next==<span class="literal">null</span>){<span class="comment">//说明没有新节点，可以直接添加</span></span><br><span class="line">         head.next = heroNode;</span><br><span class="line">     }<span class="keyword">else</span>{</span><br><span class="line">         heroNode.next = head.next;</span><br><span class="line">         head.next = heroNode;</span><br><span class="line">     }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>出栈<strong>pop</strong></p>
 <ul>
-<li><p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pop</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">if</span> (isEmpty()) {</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">"栈空，没有数据"</span>);</span><br><span class="line">    }</span><br><span class="line">   <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> head.next.value;</span><br><span class="line">    head.next = head.next.next;</span><br><span class="line">    top--;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
-</ul></li>
-<li><p>显示<strong>show</strong></p>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pop</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">if</span> (isEmpty()) {</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">"栈空，没有数据"</span>);</span><br><span class="line">    }</span><br><span class="line">   <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> head.next.value;</span><br><span class="line">    head.next = head.next.next;</span><br><span class="line">    top--;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>显示<strong>show</strong></p>
 <ul>
-<li><p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">if</span> (isEmpty()){</span><br><span class="line">        System.out.println(<span class="string">"栈空没有数据"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="type">HeroNode</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">        System.out.println(temp);</span><br><span class="line">        <span class="keyword">if</span> (temp.next==<span class="literal">null</span>){</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        temp=temp.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
-</ul></li>
-</ul></li>
-<li><p>测试类 <strong>linkdist_stackDemo</strong></p>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">if</span> (isEmpty()){</span><br><span class="line">        System.out.println(<span class="string">"栈空没有数据"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="type">HeroNode</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">        System.out.println(temp);</span><br><span class="line">        <span class="keyword">if</span> (temp.next==<span class="literal">null</span>){</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        temp=temp.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>测试类 <strong>linkdist_stackDemo</strong></p>
 <ul>
-<li><p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">linkdist_stackDemo</span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line"><span class="comment">//测试一下LinkedListStack是否正确</span></span><br><span class="line">        <span class="comment">//先创建一个LinkedListStack对象表示栈</span></span><br><span class="line">        <span class="type">Linkdist_stack</span> <span class="variable">stack</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Linkdist_stack</span>(<span class="number">3</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">""</span>;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;<span class="comment">//控制是否退出菜单</span></span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"show:表示显示栈"</span>);</span><br><span class="line">        System.out.println(<span class="string">"exit:表示退出程序"</span>);</span><br><span class="line">        System.out.println(<span class="string">"push:表示添加数据到栈"</span>);</span><br><span class="line">        System.out.println(<span class="string">"pop:表示从栈中取出数据"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (loop) {</span><br><span class="line">            System.out.print(<span class="string">"\n请输入你的选择:"</span>);</span><br><span class="line">            key = scanner.next();</span><br><span class="line">            <span class="keyword">switch</span> (key) {</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"show"</span>:</span><br><span class="line">                    stack.show();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"push"</span>:</span><br><span class="line">                    System.out.print(<span class="string">"请输入一个数:"</span>);</span><br><span class="line">                    <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">                    stack.push(value);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"pop"</span>:</span><br><span class="line">                    <span class="keyword">try</span> {</span><br><span class="line">                        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> stack.pop();</span><br><span class="line">                        System.out.println(<span class="string">"出栈的数据是："</span> + res);</span><br><span class="line">                    } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"exit"</span>:</span><br><span class="line">                    scanner.close();</span><br><span class="line">                    loop = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    }</span><br></pre></td></tr></table></figure></li>
-</ul></li>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">linkdist_stackDemo</span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line"><span class="comment">//测试一下LinkedListStack是否正确</span></span><br><span class="line">        <span class="comment">//先创建一个LinkedListStack对象表示栈</span></span><br><span class="line">        <span class="type">Linkdist_stack</span> <span class="variable">stack</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Linkdist_stack</span>(<span class="number">3</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">""</span>;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;<span class="comment">//控制是否退出菜单</span></span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"show:表示显示栈"</span>);</span><br><span class="line">        System.out.println(<span class="string">"exit:表示退出程序"</span>);</span><br><span class="line">        System.out.println(<span class="string">"push:表示添加数据到栈"</span>);</span><br><span class="line">        System.out.println(<span class="string">"pop:表示从栈中取出数据"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (loop) {</span><br><span class="line">            System.out.print(<span class="string">"\n请输入你的选择:"</span>);</span><br><span class="line">            key = scanner.next();</span><br><span class="line">            <span class="keyword">switch</span> (key) {</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"show"</span>:</span><br><span class="line">                    stack.show();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"push"</span>:</span><br><span class="line">                    System.out.print(<span class="string">"请输入一个数:"</span>);</span><br><span class="line">                    <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">                    stack.push(value);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"pop"</span>:</span><br><span class="line">                    <span class="keyword">try</span> {</span><br><span class="line">                        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> stack.pop();</span><br><span class="line">                        System.out.println(<span class="string">"出栈的数据是："</span> + res);</span><br><span class="line">                    } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"exit"</span>:</span><br><span class="line">                    scanner.close();</span><br><span class="line">                    loop = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="本章重点">本章重点</h2>
 <ul>
-<li><p>单链表的倒插法的算法</p>
+<li>
+<p>单链表的倒插法的算法</p>
 <ul>
-<li><p>图解倒插法</p></li>
-<li><p>算法：</p>
+<li>
+<p>图解倒插法</p>
+</li>
+<li>
+<p>算法：</p>
 <ul>
-<li><strong>heroNode.next = head.next;</strong> <strong>head.next =
-heroNode;</strong></li>
+<li><strong>heroNode.next = head.next;</strong><br>
+<strong>head.next = heroNode;</strong></li>
 </ul>
-<p><img src="/2024/10/08/linkdist-stack/seeya-ch.github.io\source_posts\linkdist-stack\倒插法示意图.png"></p></li>
-</ul></li>
+<p><img src="/2024/10/08/linkdist-stack/D:%5Cseeya-ch.github.io%5Csource_posts%5Clinkdist-stack%5C%E5%80%92%E6%8F%92%E6%B3%95%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt></p>
+</li>
+</ul>
+</li>
 </ul>
 
     </div>
