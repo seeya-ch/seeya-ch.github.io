@@ -1,6 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>四数相加</title>
+    <url>/2026/01/19/FourSumII/</url>
+    <content><![CDATA[<h1 id="算法-四数相加">算法-四数相加</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li><p>算法--四数相加</p></li>
+<li><p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span></li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li><p>给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j,
+k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
+<p>为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500
+。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1
+。</p>
+<p><strong>例如:</strong></p>
+<p>输入:</p>
+<ul>
+<li>A = [ 1, 2]</li>
+<li>B = [-2,-1]</li>
+<li>C = [-1, 2]</li>
+<li>D = [ 0, 2]</li>
+</ul>
+<p>输出:</p>
+<p>2</p>
+<p><strong>解释:</strong></p>
+<p>两个元组如下:</p>
+<ol type="1">
+<li>(0, 0, 0, 1) -&gt; A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 =
+0</li>
+<li>(1, 1, 0, 0) -&gt; A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 =
+0</li>
+</ol></li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>定义一个哈希map，key放a和b俩数之和，value放a和b俩数和出现的次数</li>
+<li>遍历A、B数组，统计两数和和出现次数</li>
+<li>再遍历C、D数组、找到0-（c+d）在map中出现，count+value（value即出现的次数）</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fourSumCount</span><span class="params">(<span class="type">int</span>[] nums1, <span class="type">int</span>[] nums2, <span class="type">int</span>[] nums3, <span class="type">int</span>[] nums4)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Integer,Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums1){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums2){</span><br><span class="line">                <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> i + j;</span><br><span class="line">                map.put(sum,map.getOrDefault(sum,<span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums3){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums4){</span><br><span class="line">                r += map.getOrDefault(<span class="number">0</span> - i - j,<span class="number">0</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li><code>getOrDefault</code> 核心作用：<strong>简化 Map 中 “获取值 +
+处理键不存在” 的逻辑</strong>，避免手动判断 <code>containsKey</code>。
+<ul>
+<li>尝试从 <code>Map</code> 中获取指定 <code>key</code> 对应的
+<code>value</code>；</li>
+<li>如果 <code>key</code> <strong>存在</strong>，返回对应的
+<code>value</code>；</li>
+<li>如果 <code>key</code> <strong>不存在</strong>，返回你指定的
+<code>defaultValue</code>（默认值）。</li>
+</ul></li>
+<li>语法规则：<code>map.getOrDefault(键, 默认值)</code>，返回值类型和
+“默认值” 类型一致（比如键是 Integer，默认值也得是 Integer）。</li>
+<li>典型场景：计数统计（如四数相加的次数统计）、避免空值（NPE）、默认值兜底等。</li>
+<li>关键逻辑：利用 <code>a + b + c + d = 0</code> 等价于
+<code>a + b = -(c + d)</code>，通过哈希表快速匹配目标值。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数组队列</title>
     <url>/2024/08/19/ArrayQueue/</url>
     <content><![CDATA[<h1 id="数组队列">数组队列</h1>
@@ -97,66 +164,35 @@
       </tags>
   </entry>
   <entry>
-    <title>四数相加</title>
-    <url>/2026/01/19/FourSumII/</url>
-    <content><![CDATA[<h1 id="算法-四数相加">算法-四数相加</h1>
+    <title>反转字符串</title>
+    <url>/2026/01/24/ReverseAString/</url>
+    <content><![CDATA[<h1 id="算法-反转字符串">算法-反转字符串</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li><p>算法--四数相加</p></li>
+<li><p>算法--反转字符串</p></li>
 <li><p>博主以代码随想录算法公开课进行学习</p>
 <span id="more"></span></li>
 </ul>
 <h2 id="题目">题目</h2>
 <ul>
-<li><p>给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j,
-k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
-<p>为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500
-。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1
-。</p>
-<p><strong>例如:</strong></p>
-<p>输入:</p>
-<ul>
-<li>A = [ 1, 2]</li>
-<li>B = [-2,-1]</li>
-<li>C = [-1, 2]</li>
-<li>D = [ 0, 2]</li>
-</ul>
-<p>输出:</p>
-<p>2</p>
-<p><strong>解释:</strong></p>
-<p>两个元组如下:</p>
-<ol type="1">
-<li>(0, 0, 0, 1) -&gt; A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 =
-0</li>
-<li>(1, 1, 0, 0) -&gt; A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 =
-0</li>
-</ol></li>
+<li><p>编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组
+char[] 的形式给出。</p>
+<p>不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1)
+的额外空间解决这一问题。</p>
+<p>你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。</p>
+<p>示例 1： 输入：["h","e","l","l","o"] 输出：["o","l","l","e","h"]</p>
+<p>示例 2： 输入：["H","a","n","n","a","h"]
+输出：["h","a","n","n","a","H"]</p></li>
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
-<li>定义一个哈希map，key放a和b俩数之和，value放a和b俩数和出现的次数</li>
-<li>遍历A、B数组，统计两数和和出现次数</li>
-<li>再遍历C、D数组、找到0-（c+d）在map中出现，count+value（value即出现的次数）</li>
+<li>采用双指针法</li>
 </ul>
 <h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fourSumCount</span><span class="params">(<span class="type">int</span>[] nums1, <span class="type">int</span>[] nums2, <span class="type">int</span>[] nums3, <span class="type">int</span>[] nums4)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Integer,Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums1){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums2){</span><br><span class="line">                <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> i + j;</span><br><span class="line">                map.put(sum,map.getOrDefault(sum,<span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums3){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums4){</span><br><span class="line">                r += map.getOrDefault(<span class="number">0</span> - i - j,<span class="number">0</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reverseString</span><span class="params">(<span class="type">char</span>[] s)</span> {</span><br><span class="line">        <span class="comment">// 左指针：初始指向数组头部</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 右指针：初始指向数组尾部</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> s.length - <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 两指针未相遇时循环交换</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) {</span><br><span class="line">            <span class="comment">// 临时变量存储左指针值，避免覆盖</span></span><br><span class="line">            <span class="type">char</span> <span class="variable">t</span> <span class="operator">=</span> s[l];</span><br><span class="line">            <span class="comment">// 交换左右指针对应的值</span></span><br><span class="line">            s[l] = s[r];</span><br><span class="line">            s[r] = t;</span><br><span class="line">            <span class="comment">// 左指针右移</span></span><br><span class="line">            l++;</span><br><span class="line">            <span class="comment">// 右指针左移</span></span><br><span class="line">            r--;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <h2 id="总结">总结</h2>
 <ul>
-<li><code>getOrDefault</code> 核心作用：<strong>简化 Map 中 “获取值 +
-处理键不存在” 的逻辑</strong>，避免手动判断 <code>containsKey</code>。
-<ul>
-<li>尝试从 <code>Map</code> 中获取指定 <code>key</code> 对应的
-<code>value</code>；</li>
-<li>如果 <code>key</code> <strong>存在</strong>，返回对应的
-<code>value</code>；</li>
-<li>如果 <code>key</code> <strong>不存在</strong>，返回你指定的
-<code>defaultValue</code>（默认值）。</li>
-</ul></li>
-<li>语法规则：<code>map.getOrDefault(键, 默认值)</code>，返回值类型和
-“默认值” 类型一致（比如键是 Integer，默认值也得是 Integer）。</li>
-<li>典型场景：计数统计（如四数相加的次数统计）、避免空值（NPE）、默认值兜底等。</li>
-<li>关键逻辑：利用 <code>a + b + c + d = 0</code> 等价于
-<code>a + b = -(c + d)</code>，通过哈希表快速匹配目标值。</li>
+<li>还可以使用位运算</li>
 </ul>
 ]]></content>
       <tags>
@@ -240,46 +276,6 @@ false canConstruct("aa", "aab") -&gt; true</p></li>
 ]]></content>
       <tags>
         <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>三数之和</title>
-    <url>/2026/01/22/SumOfThreeNumbers/</url>
-    <content><![CDATA[<h1 id="算法-三数之和">算法-三数之和</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li><p>算法--三数之和</p></li>
-<li><p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span></li>
-</ul>
-<h2 id="题目">题目</h2>
-<ul>
-<li><p>给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素
-a，b，c ，使得 a + b + c = 0
-？请你找出所有满足条件且不重复的三元组。</p>
-<p><strong>注意：</strong> 答案中不可以包含重复的三元组。</p>
-<p>示例：</p>
-<p>给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
-<p>满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2] ]</p></li>
-</ul>
-<h2 id="思路">思路</h2>
-<ul>
-<li>哈希法：俩层for循环，再用哈希法确定第3个数，但是去重难度大</li>
-<li>双指针法：先将数组排序，一层for循环，i重下标为0开始，建立left指针指向i的下一位、rigth指针指向最后一位</li>
-<li>nums[i] + nums[left] + nums[right] &gt; 0表示大了，right向左移</li>
-<li>nums[i] + nums[left] + nums[right] &lt; 0表示小了，left向右移</li>
-<li>nums[i] + nums[left] + nums[right] = 0表示找到符合标准的</li>
-</ul>
-<h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">threeSum</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">//排序，为去重准备</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; nums.length; i++){</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &gt; <span class="number">0</span>){</span><br><span class="line">                <span class="keyword">return</span> result; <span class="comment">//首位最小但是大于0，表示没有负数，直接返回结果</span></span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i-<span class="number">1</span>]){    <span class="comment">//去重，</span></span><br><span class="line">                <span class="keyword">continue</span>;             </span><br><span class="line">            }</span><br><span class="line">            <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> i + <span class="number">1</span>;   <span class="comment">//左指针</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">rigth</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;  <span class="comment">//右指针</span></span><br><span class="line">            <span class="keyword">while</span>(rigth &gt; left){       <span class="comment">//没有=，因为要求3位数，等于只剩2位</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> nums[i] + nums[left] +nums[rigth];  </span><br><span class="line">                <span class="keyword">if</span>(sum &gt; <span class="number">0</span>){   <span class="comment">//和大，右指针往左移动</span></span><br><span class="line">                    rigth--;</span><br><span class="line">                }<span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; <span class="number">0</span>){ <span class="comment">//和小，左指针往右移动</span></span><br><span class="line">                    left++;</span><br><span class="line">                }<span class="keyword">else</span>{</span><br><span class="line">                    result.add(Arrays.asList(nums[i],nums[left],nums[rigth]));  <span class="comment">//找到符合的结果</span></span><br><span class="line">                    <span class="keyword">while</span>(rigth &gt; left &amp;&amp; nums[rigth] == nums[rigth-<span class="number">1</span>]){    <span class="comment">//去重</span></span><br><span class="line">                        rigth--;</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">while</span>(rigth &gt; left &amp;&amp; nums[left] == nums[left+<span class="number">1</span>]){   <span class="comment">//去重</span></span><br><span class="line">                        left++;</span><br><span class="line">                    }</span><br><span class="line"></span><br><span class="line">                    rigth--;</span><br><span class="line">                    left++;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="总结">总结</h2>
-<ul>
-<li>三数之和的核心逻辑是：排序 + 固定第一个数 +
-双指针找后两个数，去重逻辑是避免重复三元组的关键。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -404,25 +400,39 @@ nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值�
       </tags>
   </entry>
   <entry>
-    <title>冒泡排序</title>
-    <url>/2024/10/09/bubbleSort/</url>
-    <content><![CDATA[<h1 id="冒泡排序">冒泡排序</h1>
+    <title>三数之和</title>
+    <url>/2026/01/22/SumOfThreeNumbers/</url>
+    <content><![CDATA[<h1 id="算法-三数之和">算法-三数之和</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li><p>算法——冒泡排序</p>
+<li><p>算法--三数之和</p></li>
+<li><p>博主以代码随想录算法公开课进行学习</p>
 <span id="more"></span></li>
 </ul>
-<h2 id="概念">概念</h2>
+<h2 id="题目">题目</h2>
 <ul>
-<li>冒泡排序是最简单的交换排序，通过俩俩比较进行交换</li>
+<li><p>给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素
+a，b，c ，使得 a + b + c = 0
+？请你找出所有满足条件且不重复的三元组。</p>
+<p><strong>注意：</strong> 答案中不可以包含重复的三元组。</p>
+<p>示例：</p>
+<p>给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
+<p>满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2] ]</p></li>
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
-<li><p>用两层for循环解决</p>
+<li>哈希法：俩层for循环，再用哈希法确定第3个数，但是去重难度大</li>
+<li>双指针法：先将数组排序，一层for循环，i重下标为0开始，建立left指针指向i的下一位、rigth指针指向最后一位</li>
+<li>nums[i] + nums[left] + nums[right] &gt; 0表示大了，right向左移</li>
+<li>nums[i] + nums[left] + nums[right] &lt; 0表示小了，left向右移</li>
+<li>nums[i] + nums[left] + nums[right] = 0表示找到符合标准的</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">threeSum</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">//排序，为去重准备</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; nums.length; i++){</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &gt; <span class="number">0</span>){</span><br><span class="line">                <span class="keyword">return</span> result; <span class="comment">//首位最小但是大于0，表示没有负数，直接返回结果</span></span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i-<span class="number">1</span>]){    <span class="comment">//去重，</span></span><br><span class="line">                <span class="keyword">continue</span>;             </span><br><span class="line">            }</span><br><span class="line">            <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> i + <span class="number">1</span>;   <span class="comment">//左指针</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">rigth</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;  <span class="comment">//右指针</span></span><br><span class="line">            <span class="keyword">while</span>(rigth &gt; left){       <span class="comment">//没有=，因为要求3位数，等于只剩2位</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> nums[i] + nums[left] +nums[rigth];  </span><br><span class="line">                <span class="keyword">if</span>(sum &gt; <span class="number">0</span>){   <span class="comment">//和大，右指针往左移动</span></span><br><span class="line">                    rigth--;</span><br><span class="line">                }<span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; <span class="number">0</span>){ <span class="comment">//和小，左指针往右移动</span></span><br><span class="line">                    left++;</span><br><span class="line">                }<span class="keyword">else</span>{</span><br><span class="line">                    result.add(Arrays.asList(nums[i],nums[left],nums[rigth]));  <span class="comment">//找到符合的结果</span></span><br><span class="line">                    <span class="keyword">while</span>(rigth &gt; left &amp;&amp; nums[rigth] == nums[rigth-<span class="number">1</span>]){    <span class="comment">//去重</span></span><br><span class="line">                        rigth--;</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">while</span>(rigth &gt; left &amp;&amp; nums[left] == nums[left+<span class="number">1</span>]){   <span class="comment">//去重</span></span><br><span class="line">                        left++;</span><br><span class="line">                    }</span><br><span class="line"></span><br><span class="line">                    rigth--;</span><br><span class="line">                    left++;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
 <ul>
-<li><p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">bubbleSort</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">int</span> arr[]={<span class="number">4</span>,<span class="number">7</span>,<span class="number">10</span>,<span class="number">6</span>,<span class="number">99</span>,<span class="number">44</span>,<span class="number">66</span>,<span class="number">1</span>};</span><br><span class="line">        <span class="type">int</span> temp;<span class="comment">//辅助变量，交换值</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;<span class="comment">//优化，判断是否发生排序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length-<span class="number">1</span>; i++) {<span class="comment">//比较轮数，-1是指不与自身排序</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arr.length-<span class="number">1</span>-i; j++) {<span class="comment">//每一轮比较次数</span></span><br><span class="line">                <span class="keyword">if</span> (arr[j]&gt;arr[j+<span class="number">1</span>]){<span class="comment">//大于小于号表示按照升序排序还是降序排序</span></span><br><span class="line">                    count = <span class="number">1</span>;</span><br><span class="line">                    temp = arr[j];</span><br><span class="line">                    arr[j]=arr[j+<span class="number">1</span>];</span><br><span class="line">                    arr[j+<span class="number">1</span>]=temp;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(count == <span class="number">0</span>){</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt; arr.length;i++){</span><br><span class="line">         System.out.println(arr[i]);</span><br><span class="line">     }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
-</ul></li>
+<li>三数之和的核心逻辑是：排序 + 固定第一个数 +
+双指针找后两个数，去重逻辑是避免重复三元组的关键。</li>
 </ul>
 ]]></content>
       <tags>
@@ -518,6 +528,32 @@ front</strong>//算法</p></li>
 ]]></content>
       <tags>
         <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>冒泡排序</title>
+    <url>/2024/10/09/bubbleSort/</url>
+    <content><![CDATA[<h1 id="冒泡排序">冒泡排序</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li><p>算法——冒泡排序</p>
+<span id="more"></span></li>
+</ul>
+<h2 id="概念">概念</h2>
+<ul>
+<li>冒泡排序是最简单的交换排序，通过俩俩比较进行交换</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li><p>用两层for循环解决</p>
+<ul>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">bubbleSort</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">int</span> arr[]={<span class="number">4</span>,<span class="number">7</span>,<span class="number">10</span>,<span class="number">6</span>,<span class="number">99</span>,<span class="number">44</span>,<span class="number">66</span>,<span class="number">1</span>};</span><br><span class="line">        <span class="type">int</span> temp;<span class="comment">//辅助变量，交换值</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;<span class="comment">//优化，判断是否发生排序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length-<span class="number">1</span>; i++) {<span class="comment">//比较轮数，-1是指不与自身排序</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arr.length-<span class="number">1</span>-i; j++) {<span class="comment">//每一轮比较次数</span></span><br><span class="line">                <span class="keyword">if</span> (arr[j]&gt;arr[j+<span class="number">1</span>]){<span class="comment">//大于小于号表示按照升序排序还是降序排序</span></span><br><span class="line">                    count = <span class="number">1</span>;</span><br><span class="line">                    temp = arr[j];</span><br><span class="line">                    arr[j]=arr[j+<span class="number">1</span>];</span><br><span class="line">                    arr[j+<span class="number">1</span>]=temp;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(count == <span class="number">0</span>){</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt; arr.length;i++){</span><br><span class="line">         System.out.println(arr[i]);</span><br><span class="line">     }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -683,6 +719,56 @@ heroNode;</strong></li>
 <p>截断文章，让首页不显示所有文章</p>
 <p>哈哈哈哈</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>反转字符串Ⅱ</title>
+    <url>/2026/01/24/reverseStr/</url>
+    <content><![CDATA[<h1 id="算法-反转字符串ⅱ">算法-反转字符串Ⅱ</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li><p>算法--反转字符串Ⅱ</p></li>
+<li><p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span></li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li><p>给定一个字符串 s 和一个整数 k，从字符串开头算起, 每计数至 2k
+个字符，就反转这 2k 个字符中的前 k 个字符。</p>
+<p>如果剩余字符少于 k 个，则将剩余字符全部反转。</p>
+<p>如果剩余字符小于 2k 但大于或等于 k 个，则反转前 k
+个字符，其余字符保持原样。</p>
+<p>示例:</p>
+<p>输入: s = "abcdefg", k = 2 输出: "bacdfeg"</p></li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>分段遍历 + 双指针反转</li>
+<li><strong>分段逻辑</strong>：将字符串按 2k 长度分段，遍历步长设为
+2k（<code>i += 2*k</code>）；</li>
+<li><strong>边界处理</strong>：对每一段，计算反转的结束指针 end：
+<ul>
+<li>若剩余字符 ≥k → end = start + k - 1；</li>
+<li>若剩余字符 &lt;k → end = 数组最后一个索引（用 <code>Math.min</code>
+统一处理）；</li>
+</ul></li>
+<li><strong>复用基础反转</strong>：在 [start, end]
+区间内，用“双指针+临时变量交换”反转字符；</li>
+<li><strong>类型转换</strong>：String 不可变，先转为 char[]
+原地修改，最后转回 String。</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">## 代码</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseStr</span><span class="params">(String s, <span class="type">int</span> k)</span> {</span><br><span class="line">        <span class="comment">// 转为字符数组，支持原地修改</span></span><br><span class="line">        <span class="type">char</span>[] ch = s.toCharArray();</span><br><span class="line">        <span class="comment">// 按2k步长分段遍历</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; ch.length; i += <span class="number">2</span> * k){</span><br><span class="line">            <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> i;</span><br><span class="line">            <span class="comment">// 关键：处理剩余字符不足k的边界情况</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> Math.min(ch.length - <span class="number">1</span>, start + k - <span class="number">1</span>);</span><br><span class="line">            <span class="comment">// 双指针反转[start, end]区间字符</span></span><br><span class="line">            <span class="keyword">while</span>(start &lt; end){</span><br><span class="line">                <span class="comment">// 临时变量交换（新手友好，易理解）</span></span><br><span class="line">                <span class="type">char</span> <span class="variable">temp</span> <span class="operator">=</span> ch[start];</span><br><span class="line">                ch[start] = ch[end];</span><br><span class="line">                ch[end] = temp;</span><br><span class="line">                start++;</span><br><span class="line">                end--;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 字符数组转回字符串</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>(ch);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li><strong>核心难点</strong>：end指针的边界计算（<code>Math.min</code>
+的使用），解决“剩余字符不足k”的越界问题；</li>
+<li><code>Math.min(a, b)</code>取 a 和 b
+中的<strong>较小值</strong></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+      </tags>
   </entry>
   <entry>
     <title>单链表</title>
