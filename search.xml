@@ -1,73 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>四数相加</title>
-    <url>/2026/01/19/FourSumII/</url>
-    <content><![CDATA[<h1 id="算法-四数相加">算法-四数相加</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li><p>算法--四数相加</p></li>
-<li><p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span></li>
-</ul>
-<h2 id="题目">题目</h2>
-<ul>
-<li><p>给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j,
-k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
-<p>为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500
-。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1
-。</p>
-<p><strong>例如:</strong></p>
-<p>输入:</p>
-<ul>
-<li>A = [ 1, 2]</li>
-<li>B = [-2,-1]</li>
-<li>C = [-1, 2]</li>
-<li>D = [ 0, 2]</li>
-</ul>
-<p>输出:</p>
-<p>2</p>
-<p><strong>解释:</strong></p>
-<p>两个元组如下:</p>
-<ol type="1">
-<li>(0, 0, 0, 1) -&gt; A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 =
-0</li>
-<li>(1, 1, 0, 0) -&gt; A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 =
-0</li>
-</ol></li>
-</ul>
-<h2 id="思路">思路</h2>
-<ul>
-<li>定义一个哈希map，key放a和b俩数之和，value放a和b俩数和出现的次数</li>
-<li>遍历A、B数组，统计两数和和出现次数</li>
-<li>再遍历C、D数组、找到0-（c+d）在map中出现，count+value（value即出现的次数）</li>
-</ul>
-<h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fourSumCount</span><span class="params">(<span class="type">int</span>[] nums1, <span class="type">int</span>[] nums2, <span class="type">int</span>[] nums3, <span class="type">int</span>[] nums4)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Integer,Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums1){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums2){</span><br><span class="line">                <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> i + j;</span><br><span class="line">                map.put(sum,map.getOrDefault(sum,<span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums3){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums4){</span><br><span class="line">                r += map.getOrDefault(<span class="number">0</span> - i - j,<span class="number">0</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="总结">总结</h2>
-<ul>
-<li><code>getOrDefault</code> 核心作用：<strong>简化 Map 中 “获取值 +
-处理键不存在” 的逻辑</strong>，避免手动判断 <code>containsKey</code>。
-<ul>
-<li>尝试从 <code>Map</code> 中获取指定 <code>key</code> 对应的
-<code>value</code>；</li>
-<li>如果 <code>key</code> <strong>存在</strong>，返回对应的
-<code>value</code>；</li>
-<li>如果 <code>key</code> <strong>不存在</strong>，返回你指定的
-<code>defaultValue</code>（默认值）。</li>
-</ul></li>
-<li>语法规则：<code>map.getOrDefault(键, 默认值)</code>，返回值类型和
-“默认值” 类型一致（比如键是 Integer，默认值也得是 Integer）。</li>
-<li>典型场景：计数统计（如四数相加的次数统计）、避免空值（NPE）、默认值兜底等。</li>
-<li>关键逻辑：利用 <code>a + b + c + d = 0</code> 等价于
-<code>a + b = -(c + d)</code>，通过哈希表快速匹配目标值。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数组队列</title>
     <url>/2024/08/19/ArrayQueue/</url>
     <content><![CDATA[<h1 id="数组队列">数组队列</h1>
@@ -164,35 +97,66 @@ k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
       </tags>
   </entry>
   <entry>
-    <title>反转字符串</title>
-    <url>/2026/01/24/ReverseAString/</url>
-    <content><![CDATA[<h1 id="算法-反转字符串">算法-反转字符串</h1>
+    <title>四数相加</title>
+    <url>/2026/01/19/FourSumII/</url>
+    <content><![CDATA[<h1 id="算法-四数相加">算法-四数相加</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li><p>算法--反转字符串</p></li>
+<li><p>算法--四数相加</p></li>
 <li><p>博主以代码随想录算法公开课进行学习</p>
 <span id="more"></span></li>
 </ul>
 <h2 id="题目">题目</h2>
 <ul>
-<li><p>编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组
-char[] 的形式给出。</p>
-<p>不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1)
-的额外空间解决这一问题。</p>
-<p>你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。</p>
-<p>示例 1： 输入：["h","e","l","l","o"] 输出：["o","l","l","e","h"]</p>
-<p>示例 2： 输入：["H","a","n","n","a","h"]
-输出：["h","a","n","n","a","H"]</p></li>
+<li><p>给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j,
+k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
+<p>为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500
+。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1
+。</p>
+<p><strong>例如:</strong></p>
+<p>输入:</p>
+<ul>
+<li>A = [ 1, 2]</li>
+<li>B = [-2,-1]</li>
+<li>C = [-1, 2]</li>
+<li>D = [ 0, 2]</li>
+</ul>
+<p>输出:</p>
+<p>2</p>
+<p><strong>解释:</strong></p>
+<p>两个元组如下:</p>
+<ol type="1">
+<li>(0, 0, 0, 1) -&gt; A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 =
+0</li>
+<li>(1, 1, 0, 0) -&gt; A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 =
+0</li>
+</ol></li>
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
-<li>采用双指针法</li>
+<li>定义一个哈希map，key放a和b俩数之和，value放a和b俩数和出现的次数</li>
+<li>遍历A、B数组，统计两数和和出现次数</li>
+<li>再遍历C、D数组、找到0-（c+d）在map中出现，count+value（value即出现的次数）</li>
 </ul>
 <h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reverseString</span><span class="params">(<span class="type">char</span>[] s)</span> {</span><br><span class="line">        <span class="comment">// 左指针：初始指向数组头部</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 右指针：初始指向数组尾部</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> s.length - <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 两指针未相遇时循环交换</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) {</span><br><span class="line">            <span class="comment">// 临时变量存储左指针值，避免覆盖</span></span><br><span class="line">            <span class="type">char</span> <span class="variable">t</span> <span class="operator">=</span> s[l];</span><br><span class="line">            <span class="comment">// 交换左右指针对应的值</span></span><br><span class="line">            s[l] = s[r];</span><br><span class="line">            s[r] = t;</span><br><span class="line">            <span class="comment">// 左指针右移</span></span><br><span class="line">            l++;</span><br><span class="line">            <span class="comment">// 右指针左移</span></span><br><span class="line">            r--;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fourSumCount</span><span class="params">(<span class="type">int</span>[] nums1, <span class="type">int</span>[] nums2, <span class="type">int</span>[] nums3, <span class="type">int</span>[] nums4)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Integer,Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums1){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums2){</span><br><span class="line">                <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> i + j;</span><br><span class="line">                map.put(sum,map.getOrDefault(sum,<span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums3){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums4){</span><br><span class="line">                r += map.getOrDefault(<span class="number">0</span> - i - j,<span class="number">0</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <h2 id="总结">总结</h2>
 <ul>
-<li>还可以使用位运算</li>
+<li><code>getOrDefault</code> 核心作用：<strong>简化 Map 中 “获取值 +
+处理键不存在” 的逻辑</strong>，避免手动判断 <code>containsKey</code>。
+<ul>
+<li>尝试从 <code>Map</code> 中获取指定 <code>key</code> 对应的
+<code>value</code>；</li>
+<li>如果 <code>key</code> <strong>存在</strong>，返回对应的
+<code>value</code>；</li>
+<li>如果 <code>key</code> <strong>不存在</strong>，返回你指定的
+<code>defaultValue</code>（默认值）。</li>
+</ul></li>
+<li>语法规则：<code>map.getOrDefault(键, 默认值)</code>，返回值类型和
+“默认值” 类型一致（比如键是 Integer，默认值也得是 Integer）。</li>
+<li>典型场景：计数统计（如四数相加的次数统计）、避免空值（NPE）、默认值兜底等。</li>
+<li>关键逻辑：利用 <code>a + b + c + d = 0</code> 等价于
+<code>a + b = -(c + d)</code>，通过哈希表快速匹配目标值。</li>
 </ul>
 ]]></content>
       <tags>
@@ -242,6 +206,42 @@ false canConstruct("aa", "aab") -&gt; true</p></li>
       </tags>
   </entry>
   <entry>
+    <title>反转字符串</title>
+    <url>/2026/01/24/ReverseAString/</url>
+    <content><![CDATA[<h1 id="算法-反转字符串">算法-反转字符串</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li><p>算法--反转字符串</p></li>
+<li><p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span></li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li><p>编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组
+char[] 的形式给出。</p>
+<p>不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1)
+的额外空间解决这一问题。</p>
+<p>你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。</p>
+<p>示例 1： 输入：["h","e","l","l","o"] 输出：["o","l","l","e","h"]</p>
+<p>示例 2： 输入：["H","a","n","n","a","h"]
+输出：["h","a","n","n","a","H"]</p></li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>采用双指针法</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reverseString</span><span class="params">(<span class="type">char</span>[] s)</span> {</span><br><span class="line">        <span class="comment">// 左指针：初始指向数组头部</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 右指针：初始指向数组尾部</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> s.length - <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 两指针未相遇时循环交换</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) {</span><br><span class="line">            <span class="comment">// 临时变量存储左指针值，避免覆盖</span></span><br><span class="line">            <span class="type">char</span> <span class="variable">t</span> <span class="operator">=</span> s[l];</span><br><span class="line">            <span class="comment">// 交换左右指针对应的值</span></span><br><span class="line">            s[l] = s[r];</span><br><span class="line">            s[r] = t;</span><br><span class="line">            <span class="comment">// 左指针右移</span></span><br><span class="line">            l++;</span><br><span class="line">            <span class="comment">// 右指针左移</span></span><br><span class="line">            r--;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li>还可以使用位运算</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>栈模拟计算器</title>
     <url>/2024/11/05/StackSimulatorCalculator/</url>
     <content><![CDATA[<h1 id="栈模拟计算器">栈模拟计算器</h1>
@@ -279,48 +279,70 @@ false canConstruct("aa", "aab") -&gt; true</p></li>
       </tags>
   </entry>
   <entry>
-    <title>四数之和</title>
-    <url>/2026/01/23/SumOfFourNumbers/</url>
-    <content><![CDATA[<h1 id="算法-四数之和">算法-四数之和</h1>
+    <title>替换数字</title>
+    <url>/2026/01/25/ReplaceNumbers/</url>
+    <content><![CDATA[<h1 id="算法-替换数字">算法-替换数字</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li><p>算法--四数之和</p></li>
+<li><p>算法--替换数字</p></li>
 <li><p>博主以代码随想录算法公开课进行学习</p>
 <span id="more"></span></li>
 </ul>
 <h2 id="题目">题目</h2>
 <ul>
-<li><p>题意：给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断
-nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target
-相等？找出所有满足条件且不重复的四元组。</p>
-<p><strong>注意：</strong></p>
-<p>答案中不可以包含重复的四元组。</p>
-<p>示例： 给定数组 nums = [1, 0, -1, 0, -2, 2]，和 target = 0。
-满足要求的四元组集合为： [ [-1, 0, 0, 1], [-2, -1, 1, 2], [-2, 0, 0, 2]
-]</p></li>
+<li><p>给定一个字符串
+s，它包含小写字母和数字字符，请编写一个函数，将字符串中的字母字符保持不变，而将每个数字字符替换为number。</p>
+<p>例如，对于输入字符串 "a1b2c3"，函数应该将其转换为
+"anumberbnumbercnumber"。</p>
+<p>对于输入字符串 "a5b"，函数应该将其转换为 "anumberb"</p>
+<p>输入：一个字符串 s,s 仅包含小写字母和数字字符。</p>
+<p>输出：打印一个新的字符串，其中每个数字字符都被替换为了number</p>
+<p>样例输入：a1b2c3</p>
+<p>样例输出：anumberbnumbercnumber</p>
+<p>数据范围：1 &lt;= s.length &lt; 10000。</p></li>
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
-<li>这道题是经典的「N 数之和」问题，核心思路是<strong>排序 +
-双指针</strong>，通过降维将四数之和转化为三数之和，再转化为两数之和，同时通过剪枝和去重避免重复结果：
+<li><strong>统计数字数量</strong>：
 <ul>
-<li>排序：对数组排序</li>
-<li>俩层循环固定前俩个数</li>
-<li>双指针找后俩个数</li>
-<li>剪枝优化</li>
-<li>去重</li>
+<li>先遍历原字符串，统计其中数字字符的个数。这一步的核心目的是计算新字符串的长度
+—— 因为每个数字（1 个字符）要替换成 "number"（6
+个字符），相当于每个数字会让字符串长度增加 5，因此新长度 = 原长度 +
+数字个数 × 5。</li>
+</ul></li>
+<li><strong>创建新字符数组</strong>：
+<ul>
+<li>基于计算出的新长度，创建一个固定长度的字符数组</li>
+</ul></li>
+<li><strong>双指针从后往前填充：</strong>
+<ul>
+<li>定义两个指针：<code>i</code>指向新字符数组的末尾（待填充位置），<code>j</code>指向原字符串的末尾（待遍历位置）。</li>
+<li>从后往前遍历原字符串：
+<ul>
+<li>如果<code>j</code>指向的是字母，直接将该字母复制到<code>i</code>的位置，然后<code>i</code>和<code>j</code>都向前移动一位；</li>
+<li>如果<code>j</code>指向的是数字，从<code>i</code>的位置向前依次填充
+'r'、'e'、'b'、'm'、'u'、'n'（即 "number"
+的逆序），然后<code>i</code>向前移动 6
+位，<code>j</code>向前移动一位。</li>
+</ul></li>
 </ul></li>
 </ul>
 <h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">fourSum</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> {</span><br><span class="line">        <span class="comment">// 结果集初始化</span></span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">// 边界条件：数组长度小于4，直接返回空结果</span></span><br><span class="line">        <span class="keyword">if</span> (nums == <span class="literal">null</span> || nums.length &lt; <span class="number">4</span>) {</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 1. 排序数组（核心前提）</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 2. 第一层循环：固定第一个数 nums[k]</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>; k &lt; nums.length - <span class="number">3</span>; k++) {</span><br><span class="line">            <span class="comment">// 剪枝1：如果当前数大于target且非负，后续数更大，不可能凑出target，直接终止循环</span></span><br><span class="line">            <span class="keyword">if</span> (nums[k] &gt; target &amp;&amp; nums[k] &gt;= <span class="number">0</span>) {</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// 去重1：跳过和前一个数重复的nums[k]（避免重复四元组）</span></span><br><span class="line">            <span class="keyword">if</span> (k &gt; <span class="number">0</span> &amp;&amp; nums[k] == nums[k - <span class="number">1</span>]) {</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 3. 第二层循环：固定第二个数 nums[i]</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> k + <span class="number">1</span>; i &lt; nums.length - <span class="number">2</span>; i++) {</span><br><span class="line">                <span class="comment">// 剪枝2：前两个数的和大于target且非负，后续数更大，终止内层循环</span></span><br><span class="line">                <span class="keyword">if</span> (nums[k] + nums[i] &gt; target &amp;&amp; nums[k] + nums[i] &gt;= <span class="number">0</span>) {</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">                <span class="comment">// 去重2：跳过和前一个数重复的nums[i]（注意i的起始是k+1，所以去重条件是i &gt; k+1）</span></span><br><span class="line">                <span class="keyword">if</span> (i &gt; k + <span class="number">1</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>]) {</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                }</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 4. 双指针：找后两个数 nums[left] 和 nums[right]</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> i + <span class="number">1</span>;</span><br><span class="line">                <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span> (right &gt; left) {</span><br><span class="line">                    <span class="comment">// 用long避免int溢出（关键！比如大数相加会超出int范围）</span></span><br><span class="line">                    <span class="type">long</span> <span class="variable">sum</span> <span class="operator">=</span> (<span class="type">long</span>) nums[k] + nums[i] + nums[left] + nums[right];</span><br><span class="line">                    </span><br><span class="line">                    <span class="keyword">if</span> (sum &gt; target) {</span><br><span class="line">                        <span class="comment">// 和太大，右指针左移（减小和）</span></span><br><span class="line">                        right--;</span><br><span class="line">                    } <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; target) {</span><br><span class="line">                        <span class="comment">// 和太小，左指针右移（增大和）</span></span><br><span class="line">                        left++;</span><br><span class="line">                    } <span class="keyword">else</span> {</span><br><span class="line">                        <span class="comment">// 5. 找到符合条件的四元组，加入结果集</span></span><br><span class="line">                        result.add(Arrays.asList(nums[k], nums[i], nums[left], nums[right]));</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">// 去重3：跳过重复的nums[right]</span></span><br><span class="line">                        <span class="keyword">while</span> (right &gt; left &amp;&amp; nums[right] == nums[right - <span class="number">1</span>]) {</span><br><span class="line">                            right--;</span><br><span class="line">                        }</span><br><span class="line">                        <span class="comment">// 去重4：跳过重复的nums[left]</span></span><br><span class="line">                        <span class="keyword">while</span> (right &gt; left &amp;&amp; nums[left] == nums[left + <span class="number">1</span>]) {</span><br><span class="line">                            left++;</span><br><span class="line">                        }</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">// 6. 双指针同时移动，找下一组可能的数</span></span><br><span class="line">                        right--;</span><br><span class="line">                        left++;</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">replaceNumber</span><span class="params">(String s)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>; <span class="comment">// 统计数字的个数</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">sOldSize</span> <span class="operator">=</span> s.length();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 第一步：统计字符串中的数字数量</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; sOldSize; i++) {</span><br><span class="line">            <span class="keyword">if</span> (Character.isDigit(s.charAt(i))) {</span><br><span class="line">                count++;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 第二步：创建新字符数组，长度 = 原长度 + 数字个数*5（number是6个字符，替换1个数字多占5位）</span></span><br><span class="line">        <span class="type">char</span>[] newS = <span class="keyword">new</span> <span class="title class_">char</span>[sOldSize + count * <span class="number">5</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">sNewSize</span> <span class="operator">=</span> newS.length;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 第三步：双指针从后往前填充（核心修正）</span></span><br><span class="line">        <span class="comment">// i：新数组指针，j：原字符串指针</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> sNewSize - <span class="number">1</span>, j = sOldSize - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) {</span><br><span class="line">            <span class="comment">// 如果是字母，直接复制到新数组</span></span><br><span class="line">            <span class="keyword">if</span> (!Character.isDigit(s.charAt(j))) {</span><br><span class="line">                newS[i] = s.charAt(j);</span><br><span class="line">                i--;</span><br><span class="line">            } <span class="keyword">else</span> {</span><br><span class="line">                <span class="comment">// 如果是数字，替换为"number"（从后往前填）</span></span><br><span class="line">                newS[i] = <span class="string">'r'</span>;</span><br><span class="line">                newS[i - <span class="number">1</span>] = <span class="string">'e'</span>;</span><br><span class="line">                newS[i - <span class="number">2</span>] = <span class="string">'b'</span>;</span><br><span class="line">                newS[i - <span class="number">3</span>] = <span class="string">'m'</span>;</span><br><span class="line">                newS[i - <span class="number">4</span>] = <span class="string">'u'</span>;</span><br><span class="line">                newS[i - <span class="number">5</span>] = <span class="string">'n'</span>;</span><br><span class="line">                i -= <span class="number">6</span>; <span class="comment">// 直接移动6位，避免循环的i--干扰（更清晰）</span></span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>(newS);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> scanner.next();</span><br><span class="line">        System.out.println(replaceNumber(s));</span><br><span class="line">        scanner.close();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <h2 id="总结">总结</h2>
 <ul>
-<li>N 数之和问题均可通过「排序 + 双指针」降维解决（三数之和是一层循环 +
-双指针，四数之和是两层循环 + 双指针）。</li>
+<li>从后往前填充的优势：避免从前往后填充时数字替换导致的字符覆盖，无需频繁移动已处理的字符，时间复杂度为
+O (n)（n 为原字符串长度）。</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
       <tags>
-        <tag>算法</tag>
+        <tag>数据结构</tag>
+        <tag>字符串</tag>
+        <tag>双指针</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -531,6 +553,51 @@ front</strong>//算法</p></li>
       </tags>
   </entry>
   <entry>
+    <title>四数之和</title>
+    <url>/2026/01/23/SumOfFourNumbers/</url>
+    <content><![CDATA[<h1 id="算法-四数之和">算法-四数之和</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li><p>算法--四数之和</p></li>
+<li><p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span></li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li><p>题意：给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断
+nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target
+相等？找出所有满足条件且不重复的四元组。</p>
+<p><strong>注意：</strong></p>
+<p>答案中不可以包含重复的四元组。</p>
+<p>示例： 给定数组 nums = [1, 0, -1, 0, -2, 2]，和 target = 0。
+满足要求的四元组集合为： [ [-1, 0, 0, 1], [-2, -1, 1, 2], [-2, 0, 0, 2]
+]</p></li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>这道题是经典的「N 数之和」问题，核心思路是<strong>排序 +
+双指针</strong>，通过降维将四数之和转化为三数之和，再转化为两数之和，同时通过剪枝和去重避免重复结果：
+<ul>
+<li>排序：对数组排序</li>
+<li>俩层循环固定前俩个数</li>
+<li>双指针找后俩个数</li>
+<li>剪枝优化</li>
+<li>去重</li>
+</ul></li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">fourSum</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> {</span><br><span class="line">        <span class="comment">// 结果集初始化</span></span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">// 边界条件：数组长度小于4，直接返回空结果</span></span><br><span class="line">        <span class="keyword">if</span> (nums == <span class="literal">null</span> || nums.length &lt; <span class="number">4</span>) {</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 1. 排序数组（核心前提）</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 2. 第一层循环：固定第一个数 nums[k]</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>; k &lt; nums.length - <span class="number">3</span>; k++) {</span><br><span class="line">            <span class="comment">// 剪枝1：如果当前数大于target且非负，后续数更大，不可能凑出target，直接终止循环</span></span><br><span class="line">            <span class="keyword">if</span> (nums[k] &gt; target &amp;&amp; nums[k] &gt;= <span class="number">0</span>) {</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// 去重1：跳过和前一个数重复的nums[k]（避免重复四元组）</span></span><br><span class="line">            <span class="keyword">if</span> (k &gt; <span class="number">0</span> &amp;&amp; nums[k] == nums[k - <span class="number">1</span>]) {</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 3. 第二层循环：固定第二个数 nums[i]</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> k + <span class="number">1</span>; i &lt; nums.length - <span class="number">2</span>; i++) {</span><br><span class="line">                <span class="comment">// 剪枝2：前两个数的和大于target且非负，后续数更大，终止内层循环</span></span><br><span class="line">                <span class="keyword">if</span> (nums[k] + nums[i] &gt; target &amp;&amp; nums[k] + nums[i] &gt;= <span class="number">0</span>) {</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">                <span class="comment">// 去重2：跳过和前一个数重复的nums[i]（注意i的起始是k+1，所以去重条件是i &gt; k+1）</span></span><br><span class="line">                <span class="keyword">if</span> (i &gt; k + <span class="number">1</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>]) {</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                }</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 4. 双指针：找后两个数 nums[left] 和 nums[right]</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> i + <span class="number">1</span>;</span><br><span class="line">                <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span> (right &gt; left) {</span><br><span class="line">                    <span class="comment">// 用long避免int溢出（关键！比如大数相加会超出int范围）</span></span><br><span class="line">                    <span class="type">long</span> <span class="variable">sum</span> <span class="operator">=</span> (<span class="type">long</span>) nums[k] + nums[i] + nums[left] + nums[right];</span><br><span class="line">                    </span><br><span class="line">                    <span class="keyword">if</span> (sum &gt; target) {</span><br><span class="line">                        <span class="comment">// 和太大，右指针左移（减小和）</span></span><br><span class="line">                        right--;</span><br><span class="line">                    } <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; target) {</span><br><span class="line">                        <span class="comment">// 和太小，左指针右移（增大和）</span></span><br><span class="line">                        left++;</span><br><span class="line">                    } <span class="keyword">else</span> {</span><br><span class="line">                        <span class="comment">// 5. 找到符合条件的四元组，加入结果集</span></span><br><span class="line">                        result.add(Arrays.asList(nums[k], nums[i], nums[left], nums[right]));</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">// 去重3：跳过重复的nums[right]</span></span><br><span class="line">                        <span class="keyword">while</span> (right &gt; left &amp;&amp; nums[right] == nums[right - <span class="number">1</span>]) {</span><br><span class="line">                            right--;</span><br><span class="line">                        }</span><br><span class="line">                        <span class="comment">// 去重4：跳过重复的nums[left]</span></span><br><span class="line">                        <span class="keyword">while</span> (right &gt; left &amp;&amp; nums[left] == nums[left + <span class="number">1</span>]) {</span><br><span class="line">                            left++;</span><br><span class="line">                        }</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">// 6. 双指针同时移动，找下一组可能的数</span></span><br><span class="line">                        right--;</span><br><span class="line">                        left++;</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li>N 数之和问题均可通过「排序 + 双指针」降维解决（三数之和是一层循环 +
+双指针，四数之和是两层循环 + 双指针）。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>冒泡排序</title>
     <url>/2024/10/09/bubbleSort/</url>
     <content><![CDATA[<h1 id="冒泡排序">冒泡排序</h1>
@@ -555,6 +622,42 @@ front</strong>//算法</p></li>
       <tags>
         <tag>算法</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>备忘录</title>
+    <url>/2024/01/27/bwl/</url>
+    <content><![CDATA[<h1 id="备忘录">备忘录</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li><p>记录一些容易忘记的内容</p></li>
+<li><p>如：函数、启动命令等</p>
+<span id="more"></span></li>
+</ul>
+<h3 id="常用函数">常用函数</h3>
+<ul>
+<li><p><code>substring(startIndex, endIndex)</code> 的规则是：截取从
+<code>startIndex</code>（包含）到
+<code>endIndex</code>（不包含）的子串。</p></li>
+<li><p><code>resultMap="BaseResultMap"</code>
+是MyBatis中非常重要的一个配置，用来<strong>定义Java对象属性与数据库字段的映射关系</strong>。</p></li>
+<li><p><code>::</code> 是 <strong>PostgreSQL
+的类型转换运算符</strong>，它用来将一个值从一种数据类型转换为另一种数据类型。</p>
+<ul>
+<li>```java <select id="selectAll" resultmap="BaseResultMap"> SELECT id,
+name, description, system_prompt, model, allowed_tools::text AS
+allowed_tools, allowed_kbs::text AS allowed_kbs, chat_options::text AS
+chat_options, created_at, updated_at FROM agent ORDER BY created_at DESC
+</select> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">* Spring 的`Assert`工具类，用于参数合法性校验；</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">Assert.notNull(agent, "Agent cannot be null");</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>PATCH：只传递需要修改的字段，未传递的字段保持原有值；</p></li>
+<li><p>return doubleStr.substring(1, doubleStr.length() -
+1).contains(s);</p></li>
+<li><p>// 1. doubleStr = s + s （拼接两个原字符串）</p></li>
+<li><p>// 2. substring(1, doubleStr.length() -
+1)：截取字符串，去掉首尾各1个字符</p></li>
+<li><p>// 3. contains(s)：判断截取后的字符串是否包含原字符串s</p></li>
+</ul>
+]]></content>
   </entry>
   <entry>
     <title>双向链表</title>
@@ -721,56 +824,6 @@ heroNode;</strong></li>
 ]]></content>
   </entry>
   <entry>
-    <title>反转字符串Ⅱ</title>
-    <url>/2026/01/24/reverseStr/</url>
-    <content><![CDATA[<h1 id="算法-反转字符串ⅱ">算法-反转字符串Ⅱ</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li><p>算法--反转字符串Ⅱ</p></li>
-<li><p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span></li>
-</ul>
-<h2 id="题目">题目</h2>
-<ul>
-<li><p>给定一个字符串 s 和一个整数 k，从字符串开头算起, 每计数至 2k
-个字符，就反转这 2k 个字符中的前 k 个字符。</p>
-<p>如果剩余字符少于 k 个，则将剩余字符全部反转。</p>
-<p>如果剩余字符小于 2k 但大于或等于 k 个，则反转前 k
-个字符，其余字符保持原样。</p>
-<p>示例:</p>
-<p>输入: s = "abcdefg", k = 2 输出: "bacdfeg"</p></li>
-</ul>
-<h2 id="思路">思路</h2>
-<ul>
-<li>分段遍历 + 双指针反转</li>
-<li><strong>分段逻辑</strong>：将字符串按 2k 长度分段，遍历步长设为
-2k（<code>i += 2*k</code>）；</li>
-<li><strong>边界处理</strong>：对每一段，计算反转的结束指针 end：
-<ul>
-<li>若剩余字符 ≥k → end = start + k - 1；</li>
-<li>若剩余字符 &lt;k → end = 数组最后一个索引（用 <code>Math.min</code>
-统一处理）；</li>
-</ul></li>
-<li><strong>复用基础反转</strong>：在 [start, end]
-区间内，用“双指针+临时变量交换”反转字符；</li>
-<li><strong>类型转换</strong>：String 不可变，先转为 char[]
-原地修改，最后转回 String。</li>
-</ul>
-<h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">## 代码</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseStr</span><span class="params">(String s, <span class="type">int</span> k)</span> {</span><br><span class="line">        <span class="comment">// 转为字符数组，支持原地修改</span></span><br><span class="line">        <span class="type">char</span>[] ch = s.toCharArray();</span><br><span class="line">        <span class="comment">// 按2k步长分段遍历</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; ch.length; i += <span class="number">2</span> * k){</span><br><span class="line">            <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> i;</span><br><span class="line">            <span class="comment">// 关键：处理剩余字符不足k的边界情况</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> Math.min(ch.length - <span class="number">1</span>, start + k - <span class="number">1</span>);</span><br><span class="line">            <span class="comment">// 双指针反转[start, end]区间字符</span></span><br><span class="line">            <span class="keyword">while</span>(start &lt; end){</span><br><span class="line">                <span class="comment">// 临时变量交换（新手友好，易理解）</span></span><br><span class="line">                <span class="type">char</span> <span class="variable">temp</span> <span class="operator">=</span> ch[start];</span><br><span class="line">                ch[start] = ch[end];</span><br><span class="line">                ch[end] = temp;</span><br><span class="line">                start++;</span><br><span class="line">                end--;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 字符数组转回字符串</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>(ch);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="总结">总结</h2>
-<ul>
-<li><strong>核心难点</strong>：end指针的边界计算（<code>Math.min</code>
-的使用），解决“剩余字符不足k”的越界问题；</li>
-<li><code>Math.min(a, b)</code>取 a 和 b
-中的<strong>较小值</strong></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>单链表</title>
     <url>/2024/09/08/singLinkedList-02/</url>
     <content><![CDATA[<h1 id="单链表其三">单链表（其三）</h1>
@@ -847,6 +900,56 @@ HeroNode</strong></p></li>
 ]]></content>
       <tags>
         <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>反转字符串Ⅱ</title>
+    <url>/2026/01/24/reverseStr/</url>
+    <content><![CDATA[<h1 id="算法-反转字符串ⅱ">算法-反转字符串Ⅱ</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li><p>算法--反转字符串Ⅱ</p></li>
+<li><p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span></li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li><p>给定一个字符串 s 和一个整数 k，从字符串开头算起, 每计数至 2k
+个字符，就反转这 2k 个字符中的前 k 个字符。</p>
+<p>如果剩余字符少于 k 个，则将剩余字符全部反转。</p>
+<p>如果剩余字符小于 2k 但大于或等于 k 个，则反转前 k
+个字符，其余字符保持原样。</p>
+<p>示例:</p>
+<p>输入: s = "abcdefg", k = 2 输出: "bacdfeg"</p></li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>分段遍历 + 双指针反转</li>
+<li><strong>分段逻辑</strong>：将字符串按 2k 长度分段，遍历步长设为
+2k（<code>i += 2*k</code>）；</li>
+<li><strong>边界处理</strong>：对每一段，计算反转的结束指针 end：
+<ul>
+<li>若剩余字符 ≥k → end = start + k - 1；</li>
+<li>若剩余字符 &lt;k → end = 数组最后一个索引（用 <code>Math.min</code>
+统一处理）；</li>
+</ul></li>
+<li><strong>复用基础反转</strong>：在 [start, end]
+区间内，用“双指针+临时变量交换”反转字符；</li>
+<li><strong>类型转换</strong>：String 不可变，先转为 char[]
+原地修改，最后转回 String。</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">## 代码</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseStr</span><span class="params">(String s, <span class="type">int</span> k)</span> {</span><br><span class="line">        <span class="comment">// 转为字符数组，支持原地修改</span></span><br><span class="line">        <span class="type">char</span>[] ch = s.toCharArray();</span><br><span class="line">        <span class="comment">// 按2k步长分段遍历</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; ch.length; i += <span class="number">2</span> * k){</span><br><span class="line">            <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> i;</span><br><span class="line">            <span class="comment">// 关键：处理剩余字符不足k的边界情况</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> Math.min(ch.length - <span class="number">1</span>, start + k - <span class="number">1</span>);</span><br><span class="line">            <span class="comment">// 双指针反转[start, end]区间字符</span></span><br><span class="line">            <span class="keyword">while</span>(start &lt; end){</span><br><span class="line">                <span class="comment">// 临时变量交换（新手友好，易理解）</span></span><br><span class="line">                <span class="type">char</span> <span class="variable">temp</span> <span class="operator">=</span> ch[start];</span><br><span class="line">                ch[start] = ch[end];</span><br><span class="line">                ch[end] = temp;</span><br><span class="line">                start++;</span><br><span class="line">                end--;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 字符数组转回字符串</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>(ch);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li><strong>核心难点</strong>：end指针的边界计算（<code>Math.min</code>
+的使用），解决“剩余字符不足k”的越界问题；</li>
+<li><code>Math.min(a, b)</code>取 a 和 b
+中的<strong>较小值</strong></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -1302,103 +1405,5 @@ target，请你在该数组中找出和为目标值的那两个整数，并返�
       <tags>
         <tag>算法</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>替换数字</title>
-    <url>/2026/01/25/ReplaceNumbers/</url>
-    <content><![CDATA[<h1 id="算法-替换数字">算法-替换数字</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li><p>算法--替换数字</p></li>
-<li><p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span></li>
-</ul>
-<h2 id="题目">题目</h2>
-<ul>
-<li><p>给定一个字符串
-s，它包含小写字母和数字字符，请编写一个函数，将字符串中的字母字符保持不变，而将每个数字字符替换为number。</p>
-<p>例如，对于输入字符串 "a1b2c3"，函数应该将其转换为
-"anumberbnumbercnumber"。</p>
-<p>对于输入字符串 "a5b"，函数应该将其转换为 "anumberb"</p>
-<p>输入：一个字符串 s,s 仅包含小写字母和数字字符。</p>
-<p>输出：打印一个新的字符串，其中每个数字字符都被替换为了number</p>
-<p>样例输入：a1b2c3</p>
-<p>样例输出：anumberbnumbercnumber</p>
-<p>数据范围：1 &lt;= s.length &lt; 10000。</p></li>
-</ul>
-<h2 id="思路">思路</h2>
-<ul>
-<li><strong>统计数字数量</strong>：
-<ul>
-<li>先遍历原字符串，统计其中数字字符的个数。这一步的核心目的是计算新字符串的长度
-—— 因为每个数字（1 个字符）要替换成 "number"（6
-个字符），相当于每个数字会让字符串长度增加 5，因此新长度 = 原长度 +
-数字个数 × 5。</li>
-</ul></li>
-<li><strong>创建新字符数组</strong>：
-<ul>
-<li>基于计算出的新长度，创建一个固定长度的字符数组</li>
-</ul></li>
-<li><strong>双指针从后往前填充：</strong>
-<ul>
-<li>定义两个指针：<code>i</code>指向新字符数组的末尾（待填充位置），<code>j</code>指向原字符串的末尾（待遍历位置）。</li>
-<li>从后往前遍历原字符串：
-<ul>
-<li>如果<code>j</code>指向的是字母，直接将该字母复制到<code>i</code>的位置，然后<code>i</code>和<code>j</code>都向前移动一位；</li>
-<li>如果<code>j</code>指向的是数字，从<code>i</code>的位置向前依次填充
-'r'、'e'、'b'、'm'、'u'、'n'（即 "number"
-的逆序），然后<code>i</code>向前移动 6
-位，<code>j</code>向前移动一位。</li>
-</ul></li>
-</ul></li>
-</ul>
-<h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">replaceNumber</span><span class="params">(String s)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>; <span class="comment">// 统计数字的个数</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">sOldSize</span> <span class="operator">=</span> s.length();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 第一步：统计字符串中的数字数量</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; sOldSize; i++) {</span><br><span class="line">            <span class="keyword">if</span> (Character.isDigit(s.charAt(i))) {</span><br><span class="line">                count++;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 第二步：创建新字符数组，长度 = 原长度 + 数字个数*5（number是6个字符，替换1个数字多占5位）</span></span><br><span class="line">        <span class="type">char</span>[] newS = <span class="keyword">new</span> <span class="title class_">char</span>[sOldSize + count * <span class="number">5</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">sNewSize</span> <span class="operator">=</span> newS.length;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 第三步：双指针从后往前填充（核心修正）</span></span><br><span class="line">        <span class="comment">// i：新数组指针，j：原字符串指针</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> sNewSize - <span class="number">1</span>, j = sOldSize - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) {</span><br><span class="line">            <span class="comment">// 如果是字母，直接复制到新数组</span></span><br><span class="line">            <span class="keyword">if</span> (!Character.isDigit(s.charAt(j))) {</span><br><span class="line">                newS[i] = s.charAt(j);</span><br><span class="line">                i--;</span><br><span class="line">            } <span class="keyword">else</span> {</span><br><span class="line">                <span class="comment">// 如果是数字，替换为"number"（从后往前填）</span></span><br><span class="line">                newS[i] = <span class="string">'r'</span>;</span><br><span class="line">                newS[i - <span class="number">1</span>] = <span class="string">'e'</span>;</span><br><span class="line">                newS[i - <span class="number">2</span>] = <span class="string">'b'</span>;</span><br><span class="line">                newS[i - <span class="number">3</span>] = <span class="string">'m'</span>;</span><br><span class="line">                newS[i - <span class="number">4</span>] = <span class="string">'u'</span>;</span><br><span class="line">                newS[i - <span class="number">5</span>] = <span class="string">'n'</span>;</span><br><span class="line">                i -= <span class="number">6</span>; <span class="comment">// 直接移动6位，避免循环的i--干扰（更清晰）</span></span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>(newS);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> scanner.next();</span><br><span class="line">        System.out.println(replaceNumber(s));</span><br><span class="line">        scanner.close();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="总结">总结</h2>
-<ul>
-<li>从后往前填充的优势：避免从前往后填充时数字替换导致的字符覆盖，无需频繁移动已处理的字符，时间复杂度为
-O (n)（n 为原字符串长度）。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>算法</tag>
-        <tag>双指针</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>备忘录</title>
-    <url>/2026/01/27/bwl/</url>
-    <content><![CDATA[<h1 id="备忘录">备忘录</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li><p>记录一些容易忘记的内容</p></li>
-<li><p>如：函数、启动命令等</p>
-<span id="more"></span></li>
-</ul>
-<h3 id="常用函数">常用函数</h3>
-<ul>
-<li><p><code>substring(startIndex, endIndex)</code> 的规则是：截取从
-<code>startIndex</code>（包含）到
-<code>endIndex</code>（不包含）的子串。</p></li>
-<li><p><code>resultMap="BaseResultMap"</code>
-是MyBatis中非常重要的一个配置，用来<strong>定义Java对象属性与数据库字段的映射关系</strong>。</p></li>
-<li><p><code>::</code> 是 <strong>PostgreSQL
-的类型转换运算符</strong>，它用来将一个值从一种数据类型转换为另一种数据类型。</p>
-<ul>
-<li>```java <select id="selectAll" resultmap="BaseResultMap"> SELECT id,
-name, description, system_prompt, model, allowed_tools::text AS
-allowed_tools, allowed_kbs::text AS allowed_kbs, chat_options::text AS
-chat_options, created_at, updated_at FROM agent ORDER BY created_at DESC
-</select> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">* Spring 的`Assert`工具类，用于参数合法性校验；</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">Assert.notNull(agent, "Agent cannot be null");</span><br></pre></td></tr></table></figure></li>
-</ul></li>
-<li><p>PATCH：只传递需要修改的字段，未传递的字段保持原有值；</p></li>
-<li><p>return doubleStr.substring(1, doubleStr.length() -
-1).contains(s);</p></li>
-<li><p>// 1. doubleStr = s + s （拼接两个原字符串）</p></li>
-<li><p>// 2. substring(1, doubleStr.length() -
-1)：截取字符串，去掉首尾各1个字符</p></li>
-<li><p>// 3. contains(s)：判断截取后的字符串是否包含原字符串s</p></li>
-</ul>
-]]></content>
   </entry>
 </search>
