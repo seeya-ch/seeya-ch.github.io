@@ -3,16 +3,12 @@
   <entry>
     <title>数组队列</title>
     <url>/2024/08/19/ArrayQueue/</url>
-    <content><![CDATA[<h1>数组队列</h1>
+    <content><![CDATA[<h1 id="数组队列">数组队列</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li>
-<p>数据结构——数组队列</p>
-</li>
-<li>
-<p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
-<span id="more"></span>
-</li>
+<li><p>数据结构——数组队列</p></li>
+<li><p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
+<span id="more"></span></li>
 </ul>
 <h2 id="概念">概念</h2>
 <ul>
@@ -20,8 +16,7 @@
 <li>遵循先入先出原则：
 <ul>
 <li>先存入的数据，先取出，后存入的数据后取出。</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <h2 id="问题">问题</h2>
 <ul>
@@ -30,146 +25,99 @@
 <ul>
 <li><strong>maxSize</strong>：该队列的最大容量</li>
 <li><strong>front</strong>：头指针，指向队列头部，指向队列头的前一个位置，随数据的输出而改变，初始值为-1</li>
-<li><strong>rear</strong>： 尾指针，指向队列尾部，指向队列尾，随数据的输入而改变，初始值为-1</li>
-</ul>
-</li>
+<li><strong>rear</strong>：
+尾指针，指向队列尾部，指向队列尾，随数据的输入而改变，初始值为-1</li>
+</ul></li>
 </ul>
 <h2 id="步骤">步骤</h2>
 <ul>
-<li>
-<p>创建 ArrayQueue类</p>
+<li><p>创建 ArrayQueue类</p>
 <ul>
-<li>
-<p>代码实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ArrayQueue</span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> maxSize;<span class="comment">//表示数组的最大容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> front;<span class="comment">//队列头</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> rear;<span class="comment">//队列尾</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] arr;<span class="comment">//存储队列的数组</span></span><br><span class="line">    }</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ArrayQueue</span><span class="params">(<span class="type">int</span> arrMaxSize)</span>{</span><br><span class="line">    maxSize = arrMaxSize;</span><br><span class="line">    arr = <span class="keyword">new</span> <span class="title class_">int</span>[maxSize];</span><br><span class="line">    front = -<span class="number">1</span>;<span class="comment">//指向队列头部，指向队列头的前一个位置</span></span><br><span class="line">    rear = -<span class="number">1</span>;<span class="comment">// 指向队列尾部，指向队列尾</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>addQueue方法：将数据存入队列中</strong></p>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ArrayQueue</span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> maxSize;<span class="comment">//表示数组的最大容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> front;<span class="comment">//队列头</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> rear;<span class="comment">//队列尾</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] arr;<span class="comment">//存储队列的数组</span></span><br><span class="line">    }</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ArrayQueue</span><span class="params">(<span class="type">int</span> arrMaxSize)</span>{</span><br><span class="line">    maxSize = arrMaxSize;</span><br><span class="line">    arr = <span class="keyword">new</span> <span class="title class_">int</span>[maxSize];</span><br><span class="line">    front = -<span class="number">1</span>;<span class="comment">//指向队列头部，指向队列头的前一个位置</span></span><br><span class="line">    rear = -<span class="number">1</span>;<span class="comment">// 指向队列尾部，指向队列尾</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p><strong>addQueue方法：将数据存入队列中</strong></p>
 <ul>
-<li>
-<p>思路分析：</p>
+<li><p>思路分析：</p>
 <ul>
-<li>
-<p>rear == front 时队列为空</p>
-</li>
-<li>
-<p>将尾指针往后移：rear+1</p>
-</li>
-<li>
-<p>rear == maxSize-1时 队列满不能再添加数据</p>
-</li>
-<li>
-<p>代码实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addQueue</span><span class="params">(<span class="type">int</span> n)</span>{</span><br><span class="line">      <span class="comment">//判断队列是否满</span></span><br><span class="line">      <span class="keyword">if</span>(isFull()){</span><br><span class="line">          System.out.println(<span class="string">"队列满了，不能再添加数据"</span>);</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">      }</span><br><span class="line">      arr[++rear] = n;<span class="comment">//先对rear+1，再进行赋值</span></span><br><span class="line">  }</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>isFull方法： 判断队列是否满</p>
+<li><p>rear == front 时队列为空</p></li>
+<li><p>将尾指针往后移：rear+1</p></li>
+<li><p>rear == maxSize-1时 队列满不能再添加数据</p></li>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addQueue</span><span class="params">(<span class="type">int</span> n)</span>{</span><br><span class="line">      <span class="comment">//判断队列是否满</span></span><br><span class="line">      <span class="keyword">if</span>(isFull()){</span><br><span class="line">          System.out.println(<span class="string">"队列满了，不能再添加数据"</span>);</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">      }</span><br><span class="line">      arr[++rear] = n;<span class="comment">//先对rear+1，再进行赋值</span></span><br><span class="line">  }</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+</ul></li>
+<li><p>isFull方法： 判断队列是否满</p>
 <ul>
-<li>
-<p>代码实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isFull</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> rear == maxSize-<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>isEmpty方法： 判断队列是否空</p>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isFull</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> rear == maxSize-<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>isEmpty方法： 判断队列是否空</p>
 <ul>
-<li>
-<p>代码实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> rear == front;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>getQueue方法：获取队列,出队列</p>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> rear == front;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>getQueue方法：获取队列,出队列</p>
 <ul>
-<li>
-<p>代码实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getQueue</span><span class="params">()</span>{</span><br><span class="line">     <span class="comment">//判断队列是否为空</span></span><br><span class="line">     <span class="keyword">if</span>(isEmpty()){</span><br><span class="line">         <span class="comment">//抛出异常</span></span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">"队列空，不能取数据"</span>);</span><br><span class="line">     }</span><br><span class="line">     front++;<span class="comment">//后移</span></span><br><span class="line">     <span class="keyword">return</span> arr[front];</span><br><span class="line"> }</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>showQueue方法：显示队列所有数据</p>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getQueue</span><span class="params">()</span>{</span><br><span class="line">     <span class="comment">//判断队列是否为空</span></span><br><span class="line">     <span class="keyword">if</span>(isEmpty()){</span><br><span class="line">         <span class="comment">//抛出异常</span></span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">"队列空，不能取数据"</span>);</span><br><span class="line">     }</span><br><span class="line">     front++;<span class="comment">//后移</span></span><br><span class="line">     <span class="keyword">return</span> arr[front];</span><br><span class="line"> }</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>showQueue方法：显示队列所有数据</p>
 <ul>
-<li>
-<p>代码实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">showQueue</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">if</span> (isEmpty()){</span><br><span class="line">        System.out.println(<span class="string">"队列空没有数据"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt; arr.length;i++) {</span><br><span class="line">        System.out.printf(<span class="string">"arr[%d]=%d\n"</span>,i,arr[i]);</span><br><span class="line">    }</span><br><span class="line"> }</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>headQueue方法： 显示队列头数据</p>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">showQueue</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">if</span> (isEmpty()){</span><br><span class="line">        System.out.println(<span class="string">"队列空没有数据"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt; arr.length;i++) {</span><br><span class="line">        System.out.printf(<span class="string">"arr[%d]=%d\n"</span>,i,arr[i]);</span><br><span class="line">    }</span><br><span class="line"> }</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>headQueue方法： 显示队列头数据</p>
 <ul>
-<li>
-<p>代码实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">headQueue</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">if</span> (isEmpty()) {</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">"队列空没有数据"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> arr[front+<span class="number">1</span>];</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>主类ArrayQueueDemo方法： 测试</p>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">headQueue</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">if</span> (isEmpty()) {</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">"队列空没有数据"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> arr[front+<span class="number">1</span>];</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>主类ArrayQueueDemo方法： 测试</p>
 <ul>
-<li>
-<p>代码实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ArrayQueueDemo</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">ArrayQueue</span> <span class="variable">arrayQueue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayQueue</span>(<span class="number">3</span>);</span><br><span class="line">        <span class="type">char</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">' '</span>;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">while</span>(loop){</span><br><span class="line">            System.out.println(<span class="string">"s(show):"</span>);</span><br><span class="line">            System.out.println(<span class="string">"e(exit):"</span>);</span><br><span class="line">            System.out.println(<span class="string">"a(add):"</span>);</span><br><span class="line">            System.out.println(<span class="string">"g(get):"</span>);</span><br><span class="line">            System.out.println(<span class="string">"h(head):"</span>);</span><br><span class="line">            key =scanner.next().charAt(<span class="number">0</span>);<span class="comment">//接收一个字符</span></span><br><span class="line">            <span class="keyword">switch</span>(key){</span><br><span class="line">                <span class="keyword">case</span><span class="string">'s'</span>:</span><br><span class="line">                    arrayQueue.showQueue();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">'a'</span>:</span><br><span class="line">                    System.out.print(<span class="string">"请输入一个数："</span>);</span><br><span class="line">                    <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">                    arrayQueue.addQueue(value);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">'g'</span>:</span><br><span class="line">                    <span class="keyword">try</span>{</span><br><span class="line">                     <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> arrayQueue.getQueue();</span><br><span class="line">                        System.out.printf(<span class="string">"取出的数据是%d\n"</span>,res);</span><br><span class="line">                    }<span class="keyword">catch</span>(Exception e){</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">'h'</span>:</span><br><span class="line">                    <span class="keyword">try</span>{</span><br><span class="line">                        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> arrayQueue.headQueue();</span><br><span class="line">                        System.out.printf(<span class="string">"队列头的数据是%d\n"</span>,res);</span><br><span class="line">                    }<span class="keyword">catch</span>(Exception e){</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                }</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">'e'</span>:</span><br><span class="line">                    scanner.close();</span><br><span class="line">                    loop = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        System.out.println(<span class="string">"退出"</span>);</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ArrayQueueDemo</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">ArrayQueue</span> <span class="variable">arrayQueue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayQueue</span>(<span class="number">3</span>);</span><br><span class="line">        <span class="type">char</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">' '</span>;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">while</span>(loop){</span><br><span class="line">            System.out.println(<span class="string">"s(show):"</span>);</span><br><span class="line">            System.out.println(<span class="string">"e(exit):"</span>);</span><br><span class="line">            System.out.println(<span class="string">"a(add):"</span>);</span><br><span class="line">            System.out.println(<span class="string">"g(get):"</span>);</span><br><span class="line">            System.out.println(<span class="string">"h(head):"</span>);</span><br><span class="line">            key =scanner.next().charAt(<span class="number">0</span>);<span class="comment">//接收一个字符</span></span><br><span class="line">            <span class="keyword">switch</span>(key){</span><br><span class="line">                <span class="keyword">case</span><span class="string">'s'</span>:</span><br><span class="line">                    arrayQueue.showQueue();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">'a'</span>:</span><br><span class="line">                    System.out.print(<span class="string">"请输入一个数："</span>);</span><br><span class="line">                    <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">                    arrayQueue.addQueue(value);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">'g'</span>:</span><br><span class="line">                    <span class="keyword">try</span>{</span><br><span class="line">                     <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> arrayQueue.getQueue();</span><br><span class="line">                        System.out.printf(<span class="string">"取出的数据是%d\n"</span>,res);</span><br><span class="line">                    }<span class="keyword">catch</span>(Exception e){</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">'h'</span>:</span><br><span class="line">                    <span class="keyword">try</span>{</span><br><span class="line">                        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> arrayQueue.headQueue();</span><br><span class="line">                        System.out.printf(<span class="string">"队列头的数据是%d\n"</span>,res);</span><br><span class="line">                    }<span class="keyword">catch</span>(Exception e){</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                }</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">'e'</span>:</span><br><span class="line">                    scanner.close();</span><br><span class="line">                    loop = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        System.out.println(<span class="string">"退出"</span>);</span><br><span class="line">    }</span><br></pre></td></tr></table></figure></li>
+</ul></li>
 </ul>
 <h2 id="运行结果图">运行结果图</h2>
 <ul>
-<li>
-<p>addQueue方法：</p>
-<p><img src="/2024/08/19/ArrayQueue/01.png" alt></p>
-</li>
-<li>
-<p>showQueue方法：</p>
-<p><img src="/2024/08/19/ArrayQueue/02.png" alt></p>
-</li>
-<li>
-<p>headQueue方法：</p>
-<p><img src="/2024/08/19/ArrayQueue/03.png" alt></p>
-</li>
-<li>
-<p>getQueue方法：</p>
-<p><img src="/2024/08/19/ArrayQueue/04.png" alt></p>
-</li>
-<li>
-<p>exit方法：</p>
-<p><img src="/2024/08/19/ArrayQueue/05.png" alt></p>
-</li>
+<li><p>addQueue方法：</p>
+<p><img src="/2024/08/19/ArrayQueue/01.png"></p></li>
+<li><p>showQueue方法：</p>
+<p><img src="/2024/08/19/ArrayQueue/02.png"></p></li>
+<li><p>headQueue方法：</p>
+<p><img src="/2024/08/19/ArrayQueue/03.png"></p></li>
+<li><p>getQueue方法：</p>
+<p><img src="/2024/08/19/ArrayQueue/04.png"></p></li>
+<li><p>exit方法：</p>
+<p><img src="/2024/08/19/ArrayQueue/05.png"></p></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
       <tags>
         <tag>数据结构</tag>
+        <tag>数组</tag>
+        <tag>队列</tag>
       </tags>
   </entry>
   <entry>
     <title>四数相加</title>
     <url>/2026/01/19/FourSumII/</url>
-    <content><![CDATA[<h1>算法-四数相加</h1>
+    <content><![CDATA[<h1 id="算法-四数相加">算法-四数相加</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li>
-<p>算法–四数相加</p>
-</li>
-<li>
-<p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span>
-</li>
+<li><p>算法--四数相加</p></li>
+<li><p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span></li>
 </ul>
 <h2 id="题目">题目</h2>
 <ul>
-<li>
-<p>给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j, k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
-<p>为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500 。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1 。</p>
+<li><p>给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j,
+k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
+<p>为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500
+。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1
+。</p>
 <p><strong>例如:</strong></p>
 <p>输入:</p>
 <ul>
@@ -182,11 +130,12 @@
 <p>2</p>
 <p><strong>解释:</strong></p>
 <p>两个元组如下:</p>
-<ol>
-<li>(0, 0, 0, 1) -&gt; A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0</li>
-<li>(1, 1, 0, 0) -&gt; A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0</li>
-</ol>
-</li>
+<ol type="1">
+<li>(0, 0, 0, 1) -&gt; A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 =
+0</li>
+<li>(1, 1, 0, 0) -&gt; A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 =
+0</li>
+</ol></li>
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
@@ -198,20 +147,29 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fourSumCount</span><span class="params">(<span class="type">int</span>[] nums1, <span class="type">int</span>[] nums2, <span class="type">int</span>[] nums3, <span class="type">int</span>[] nums4)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Integer,Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums1){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums2){</span><br><span class="line">                <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> i + j;</span><br><span class="line">                map.put(sum,map.getOrDefault(sum,<span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums3){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums4){</span><br><span class="line">                r += map.getOrDefault(<span class="number">0</span> - i - j,<span class="number">0</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <h2 id="总结">总结</h2>
 <ul>
-<li><code>getOrDefault</code> 核心作用：<strong>简化 Map 中 “获取值 + 处理键不存在” 的逻辑</strong>，避免手动判断 <code>containsKey</code>。
+<li><code>getOrDefault</code> 核心作用：<strong>简化 Map 中 “获取值 +
+处理键不存在” 的逻辑</strong>，避免手动判断 <code>containsKey</code>。
 <ul>
-<li>尝试从 <code>Map</code> 中获取指定 <code>key</code> 对应的 <code>value</code>；</li>
-<li>如果 <code>key</code> <strong>存在</strong>，返回对应的 <code>value</code>；</li>
-<li>如果 <code>key</code> <strong>不存在</strong>，返回你指定的 <code>defaultValue</code>（默认值）。</li>
-</ul>
-</li>
-<li>语法规则：<code>map.getOrDefault(键, 默认值)</code>，返回值类型和 “默认值” 类型一致（比如键是 Integer，默认值也得是 Integer）。</li>
+<li>尝试从 <code>Map</code> 中获取指定 <code>key</code> 对应的
+<code>value</code>；</li>
+<li>如果 <code>key</code> <strong>存在</strong>，返回对应的
+<code>value</code>；</li>
+<li>如果 <code>key</code> <strong>不存在</strong>，返回你指定的
+<code>defaultValue</code>（默认值）。</li>
+</ul></li>
+<li>语法规则：<code>map.getOrDefault(键, 默认值)</code>，返回值类型和
+“默认值” 类型一致（比如键是 Integer，默认值也得是 Integer）。</li>
 <li>典型场景：计数统计（如四数相加的次数统计）、避免空值（NPE）、默认值兜底等。</li>
-<li>关键逻辑：利用 <code>a + b + c + d = 0</code> 等价于 <code>a + b = -(c + d)</code>，通过哈希表快速匹配目标值。</li>
+<li>关键逻辑：利用 <code>a + b + c + d = 0</code> 等价于
+<code>a + b = -(c + d)</code>，通过哈希表快速匹配目标值。</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
       <tags>
         <tag>算法</tag>
+        <tag>哈希</tag>
       </tags>
   </entry>
   <entry>
@@ -520,13 +478,11 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
   <entry>
     <title>冒泡排序</title>
     <url>/2024/10/09/bubbleSort/</url>
-    <content><![CDATA[<h1>冒泡排序</h1>
+    <content><![CDATA[<h1 id="冒泡排序">冒泡排序</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li>
-<p>算法——冒泡排序</p>
-<span id="more"></span>
-</li>
+<li><p>算法——冒泡排序</p>
+<span id="more"></span></li>
 </ul>
 <h2 id="概念">概念</h2>
 <ul>
@@ -534,19 +490,19 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
-<li>
-<p>用两层for循环解决</p>
+<li><p>用两层for循环解决</p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">bubbleSort</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">int</span> arr[]={<span class="number">4</span>,<span class="number">7</span>,<span class="number">10</span>,<span class="number">6</span>,<span class="number">99</span>,<span class="number">44</span>,<span class="number">66</span>,<span class="number">1</span>};</span><br><span class="line">        <span class="type">int</span> temp;<span class="comment">//辅助变量，交换值</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;<span class="comment">//优化，判断是否发生排序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length-<span class="number">1</span>; i++) {<span class="comment">//比较轮数，-1是指不与自身排序</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arr.length-<span class="number">1</span>-i; j++) {<span class="comment">//每一轮比较次数</span></span><br><span class="line">                <span class="keyword">if</span> (arr[j]&gt;arr[j+<span class="number">1</span>]){<span class="comment">//大于小于号表示按照升序排序还是降序排序</span></span><br><span class="line">                    count = <span class="number">1</span>;</span><br><span class="line">                    temp = arr[j];</span><br><span class="line">                    arr[j]=arr[j+<span class="number">1</span>];</span><br><span class="line">                    arr[j+<span class="number">1</span>]=temp;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(count == <span class="number">0</span>){</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt; arr.length;i++){</span><br><span class="line">         System.out.println(arr[i]);</span><br><span class="line">     }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">bubbleSort</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">int</span> arr[]={<span class="number">4</span>,<span class="number">7</span>,<span class="number">10</span>,<span class="number">6</span>,<span class="number">99</span>,<span class="number">44</span>,<span class="number">66</span>,<span class="number">1</span>};</span><br><span class="line">        <span class="type">int</span> temp;<span class="comment">//辅助变量，交换值</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;<span class="comment">//优化，判断是否发生排序</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length-<span class="number">1</span>; i++) {<span class="comment">//比较轮数，-1是指不与自身排序</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arr.length-<span class="number">1</span>-i; j++) {<span class="comment">//每一轮比较次数</span></span><br><span class="line">                <span class="keyword">if</span> (arr[j]&gt;arr[j+<span class="number">1</span>]){<span class="comment">//大于小于号表示按照升序排序还是降序排序</span></span><br><span class="line">                    count = <span class="number">1</span>;</span><br><span class="line">                    temp = arr[j];</span><br><span class="line">                    arr[j]=arr[j+<span class="number">1</span>];</span><br><span class="line">                    arr[j+<span class="number">1</span>]=temp;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(count == <span class="number">0</span>){</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt; arr.length;i++){</span><br><span class="line">         System.out.println(arr[i]);</span><br><span class="line">     }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
       <tags>
         <tag>算法</tag>
+        <tag>排序</tag>
       </tags>
   </entry>
   <entry>
@@ -671,16 +627,12 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
   <entry>
     <title>数组环形队列</title>
     <url>/2024/08/19/arrayCircularQueue/</url>
-    <content><![CDATA[<h1>数组环形队列</h1>
+    <content><![CDATA[<h1 id="数组环形队列">数组环形队列</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li>
-<p>数据结构——数组环形队列</p>
-</li>
-<li>
-<p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
-<span id="more"></span>
-</li>
+<li><p>数据结构——数组环形队列</p></li>
+<li><p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
+<span id="more"></span></li>
 </ul>
 <h2 id="概念">概念</h2>
 <ul>
@@ -690,258 +642,167 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
 <h2 id="思路">思路</h2>
 <ul>
 <li>调整front变量：将<strong>front指向队列的第一个元素</strong>，front赋初值为0</li>
-<li>调整rear变量： 将<strong>rear指向队列的倒数第二个位置的元素</strong>，空出来的空间位置作为约定，rear赋初值为0</li>
-<li>当队列满时，<strong>（rear + 1）% maxSize  =  front</strong>//算法</li>
+<li>调整rear变量：
+将<strong>rear指向队列的倒数第二个位置的元素</strong>，空出来的空间位置作为约定，rear赋初值为0</li>
+<li>当队列满时，<strong>（rear + 1）% maxSize =
+front</strong>//算法</li>
 <li>当队列空时，<strong>rear==front</strong></li>
 <li>队列中有效的数据的个数（<strong>rear+maxSize-front）%maxSize</strong>//算法</li>
 </ul>
-<h2 id="修改ArrayQueue类实现">修改ArrayQueue类实现</h2>
+<h2 id="修改arrayqueue类实现">修改ArrayQueue类实现</h2>
 <ul>
-<li>
-<p>修改ArrayQueue类</p>
+<li><p>修改ArrayQueue类</p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CircleArray</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> maxSize;<span class="comment">//表示数组的最大容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> front;<span class="comment">//队列头,指向队列第一元素，赋0值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> rear;<span class="comment">//队列尾，指向队列倒数第二个元素，赋0值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] arr;<span class="comment">//存储队列的数组</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CircleArray</span><span class="params">(<span class="type">int</span> arrMaxSize)</span>&#123;</span><br><span class="line">        maxSize = arrMaxSize;</span><br><span class="line">        arr = <span class="keyword">new</span> <span class="title class_">int</span>[maxSize];</span><br><span class="line">        front = <span class="number">0</span>;</span><br><span class="line">        rear = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>修改isFull（）方法判断队列是否为满</p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CircleArray</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> maxSize;<span class="comment">//表示数组的最大容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> front;<span class="comment">//队列头,指向队列第一元素，赋0值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> rear;<span class="comment">//队列尾，指向队列倒数第二个元素，赋0值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] arr;<span class="comment">//存储队列的数组</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CircleArray</span><span class="params">(<span class="type">int</span> arrMaxSize)</span>&#123;</span><br><span class="line">        maxSize = arrMaxSize;</span><br><span class="line">        arr = <span class="keyword">new</span> <span class="title class_">int</span>[maxSize];</span><br><span class="line">        front = <span class="number">0</span>;</span><br><span class="line">        rear = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>修改isFull（）方法判断队列是否为满</p>
 <ul>
-<li>
-<p>当队列满时，<strong>（rear + 1）% maxSize  =  front</strong>//算法</p>
-</li>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isFull</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (rear+<span class="number">1</span>)%maxSize == front;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>修改isEmpty（）方法判断队列是否空</p>
+<li><p>当队列满时，<strong>（rear + 1）% maxSize =
+front</strong>//算法</p></li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isFull</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (rear+<span class="number">1</span>)%maxSize == front;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>修改isEmpty（）方法判断队列是否空</p>
 <ul>
-<li>
-<p>当队列空时，<strong>rear==front</strong></p>
-</li>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> rear == front;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>修改addQueue（）方法添加数据</p>
+<li><p>当队列空时，<strong>rear==front</strong></p></li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> rear == front;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>修改addQueue（）方法添加数据</p>
 <ul>
-<li>
-<p>先判断队列是否满，再添加数据进入队列</p>
-</li>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addQueue</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">      <span class="comment">//判断队列是否满</span></span><br><span class="line">      <span class="keyword">if</span>(isFull())&#123;</span><br><span class="line">          System.out.println(<span class="string">&quot;队列满了，不能再添加数据&quot;</span>);</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//直接将数据加入</span></span><br><span class="line">      arr[rear] = n;</span><br><span class="line">      <span class="comment">//将rear后移，考虑取模</span></span><br><span class="line">      rear = (rear+<span class="number">1</span>)%maxSize;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>修改getQueue（）方法获取队列，出队列</p>
+<li><p>先判断队列是否满，再添加数据进入队列</p></li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addQueue</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">      <span class="comment">//判断队列是否满</span></span><br><span class="line">      <span class="keyword">if</span>(isFull())&#123;</span><br><span class="line">          System.out.println(<span class="string">&quot;队列满了，不能再添加数据&quot;</span>);</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//直接将数据加入</span></span><br><span class="line">      arr[rear] = n;</span><br><span class="line">      <span class="comment">//将rear后移，考虑取模</span></span><br><span class="line">      rear = (rear+<span class="number">1</span>)%maxSize;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>修改getQueue（）方法获取队列，出队列</p>
 <ul>
-<li>
-<p>先判断队列是否空，若有数据，则将数据出队列</p>
-</li>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取队列,出队列</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getQueue</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//判断队列是否为空</span></span><br><span class="line">    <span class="keyword">if</span>(isEmpty())&#123;</span><br><span class="line">        <span class="comment">//抛出异常</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;队列空，不能取数据&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//front是指向队列的第一个元素</span></span><br><span class="line">    <span class="comment">// 1.将front对应的值保留到一个临时变量</span></span><br><span class="line">    <span class="comment">// 2.将front 后移</span></span><br><span class="line">    <span class="comment">// 3.将临时保存的变量返回</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> arr[front];</span><br><span class="line">    front = (front+<span class="number">1</span>)%maxSize;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>修改showQueue（）方法显示队列所有数据</p>
+<li><p>先判断队列是否空，若有数据，则将数据出队列</p></li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取队列,出队列</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getQueue</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//判断队列是否为空</span></span><br><span class="line">    <span class="keyword">if</span>(isEmpty())&#123;</span><br><span class="line">        <span class="comment">//抛出异常</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;队列空，不能取数据&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//front是指向队列的第一个元素</span></span><br><span class="line">    <span class="comment">// 1.将front对应的值保留到一个临时变量</span></span><br><span class="line">    <span class="comment">// 2.将front 后移</span></span><br><span class="line">    <span class="comment">// 3.将临时保存的变量返回</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> arr[front];</span><br><span class="line">    front = (front+<span class="number">1</span>)%maxSize;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>修改showQueue（）方法显示队列所有数据</p>
 <ul>
-<li>
-<p>先判断队列是否为空，若存在数据就显示数据</p>
-</li>
-<li>
-<p>代码实现</p>
+<li><p>先判断队列是否为空，若存在数据就显示数据</p></li>
+<li><p>代码实现</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//显示队列所有数据</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">showQueue</span><span class="params">()</span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (isEmpty())&#123;</span><br><span class="line">           System.out.println(<span class="string">&quot;队列空没有数据&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//思路：从front开始遍历，遍历的多少个元素</span></span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt; front+size();i++) &#123;<span class="comment">//取模</span></span><br><span class="line">         System.out.printf(<span class="string">&quot;arr[%d]=%d\n&quot;</span>,i%maxSize,arr[i%maxSize]);</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//求出当前队列有效数据的个数</span></span><br><span class="line"> <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">size</span><span class="params">()</span>&#123;</span><br><span class="line"> <span class="keyword">return</span> (rear+maxSize-front)%maxSize;<span class="comment">//取模</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>修改headQueue（）方法显示队列头数据</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//求出当前队列有效数据的个数</span></span><br><span class="line"> <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">size</span><span class="params">()</span>&#123;</span><br><span class="line"> <span class="keyword">return</span> (rear+maxSize-front)%maxSize;<span class="comment">//取模</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>修改headQueue（）方法显示队列头数据</p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//显示队列头数据</span></span><br><span class="line">   <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">headQueue</span><span class="params">()</span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;队列空没有数据&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> arr[front];<span class="comment">//ArrayQueue中是front+1</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>CircleArrayDemo类测试</p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//显示队列头数据</span></span><br><span class="line">   <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">headQueue</span><span class="params">()</span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;队列空没有数据&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> arr[front];<span class="comment">//ArrayQueue中是front+1</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>CircleArrayDemo类测试</p>
 <ul>
-<li>
-<p>代码实现与ArrayQueueDemo类大体相同</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CircleArrayDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试环形数据队列&quot;</span>);</span><br><span class="line">        <span class="type">CircleArray</span> <span class="variable">arrayQueue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CircleArray</span>(<span class="number">3</span>);  <span class="comment">//修改为环形队列</span></span><br><span class="line">        <span class="type">char</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">while</span>(loop)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;s(show):&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;e(exit):&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;a(add):&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;g(get):&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;h(head):&quot;</span>);</span><br><span class="line">            key =scanner.next().charAt(<span class="number">0</span>);<span class="comment">//接收一个字符</span></span><br><span class="line">            <span class="keyword">switch</span>(key)&#123;</span><br><span class="line">                <span class="keyword">case</span><span class="string">&#x27;s&#x27;</span>:</span><br><span class="line">                    arrayQueue.showQueue();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">&#x27;a&#x27;</span>:</span><br><span class="line">                    System.out.print(<span class="string">&quot;请输入一个数：&quot;</span>);</span><br><span class="line">                    <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">                    arrayQueue.addQueue(value);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">&#x27;g&#x27;</span>:</span><br><span class="line">                    <span class="keyword">try</span>&#123;</span><br><span class="line">                        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> arrayQueue.getQueue();</span><br><span class="line">                        System.out.printf(<span class="string">&quot;取出的数据是%d\n&quot;</span>,res);</span><br><span class="line">                    &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">&#x27;h&#x27;</span>:</span><br><span class="line">                    <span class="keyword">try</span>&#123;</span><br><span class="line">                        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> arrayQueue.headQueue();</span><br><span class="line">                        System.out.printf(<span class="string">&quot;队列头的数据是%d\n&quot;</span>,res);</span><br><span class="line">                    &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">&#x27;e&#x27;</span>:</span><br><span class="line">                    scanner.close();</span><br><span class="line">                    loop = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;退出&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
+<li><p>代码实现与ArrayQueueDemo类大体相同</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CircleArrayDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;测试环形数据队列&quot;</span>);</span><br><span class="line">        <span class="type">CircleArray</span> <span class="variable">arrayQueue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CircleArray</span>(<span class="number">3</span>);  <span class="comment">//修改为环形队列</span></span><br><span class="line">        <span class="type">char</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">while</span>(loop)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;s(show):&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;e(exit):&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;a(add):&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;g(get):&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;h(head):&quot;</span>);</span><br><span class="line">            key =scanner.next().charAt(<span class="number">0</span>);<span class="comment">//接收一个字符</span></span><br><span class="line">            <span class="keyword">switch</span>(key)&#123;</span><br><span class="line">                <span class="keyword">case</span><span class="string">&#x27;s&#x27;</span>:</span><br><span class="line">                    arrayQueue.showQueue();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">&#x27;a&#x27;</span>:</span><br><span class="line">                    System.out.print(<span class="string">&quot;请输入一个数：&quot;</span>);</span><br><span class="line">                    <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">                    arrayQueue.addQueue(value);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">&#x27;g&#x27;</span>:</span><br><span class="line">                    <span class="keyword">try</span>&#123;</span><br><span class="line">                        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> arrayQueue.getQueue();</span><br><span class="line">                        System.out.printf(<span class="string">&quot;取出的数据是%d\n&quot;</span>,res);</span><br><span class="line">                    &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">&#x27;h&#x27;</span>:</span><br><span class="line">                    <span class="keyword">try</span>&#123;</span><br><span class="line">                        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> arrayQueue.headQueue();</span><br><span class="line">                        System.out.printf(<span class="string">&quot;队列头的数据是%d\n&quot;</span>,res);</span><br><span class="line">                    &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span><span class="string">&#x27;e&#x27;</span>:</span><br><span class="line">                    scanner.close();</span><br><span class="line">                    loop = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;退出&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul></li>
 </ul>
 <h2 id="运行结果图">运行结果图</h2>
 <ul>
-<li>
-<p>addQueue（）方法</p>
-<p><img src="/2024/08/19/arrayCircularQueue/arrayCircularQueue%5Ca.png" alt></p>
-</li>
-<li>
-<p>getQueue（）方法</p>
-<p><img src="/2024/08/19/arrayCircularQueue/arrayCircularQueue%5Cg.png" alt></p>
-</li>
-<li>
-<p>showQueue（）方法</p>
-<p><img src="/2024/08/19/arrayCircularQueue/arrayCircularQueue%5Cs.png" alt></p>
-</li>
-<li>
-<p>headQueue（）方法</p>
-<p><img src="/2024/08/19/arrayCircularQueue/arrayCircularQueue%5Ch.png" alt></p>
-</li>
+<li><p>addQueue（）方法</p>
+<p><img src="/2024/08/19/arrayCircularQueue/a.png"></p></li>
+<li><p>getQueue（）方法</p>
+<p><img src="/2024/08/19/arrayCircularQueue/g.png"></p></li>
+<li><p>showQueue（）方法</p>
+<p><img src="/2024/08/19/arrayCircularQueue/s.png"></p></li>
+<li><p>headQueue（）方法</p>
+<p><img src="/2024/08/19/arrayCircularQueue/h.png"></p></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
       <tags>
         <tag>数据结构</tag>
+        <tag>数组</tag>
+        <tag>队列</tag>
       </tags>
   </entry>
   <entry>
     <title>链表模拟栈</title>
     <url>/2024/10/08/linkdist-stack/</url>
-    <content><![CDATA[<h1>链表模拟栈</h1>
+    <content><![CDATA[<h1 id="链表模拟栈">链表模拟栈</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li>
-<p>数据结构——链表模拟栈</p>
-</li>
-<li>
-<p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
-<span id="more"></span>
-</li>
+<li><p>数据结构——链表模拟栈</p></li>
+<li><p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
+<span id="more"></span></li>
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
-<li>
-<p>定义一个<strong>HeroNode</strong>类，每一个<strong>HeroNode</strong>对象就是一个节点</p>
+<li><p>定义一个<strong>HeroNode</strong>类，每一个<strong>HeroNode</strong>对象就是一个节点</p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HeroNode</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> no;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> value;</span><br><span class="line">    <span class="keyword">public</span> HeroNode next;<span class="comment">//指向下个节点</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HeroNode</span><span class="params">(<span class="type">int</span> no, <span class="type">int</span> value)</span> {</span><br><span class="line">        <span class="built_in">this</span>.no = no;</span><br><span class="line">        <span class="built_in">this</span>.value = value;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为了显示方便，重写toString方法</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"HeroNode{"</span> +</span><br><span class="line">                <span class="string">"no="</span> + no +</span><br><span class="line">                <span class="string">", value="</span> + value +</span><br><span class="line">                <span class="string">'}'</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>链表模拟栈<strong>Linkdist_stack</strong>类</p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HeroNode</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> no;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> value;</span><br><span class="line">    <span class="keyword">public</span> HeroNode next;<span class="comment">//指向下个节点</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HeroNode</span><span class="params">(<span class="type">int</span> no, <span class="type">int</span> value)</span> {</span><br><span class="line">        <span class="built_in">this</span>.no = no;</span><br><span class="line">        <span class="built_in">this</span>.value = value;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为了显示方便，重写toString方法</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"HeroNode{"</span> +</span><br><span class="line">                <span class="string">"no="</span> + no +</span><br><span class="line">                <span class="string">", value="</span> + value +</span><br><span class="line">                <span class="string">'}'</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>链表模拟栈<strong>Linkdist_stack</strong>类</p>
 <ul>
-<li>
-<p>初始化一个头节点<strong>head</strong>，不存放数据</p>
+<li><p>初始化一个头节点<strong>head</strong>，不存放数据</p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">HeroNode</span> <span class="variable">head</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HeroNode</span>(-<span class="number">1</span>,<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>top</strong>为栈顶指针，初始化为**-1**</p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">HeroNode</span> <span class="variable">head</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HeroNode</span>(-<span class="number">1</span>,<span class="number">0</span>);</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p><strong>top</strong>为栈顶指针，初始化为<strong>-1</strong></p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="variable">top</span> <span class="operator">=</span>-<span class="number">1</span>;<span class="comment">//栈顶指针</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>maxLength</strong>为栈的最大容量</p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="variable">top</span> <span class="operator">=</span>-<span class="number">1</span>;<span class="comment">//栈顶指针</span></span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p><strong>maxLength</strong>为栈的最大容量</p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> maxLength;<span class="comment">//定义最大长度</span></span><br><span class="line"><span class="comment">//设置栈最大容量</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Linkdist_stack</span><span class="params">(<span class="type">int</span> maxLength)</span> {</span><br><span class="line">    <span class="built_in">this</span>.maxLength = maxLength;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>判断栈是否为空<strong>isEmpty</strong></p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> maxLength;<span class="comment">//定义最大长度</span></span><br><span class="line"><span class="comment">//设置栈最大容量</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Linkdist_stack</span><span class="params">(<span class="type">int</span> maxLength)</span> {</span><br><span class="line">    <span class="built_in">this</span>.maxLength = maxLength;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>判断栈是否为空<strong>isEmpty</strong></p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>{</span><br><span class="line">   <span class="keyword">return</span> top == -<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>判断栈是否满<strong>isFull</strong></p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>{</span><br><span class="line">   <span class="keyword">return</span> top == -<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>判断栈是否满<strong>isFull</strong></p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isFull</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> top&gt;=maxLength-<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>使用倒插法入栈<strong>push</strong></p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isFull</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> top&gt;=maxLength-<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>使用倒插法入栈<strong>push</strong></p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> value)</span>{<span class="comment">//为新节点传入新值</span></span><br><span class="line"></span><br><span class="line">     <span class="type">HeroNode</span> <span class="variable">heroNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HeroNode</span>(top,value);</span><br><span class="line">     <span class="keyword">if</span> (isFull()){</span><br><span class="line">         System.out.println(<span class="string">"栈满"</span>);</span><br><span class="line">         <span class="keyword">return</span>;</span><br><span class="line">     }</span><br><span class="line">     top++;</span><br><span class="line">     <span class="keyword">if</span>(head.next==<span class="literal">null</span>){<span class="comment">//说明没有新节点，可以直接添加</span></span><br><span class="line">         head.next = heroNode;</span><br><span class="line">     }<span class="keyword">else</span>{</span><br><span class="line">         heroNode.next = head.next;</span><br><span class="line">         head.next = heroNode;</span><br><span class="line">     }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>出栈<strong>pop</strong></p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> value)</span>{<span class="comment">//为新节点传入新值</span></span><br><span class="line"></span><br><span class="line">     <span class="type">HeroNode</span> <span class="variable">heroNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HeroNode</span>(top,value);</span><br><span class="line">     <span class="keyword">if</span> (isFull()){</span><br><span class="line">         System.out.println(<span class="string">"栈满"</span>);</span><br><span class="line">         <span class="keyword">return</span>;</span><br><span class="line">     }</span><br><span class="line">     top++;</span><br><span class="line">     <span class="keyword">if</span>(head.next==<span class="literal">null</span>){<span class="comment">//说明没有新节点，可以直接添加</span></span><br><span class="line">         head.next = heroNode;</span><br><span class="line">     }<span class="keyword">else</span>{</span><br><span class="line">         heroNode.next = head.next;</span><br><span class="line">         head.next = heroNode;</span><br><span class="line">     }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>出栈<strong>pop</strong></p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pop</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">if</span> (isEmpty()) {</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">"栈空，没有数据"</span>);</span><br><span class="line">    }</span><br><span class="line">   <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> head.next.value;</span><br><span class="line">    head.next = head.next.next;</span><br><span class="line">    top--;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>显示<strong>show</strong></p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pop</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">if</span> (isEmpty()) {</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">"栈空，没有数据"</span>);</span><br><span class="line">    }</span><br><span class="line">   <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> head.next.value;</span><br><span class="line">    head.next = head.next.next;</span><br><span class="line">    top--;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>显示<strong>show</strong></p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">if</span> (isEmpty()){</span><br><span class="line">        System.out.println(<span class="string">"栈空没有数据"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="type">HeroNode</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">        System.out.println(temp);</span><br><span class="line">        <span class="keyword">if</span> (temp.next==<span class="literal">null</span>){</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        temp=temp.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>测试类 <strong>linkdist_stackDemo</strong></p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">if</span> (isEmpty()){</span><br><span class="line">        System.out.println(<span class="string">"栈空没有数据"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="type">HeroNode</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">        System.out.println(temp);</span><br><span class="line">        <span class="keyword">if</span> (temp.next==<span class="literal">null</span>){</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        temp=temp.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+</ul></li>
+<li><p>测试类 <strong>linkdist_stackDemo</strong></p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">linkdist_stackDemo</span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line"><span class="comment">//测试一下LinkedListStack是否正确</span></span><br><span class="line">        <span class="comment">//先创建一个LinkedListStack对象表示栈</span></span><br><span class="line">        <span class="type">Linkdist_stack</span> <span class="variable">stack</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Linkdist_stack</span>(<span class="number">3</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">""</span>;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;<span class="comment">//控制是否退出菜单</span></span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"show:表示显示栈"</span>);</span><br><span class="line">        System.out.println(<span class="string">"exit:表示退出程序"</span>);</span><br><span class="line">        System.out.println(<span class="string">"push:表示添加数据到栈"</span>);</span><br><span class="line">        System.out.println(<span class="string">"pop:表示从栈中取出数据"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (loop) {</span><br><span class="line">            System.out.print(<span class="string">"\n请输入你的选择:"</span>);</span><br><span class="line">            key = scanner.next();</span><br><span class="line">            <span class="keyword">switch</span> (key) {</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"show"</span>:</span><br><span class="line">                    stack.show();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"push"</span>:</span><br><span class="line">                    System.out.print(<span class="string">"请输入一个数:"</span>);</span><br><span class="line">                    <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">                    stack.push(value);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"pop"</span>:</span><br><span class="line">                    <span class="keyword">try</span> {</span><br><span class="line">                        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> stack.pop();</span><br><span class="line">                        System.out.println(<span class="string">"出栈的数据是："</span> + res);</span><br><span class="line">                    } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"exit"</span>:</span><br><span class="line">                    scanner.close();</span><br><span class="line">                    loop = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">linkdist_stackDemo</span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line"><span class="comment">//测试一下LinkedListStack是否正确</span></span><br><span class="line">        <span class="comment">//先创建一个LinkedListStack对象表示栈</span></span><br><span class="line">        <span class="type">Linkdist_stack</span> <span class="variable">stack</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Linkdist_stack</span>(<span class="number">3</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">""</span>;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;<span class="comment">//控制是否退出菜单</span></span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"show:表示显示栈"</span>);</span><br><span class="line">        System.out.println(<span class="string">"exit:表示退出程序"</span>);</span><br><span class="line">        System.out.println(<span class="string">"push:表示添加数据到栈"</span>);</span><br><span class="line">        System.out.println(<span class="string">"pop:表示从栈中取出数据"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (loop) {</span><br><span class="line">            System.out.print(<span class="string">"\n请输入你的选择:"</span>);</span><br><span class="line">            key = scanner.next();</span><br><span class="line">            <span class="keyword">switch</span> (key) {</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"show"</span>:</span><br><span class="line">                    stack.show();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"push"</span>:</span><br><span class="line">                    System.out.print(<span class="string">"请输入一个数:"</span>);</span><br><span class="line">                    <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">                    stack.push(value);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"pop"</span>:</span><br><span class="line">                    <span class="keyword">try</span> {</span><br><span class="line">                        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> stack.pop();</span><br><span class="line">                        System.out.println(<span class="string">"出栈的数据是："</span> + res);</span><br><span class="line">                    } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"exit"</span>:</span><br><span class="line">                    scanner.close();</span><br><span class="line">                    loop = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    }</span><br></pre></td></tr></table></figure></li>
+</ul></li>
 </ul>
 <h2 id="本章重点">本章重点</h2>
 <ul>
-<li>
-<p>单链表的倒插法的算法</p>
+<li><p>单链表的倒插法的算法</p>
 <ul>
-<li>
-<p>图解倒插法</p>
-</li>
-<li>
-<p>算法：</p>
+<li><p>图解倒插法</p></li>
+<li><p>算法：</p>
 <ul>
-<li><strong>heroNode.next = head.next;</strong><br>
-<strong>head.next = heroNode;</strong></li>
+<li><strong>heroNode.next = head.next;</strong> <strong>head.next =
+heroNode;</strong></li>
 </ul>
-<p><img src="/2024/10/08/linkdist-stack/D:%5Cseeya-ch.github.io%5Csource_posts%5Clinkdist-stack%5C%E5%80%92%E6%8F%92%E6%B3%95%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt></p>
-</li>
-</ul>
-</li>
+<p><img src="/2024/10/08/linkdist-stack/seeya-ch.github.io\source_posts\linkdist-stack\倒插法示意图.png"></p></li>
+</ul></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
       <tags>
         <tag>数据结构</tag>
       </tags>
@@ -1201,47 +1062,35 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
   <entry>
     <title>双向链表</title>
     <url>/2024/09/08/doubleLinkedList/</url>
-    <content><![CDATA[<h1>双向链表</h1>
+    <content><![CDATA[<h1 id="双向链表">双向链表</h1>
 <h2 id="双向链表的增删查改">双向链表的增删查改</h2>
 <h2 id="背景">背景</h2>
 <ul>
-<li>
-<p>数据结构——双向链表</p>
-</li>
-<li>
-<p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
-<span id="more"></span>
-</li>
+<li><p>数据结构——双向链表</p></li>
+<li><p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
+<span id="more"></span></li>
 </ul>
 <h2 id="概念">概念</h2>
 <ul>
-<li>
-<p>双向链表遍历方法与单向链表相同，不过双向链表可以向前和向后查找</p>
-</li>
-<li>
-<p>添加，默认添加到最后</p>
+<li><p>双向链表遍历方法与单向链表相同，不过双向链表可以向前和向后查找</p></li>
+<li><p>添加，默认添加到最后</p>
 <ul>
 <li>先找到双向链表的最后节点</li>
 <li><strong>temp.next = newHeroNode</strong></li>
 <li><strong>newHeroNode.pre = temp</strong></li>
-</ul>
-</li>
-<li>
-<p>修改，与单链表相同</p>
-</li>
-<li>
-<p>删除</p>
+</ul></li>
+<li><p>修改，与单链表相同</p></li>
+<li><p>删除</p>
 <ul>
 <li>双向链表可以自我删除</li>
 <li>直接找到要删除的节点temp</li>
 <li><strong>temp.pre.next = temp.next</strong></li>
 <li><strong>temp.next.pre = temp.pre</strong></li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <h2 id="问题">问题</h2>
 <ul>
-<li>使用双向链表实现–水浒传排行榜管理</li>
+<li>使用双向链表实现--水浒传排行榜管理</li>
 </ul>
 <h2 id="步骤">步骤</h2>
 <ul>
@@ -1249,58 +1098,40 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
 </ul>
 <h3 id="代码实现">代码实现</h3>
 <ul>
-<li>
-<p>修改单链表中HeroNode类</p>
+<li><p>修改单链表中HeroNode类</p>
 <ul>
-<li>
-<p>增加pre变量指向链表中上一个节点</p>
-</li>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HeroNode2</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> no;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> String nickname;</span><br><span class="line">    <span class="keyword">public</span> HeroNode2 next;<span class="comment">//指向下个节点，默认为null</span></span><br><span class="line">    <span class="keyword">public</span> HeroNode2 pre;<span class="comment">//指向上个节点，默认为null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HeroNode2</span><span class="params">(<span class="type">int</span> no, String name, String nickname)</span> {</span><br><span class="line">        <span class="built_in">this</span>.no = no;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.nickname = nickname;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为了显示方便，重写toString方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"HeroNode{"</span> +</span><br><span class="line">                <span class="string">"no="</span> + no +</span><br><span class="line">                <span class="string">", name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", nickname='"</span> + nickname + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'}'</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>遍历</p>
+<li><p>增加pre变量指向链表中上一个节点</p></li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HeroNode2</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> no;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> String nickname;</span><br><span class="line">    <span class="keyword">public</span> HeroNode2 next;<span class="comment">//指向下个节点，默认为null</span></span><br><span class="line">    <span class="keyword">public</span> HeroNode2 pre;<span class="comment">//指向上个节点，默认为null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HeroNode2</span><span class="params">(<span class="type">int</span> no, String name, String nickname)</span> {</span><br><span class="line">        <span class="built_in">this</span>.no = no;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.nickname = nickname;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为了显示方便，重写toString方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"HeroNode{"</span> +</span><br><span class="line">                <span class="string">"no="</span> + no +</span><br><span class="line">                <span class="string">", name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", nickname='"</span> + nickname + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'}'</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>遍历</p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//遍历双向链表，与单链表一样</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">list</span><span class="params">()</span> {</span><br><span class="line">    <span class="comment">//判断链表是否为空</span></span><br><span class="line">    <span class="keyword">if</span> (head.next == <span class="literal">null</span>) {</span><br><span class="line">        System.out.println(<span class="string">"链表为空"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//因为头节点不能动，所以需要辅助变量遍历</span></span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="comment">//判断链表是否最后</span></span><br><span class="line">        <span class="keyword">if</span> (temp == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//输出节点的信息</span></span><br><span class="line">        System.out.println(temp);</span><br><span class="line">        <span class="comment">//将节点后移</span></span><br><span class="line">        temp = temp.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>添加</p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//遍历双向链表，与单链表一样</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">list</span><span class="params">()</span> {</span><br><span class="line">    <span class="comment">//判断链表是否为空</span></span><br><span class="line">    <span class="keyword">if</span> (head.next == <span class="literal">null</span>) {</span><br><span class="line">        System.out.println(<span class="string">"链表为空"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//因为头节点不能动，所以需要辅助变量遍历</span></span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="comment">//判断链表是否最后</span></span><br><span class="line">        <span class="keyword">if</span> (temp == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//输出节点的信息</span></span><br><span class="line">        System.out.println(temp);</span><br><span class="line">        <span class="comment">//将节点后移</span></span><br><span class="line">        temp = temp.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>添加</p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(HeroNode2 heroNode)</span> {</span><br><span class="line">    <span class="comment">//当不考虑编号顺序时</span></span><br><span class="line">    <span class="comment">//先找到当前链表的最后节点</span></span><br><span class="line">    <span class="comment">//将最后节点next指向新的节点</span></span><br><span class="line">    <span class="comment">//因为head头节点不能动，所以需要辅助遍历temp</span></span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="comment">//遍历链表找到最后</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="comment">//代表找到链表的最后</span></span><br><span class="line">        <span class="keyword">if</span> (temp.next == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//找不到就将temp后移，直至找到退出循环</span></span><br><span class="line">        temp = temp.next;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//当退出循环时，temp指向链表的最后</span></span><br><span class="line">    <span class="comment">//形成双向链表</span></span><br><span class="line">    temp.next = heroNode;</span><br><span class="line">    heroNode.pre = temp;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>修改</p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(HeroNode2 heroNode)</span> {</span><br><span class="line">    <span class="comment">//当不考虑编号顺序时</span></span><br><span class="line">    <span class="comment">//先找到当前链表的最后节点</span></span><br><span class="line">    <span class="comment">//将最后节点next指向新的节点</span></span><br><span class="line">    <span class="comment">//因为head头节点不能动，所以需要辅助遍历temp</span></span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="comment">//遍历链表找到最后</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="comment">//代表找到链表的最后</span></span><br><span class="line">        <span class="keyword">if</span> (temp.next == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//找不到就将temp后移，直至找到退出循环</span></span><br><span class="line">        temp = temp.next;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//当退出循环时，temp指向链表的最后</span></span><br><span class="line">    <span class="comment">//形成双向链表</span></span><br><span class="line">    temp.next = heroNode;</span><br><span class="line">    heroNode.pre = temp;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>修改</p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//修改双向链表节点</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">upadate</span><span class="params">(HeroNode2 newHeroNode)</span> {</span><br><span class="line">    <span class="comment">//判断链表是否为空</span></span><br><span class="line">    <span class="keyword">if</span> (head.next == <span class="literal">null</span>) {</span><br><span class="line">        System.out.println(<span class="string">"链表为空"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//找到需要修改的节点，根据no编号</span></span><br><span class="line">    <span class="comment">//定义一个辅助变量temp</span></span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;<span class="comment">//表示是否找到该节点</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (temp == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">break</span>;<span class="comment">//已经遍历完链表了</span></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (temp.no == newHeroNode.no) {</span><br><span class="line">            flag = <span class="literal">true</span>;<span class="comment">//找到</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        temp = temp.next;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 根据flag判断是否找到要修改的节点</span></span><br><span class="line">    <span class="keyword">if</span> (flag) {</span><br><span class="line">        temp.name = newHeroNode.name;</span><br><span class="line">        temp.nickname = newHeroNode.nickname;</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="comment">//没有找到</span></span><br><span class="line">        System.out.println(<span class="string">"没有找到"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>删除</p>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//修改双向链表节点</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">upadate</span><span class="params">(HeroNode2 newHeroNode)</span> {</span><br><span class="line">    <span class="comment">//判断链表是否为空</span></span><br><span class="line">    <span class="keyword">if</span> (head.next == <span class="literal">null</span>) {</span><br><span class="line">        System.out.println(<span class="string">"链表为空"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//找到需要修改的节点，根据no编号</span></span><br><span class="line">    <span class="comment">//定义一个辅助变量temp</span></span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;<span class="comment">//表示是否找到该节点</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (temp == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">break</span>;<span class="comment">//已经遍历完链表了</span></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (temp.no == newHeroNode.no) {</span><br><span class="line">            flag = <span class="literal">true</span>;<span class="comment">//找到</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        temp = temp.next;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 根据flag判断是否找到要修改的节点</span></span><br><span class="line">    <span class="keyword">if</span> (flag) {</span><br><span class="line">        temp.name = newHeroNode.name;</span><br><span class="line">        temp.nickname = newHeroNode.nickname;</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="comment">//没有找到</span></span><br><span class="line">        System.out.println(<span class="string">"没有找到"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>删除</p>
 <ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//从双向链表删除节点</span></span><br><span class="line"><span class="comment">//双向链表可以自我删除</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">del</span><span class="params">(<span class="type">int</span> no)</span>{</span><br><span class="line">    <span class="comment">//判断当前链表是否为空</span></span><br><span class="line">    <span class="keyword">if</span>(head.next == <span class="literal">null</span>){{</span><br><span class="line">        System.out.println(<span class="string">"链表为空，不能删除"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;<span class="comment">//辅助变量直接指向要删除的节点</span></span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;<span class="comment">//判断是否找到要删除节点的标志</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">        <span class="keyword">if</span>(temp == <span class="literal">null</span>){</span><br><span class="line">            <span class="keyword">break</span>;<span class="comment">//到了链表最后</span></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span>(temp.no == no){<span class="comment">//找到要删除的节点</span></span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        temp = temp.next;<span class="comment">//后移</span></span><br><span class="line">    }<span class="keyword">if</span>(flag){<span class="comment">//找到执行</span></span><br><span class="line">            temp.pre.next = temp.next;</span><br><span class="line">            <span class="keyword">if</span> (temp.next != <span class="literal">null</span>) {</span><br><span class="line">                temp.next.pre = temp.pre;<span class="comment">//存在风险，如果是最后一个节点，不需要执行这段代码，否则会出现空指针异常</span></span><br><span class="line">            }</span><br><span class="line">            }</span><br><span class="line">        }<span class="keyword">else</span>{<span class="comment">//没有找到执行</span></span><br><span class="line">            System.out.printf(<span class="string">"要删除的节点%d不存在\n"</span>,no);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//从双向链表删除节点</span></span><br><span class="line"><span class="comment">//双向链表可以自我删除</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">del</span><span class="params">(<span class="type">int</span> no)</span>{</span><br><span class="line">    <span class="comment">//判断当前链表是否为空</span></span><br><span class="line">    <span class="keyword">if</span>(head.next == <span class="literal">null</span>){{</span><br><span class="line">        System.out.println(<span class="string">"链表为空，不能删除"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;<span class="comment">//辅助变量直接指向要删除的节点</span></span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;<span class="comment">//判断是否找到要删除节点的标志</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">        <span class="keyword">if</span>(temp == <span class="literal">null</span>){</span><br><span class="line">            <span class="keyword">break</span>;<span class="comment">//到了链表最后</span></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span>(temp.no == no){<span class="comment">//找到要删除的节点</span></span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        temp = temp.next;<span class="comment">//后移</span></span><br><span class="line">    }<span class="keyword">if</span>(flag){<span class="comment">//找到执行</span></span><br><span class="line">            temp.pre.next = temp.next;</span><br><span class="line">            <span class="keyword">if</span> (temp.next != <span class="literal">null</span>) {</span><br><span class="line">                temp.next.pre = temp.pre;<span class="comment">//存在风险，如果是最后一个节点，不需要执行这段代码，否则会出现空指针异常</span></span><br><span class="line">            }</span><br><span class="line">            }</span><br><span class="line">        }<span class="keyword">else</span>{<span class="comment">//没有找到执行</span></span><br><span class="line">            System.out.printf(<span class="string">"要删除的节点%d不存在\n"</span>,no);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">    }</span><br></pre></td></tr></table></figure></li>
+</ul></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
       <tags>
         <tag>数据结构</tag>
+        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
