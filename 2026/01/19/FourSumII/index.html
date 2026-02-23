@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="算法-四数相加 背景  算法--四数相加 博主以代码随想录算法公开课进行学习">
+    <meta name="description" content="算法-四数相加 背景   算法–四数相加   博主以代码随想录算法公开课进行学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="四数相加">
 <meta property="og:url" content="http://seeya-ch.github.io/2026/01/19/FourSumII/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="算法-四数相加 背景  算法--四数相加 博主以代码随想录算法公开课进行学习">
+<meta property="og:description" content="算法-四数相加 背景   算法–四数相加   博主以代码随想录算法公开课进行学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-01-19T07:34:23.000Z">
 <meta property="article:modified_time" content="2026-01-20T09:33:37.131Z">
@@ -251,7 +251,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95-%E5%9B%9B%E6%95%B0%E7%9B%B8%E5%8A%A0"><span class="nav-number">1.</span> <span class="nav-text">算法-四数相加</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">算法-四数相加</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -270,12 +270,12 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -350,20 +350,22 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="算法-四数相加">算法-四数相加</h1>
+    <div class="post-body" itemprop="articleBody"><h1>算法-四数相加</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li><p>算法--四数相加</p></li>
-<li><p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span></li>
+<li>
+<p>算法–四数相加</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
 </ul>
 <h2 id="题目">题目</h2>
 <ul>
-<li><p>给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j,
-k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
-<p>为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500
-。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1
-。</p>
+<li>
+<p>给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j, k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
+<p>为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500 。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1 。</p>
 <p><strong>例如:</strong></p>
 <p>输入:</p>
 <ul>
@@ -376,12 +378,11 @@ k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
 <p>2</p>
 <p><strong>解释:</strong></p>
 <p>两个元组如下:</p>
-<ol type="1">
-<li>(0, 0, 0, 1) -&gt; A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 =
-0</li>
-<li>(1, 1, 0, 0) -&gt; A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 =
-0</li>
-</ol></li>
+<ol>
+<li>(0, 0, 0, 1) -&gt; A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0</li>
+<li>(1, 1, 0, 0) -&gt; A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0</li>
+</ol>
+</li>
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
@@ -393,21 +394,16 @@ k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fourSumCount</span><span class="params">(<span class="type">int</span>[] nums1, <span class="type">int</span>[] nums2, <span class="type">int</span>[] nums3, <span class="type">int</span>[] nums4)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Integer,Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums1){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums2){</span><br><span class="line">                <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> i + j;</span><br><span class="line">                map.put(sum,map.getOrDefault(sum,<span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums3){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums4){</span><br><span class="line">                r += map.getOrDefault(<span class="number">0</span> - i - j,<span class="number">0</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <h2 id="总结">总结</h2>
 <ul>
-<li><code>getOrDefault</code> 核心作用：<strong>简化 Map 中 “获取值 +
-处理键不存在” 的逻辑</strong>，避免手动判断 <code>containsKey</code>。
+<li><code>getOrDefault</code> 核心作用：<strong>简化 Map 中 “获取值 + 处理键不存在” 的逻辑</strong>，避免手动判断 <code>containsKey</code>。
 <ul>
-<li>尝试从 <code>Map</code> 中获取指定 <code>key</code> 对应的
-<code>value</code>；</li>
-<li>如果 <code>key</code> <strong>存在</strong>，返回对应的
-<code>value</code>；</li>
-<li>如果 <code>key</code> <strong>不存在</strong>，返回你指定的
-<code>defaultValue</code>（默认值）。</li>
-</ul></li>
-<li>语法规则：<code>map.getOrDefault(键, 默认值)</code>，返回值类型和
-“默认值” 类型一致（比如键是 Integer，默认值也得是 Integer）。</li>
+<li>尝试从 <code>Map</code> 中获取指定 <code>key</code> 对应的 <code>value</code>；</li>
+<li>如果 <code>key</code> <strong>存在</strong>，返回对应的 <code>value</code>；</li>
+<li>如果 <code>key</code> <strong>不存在</strong>，返回你指定的 <code>defaultValue</code>（默认值）。</li>
+</ul>
+</li>
+<li>语法规则：<code>map.getOrDefault(键, 默认值)</code>，返回值类型和 “默认值” 类型一致（比如键是 Integer，默认值也得是 Integer）。</li>
 <li>典型场景：计数统计（如四数相加的次数统计）、避免空值（NPE）、默认值兜底等。</li>
-<li>关键逻辑：利用 <code>a + b + c + d = 0</code> 等价于
-<code>a + b = -(c + d)</code>，通过哈希表快速匹配目标值。</li>
+<li>关键逻辑：利用 <code>a + b + c + d = 0</code> 等价于 <code>a + b = -(c + d)</code>，通过哈希表快速匹配目标值。</li>
 </ul>
 
     </div>
