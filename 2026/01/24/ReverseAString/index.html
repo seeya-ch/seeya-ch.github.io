@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="算法-反转字符串 背景   算法–反转字符串   博主以代码随想录算法公开课进行学习">
+    <meta name="description" content="算法-反转字符串 背景  算法--反转字符串 博主以代码随想录算法公开课进行学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="反转字符串">
 <meta property="og:url" content="http://seeya-ch.github.io/2026/01/24/ReverseAString/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="算法-反转字符串 背景   算法–反转字符串   博主以代码随想录算法公开课进行学习">
+<meta property="og:description" content="算法-反转字符串 背景  算法--反转字符串 博主以代码随想录算法公开课进行学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-01-24T07:25:23.000Z">
 <meta property="article:modified_time" content="2026-02-25T07:40:23.668Z">
@@ -253,7 +253,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">算法-反转字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.</span> <span class="nav-text">算法-反转字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -361,30 +361,23 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1>算法-反转字符串</h1>
+    <div class="post-body" itemprop="articleBody"><h1 id="算法-反转字符串">算法-反转字符串</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li>
-<p>算法–反转字符串</p>
-</li>
-<li>
-<p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span>
-</li>
+<li><p>算法--反转字符串</p></li>
+<li><p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span></li>
 </ul>
 <h2 id="题目">题目</h2>
 <ul>
-<li>
-<p>编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。</p>
-<p>不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。</p>
+<li><p>编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组
+char[] 的形式给出。</p>
+<p>不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1)
+的额外空间解决这一问题。</p>
 <p>你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。</p>
-<p>示例 1：<br>
-输入：[“h”,“e”,“l”,“l”,“o”]<br>
-输出：[“o”,“l”,“l”,“e”,“h”]</p>
-<p>示例 2：<br>
-输入：[“H”,“a”,“n”,“n”,“a”,“h”]<br>
-输出：[“h”,“a”,“n”,“n”,“a”,“H”]</p>
-</li>
+<p>示例 1： 输入：["h","e","l","l","o"] 输出：["o","l","l","e","h"]</p>
+<p>示例 2： 输入：["H","a","n","n","a","h"]
+输出：["h","a","n","n","a","H"]</p></li>
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
