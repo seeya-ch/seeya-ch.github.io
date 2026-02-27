@@ -1,173 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>四数相加</title>
-    <url>/2026/01/19/FourSumII/</url>
-    <content><![CDATA[<h1>算法-四数相加</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li>
-<p>算法–四数相加</p>
-</li>
-<li>
-<p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span>
-</li>
-</ul>
-<h2 id="题目">题目</h2>
-<ul>
-<li>
-<p>给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j, k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
-<p>为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500 。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1 。</p>
-<p><strong>例如:</strong></p>
-<p>输入:</p>
-<ul>
-<li>A = [ 1, 2]</li>
-<li>B = [-2,-1]</li>
-<li>C = [-1, 2]</li>
-<li>D = [ 0, 2]</li>
-</ul>
-<p>输出:</p>
-<p>2</p>
-<p><strong>解释:</strong></p>
-<p>两个元组如下:</p>
-<ol>
-<li>(0, 0, 0, 1) -&gt; A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0</li>
-<li>(1, 1, 0, 0) -&gt; A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0</li>
-</ol>
-</li>
-</ul>
-<h2 id="思路">思路</h2>
-<ul>
-<li>定义一个哈希map，key放a和b俩数之和，value放a和b俩数和出现的次数</li>
-<li>遍历A、B数组，统计两数和和出现次数</li>
-<li>再遍历C、D数组、找到0-（c+d）在map中出现，count+value（value即出现的次数）</li>
-</ul>
-<h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fourSumCount</span><span class="params">(<span class="type">int</span>[] nums1, <span class="type">int</span>[] nums2, <span class="type">int</span>[] nums3, <span class="type">int</span>[] nums4)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Integer,Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums1){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums2){</span><br><span class="line">                <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> i + j;</span><br><span class="line">                map.put(sum,map.getOrDefault(sum,<span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums3){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums4){</span><br><span class="line">                r += map.getOrDefault(<span class="number">0</span> - i - j,<span class="number">0</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="总结">总结</h2>
-<ul>
-<li><code>getOrDefault</code> 核心作用：<strong>简化 Map 中 “获取值 + 处理键不存在” 的逻辑</strong>，避免手动判断 <code>containsKey</code>。
-<ul>
-<li>尝试从 <code>Map</code> 中获取指定 <code>key</code> 对应的 <code>value</code>；</li>
-<li>如果 <code>key</code> <strong>存在</strong>，返回对应的 <code>value</code>；</li>
-<li>如果 <code>key</code> <strong>不存在</strong>，返回你指定的 <code>defaultValue</code>（默认值）。</li>
-</ul>
-</li>
-<li>语法规则：<code>map.getOrDefault(键, 默认值)</code>，返回值类型和 “默认值” 类型一致（比如键是 Integer，默认值也得是 Integer）。</li>
-<li>典型场景：计数统计（如四数相加的次数统计）、避免空值（NPE）、默认值兜底等。</li>
-<li>关键逻辑：利用 <code>a + b + c + d = 0</code> 等价于 <code>a + b = -(c + d)</code>，通过哈希表快速匹配目标值。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>哈希</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>赎金信</title>
-    <url>/2026/01/21/RansomNote/</url>
-    <content><![CDATA[<h1>算法-赎金信</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li>
-<p>算法–赎金信</p>
-</li>
-<li>
-<p>博主以[代码随想录](<a href="https://programmercarl.com/0383.%E8%B5%8E%E9%87%91%E4%BF%A1.html#%E6%80%9D%E8%B7%AF">383. 赎金信 | 代码随想录</a>)算法公开课进行学习</p>
-<span id="more"></span>
-</li>
-</ul>
-<h2 id="题目">题目</h2>
-<ul>
-<li>
-<p>给定一个赎金信 (ransom) 字符串和一个杂志(magazine)字符串，判断第一个字符串 ransom 能不能由第二个字符串 magazines 里面的字符构成。如果可以构成，返回 true ；否则返回 false。</p>
-<p>(题目说明：为了不暴露赎金信字迹，要从杂志上搜索各个需要的字母，组成单词来表达意思。杂志字符串中的每个字符只能在赎金信字符串中使用一次。)</p>
-<p><strong>注意：</strong></p>
-<p>你可以假设两个字符串均只含有小写字母。</p>
-<p>canConstruct(“a”, “b”) -&gt; false<br>
-canConstruct(“aa”, “ab”) -&gt; false<br>
-canConstruct(“aa”, “aab”) -&gt; true</p>
-</li>
-</ul>
-<h2 id="思路">思路</h2>
-<ul>
-<li>暴力枚举：俩层for循环</li>
-<li>哈希数组：使用哈希数组，先定义一个哈希数组int[26]，遍历magazine字符串，在对应的下标增1，再遍历ransomNote字符串，在对应的数组下标减1，如果出现负数，表示false</li>
-</ul>
-<h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canConstruct</span><span class="params">(String ransomNote, String magazine)</span> {</span><br><span class="line">        <span class="keyword">if</span>(ransomNote.length() &gt; magazine.length()){</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="type">int</span>[] record = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">char</span> c : magazine.toCharArray()){</span><br><span class="line">            record[c - <span class="string">'a'</span>] += <span class="number">1</span>; <span class="comment">//即对应的下标加一</span></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">char</span> c : ransomNote.toCharArray()){</span><br><span class="line">            record[c - <span class="string">'a'</span>] -= <span class="number">1</span>;  <span class="comment">//即对应的下标减一</span></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : record){</span><br><span class="line">            <span class="keyword">if</span>(i &lt; <span class="number">0</span>){</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="总结">总结</h2>
-<ul>
-<li>
-<p>核心思路：<strong>用数组代替哈希表统计字符频次</strong>（仅小写字母场景），先统计 <code>magazine</code> 的字符数，再扣除 <code>ransomNote</code> 所需字符数，最后检查是否有字符不足。</p>
-</li>
-<li>
-<p>关键转换：<code>c - 'a'</code> 将字符映射到数组下标，是处理小写字母计数的经典技巧。</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>哈希数组</tag>
-        <tag>暴力</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>反转字符串</title>
-    <url>/2026/01/24/ReverseAString/</url>
-    <content><![CDATA[<h1>算法-反转字符串</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li>
-<p>算法–反转字符串</p>
-</li>
-<li>
-<p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span>
-</li>
-</ul>
-<h2 id="题目">题目</h2>
-<ul>
-<li>
-<p>编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。</p>
-<p>不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。</p>
-<p>你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。</p>
-<p>示例 1：<br>
-输入：[“h”,“e”,“l”,“l”,“o”]<br>
-输出：[“o”,“l”,“l”,“e”,“h”]</p>
-<p>示例 2：<br>
-输入：[“H”,“a”,“n”,“n”,“a”,“h”]<br>
-输出：[“h”,“a”,“n”,“n”,“a”,“H”]</p>
-</li>
-</ul>
-<h2 id="思路">思路</h2>
-<ul>
-<li>采用双指针法</li>
-</ul>
-<h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reverseString</span><span class="params">(<span class="type">char</span>[] s)</span> {</span><br><span class="line">        <span class="comment">// 左指针：初始指向数组头部</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 右指针：初始指向数组尾部</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> s.length - <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 两指针未相遇时循环交换</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) {</span><br><span class="line">            <span class="comment">// 临时变量存储左指针值，避免覆盖</span></span><br><span class="line">            <span class="type">char</span> <span class="variable">t</span> <span class="operator">=</span> s[l];</span><br><span class="line">            <span class="comment">// 交换左右指针对应的值</span></span><br><span class="line">            s[l] = s[r];</span><br><span class="line">            s[r] = t;</span><br><span class="line">            <span class="comment">// 左指针右移</span></span><br><span class="line">            l++;</span><br><span class="line">            <span class="comment">// 右指针左移</span></span><br><span class="line">            r--;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="总结">总结</h2>
-<ul>
-<li>还可以使用位运算</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>字符串</tag>
-        <tag>反转</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数组队列</title>
     <url>/2024/08/19/ArrayQueue/</url>
     <content><![CDATA[<h1>数组队列</h1>
@@ -324,6 +157,635 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       </tags>
   </entry>
   <entry>
+    <title>逆波兰表达式求值</title>
+    <url>/2026/01/29/EvaluateAReversePolishNotationExpression/</url>
+    <content><![CDATA[<h1>算法-逆波兰表达式求值</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–逆波兰表达式求值</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>根据 逆波兰表示法，求表达式的值。</p>
+<p>有效的运算符包括 + , - , * , / 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。</p>
+<p>说明：</p>
+<p>整数除法只保留整数部分。 给定逆波兰表达式总是有效的。换句话说，表达式总会得出有效数值且不存在除数为 0 的情况。</p>
+<p>示例 1：</p>
+<ul>
+<li>输入: [“2”, “1”, “+”, “3”, " * "]</li>
+<li>输出: 9</li>
+<li>解释: 该算式转化为常见的中缀算术表达式为：((2 + 1) * 3) = 9</li>
+</ul>
+<p>示例 2：</p>
+<ul>
+<li>输入: [“4”, “13”, “5”, “/”, “+”]</li>
+<li>输出: 6</li>
+<li>解释: 该算式转化为常见的中缀算术表达式为：(4 + (13 / 5)) = 6</li>
+</ul>
+<p>示例 3：</p>
+<ul>
+<li>
+<p>输入: [“10”, “6”, “9”, “3”, “+”, “-11”, " * ", “/”, " * ", “17”, “+”, “5”, “+”]</p>
+</li>
+<li>
+<p>输出: 22</p>
+</li>
+<li>
+<p>解释:该算式转化为常见的中缀算术表达式为：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">((10 * (6 / ((9 + 3) * -11))) + 17) + 5       </span><br><span class="line">= ((10 * (6 / (12 * -11))) + 17) + 5       </span><br><span class="line">= ((10 * (6 / -132)) + 17) + 5     </span><br><span class="line">= ((10 * 0) + 17) + 5     </span><br><span class="line">= (0 + 17) + 5    </span><br><span class="line">= 17 + 5    </span><br><span class="line">= 22    </span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>逆波兰表达式：是一种后缀表达式，所谓后缀就是指运算符写在后面。</p>
+<p>平常使用的算式则是一种中缀表达式，如 ( 1 + 2 ) * ( 3 + 4 ) 。</p>
+<p>该算式的逆波兰表达式写法为 ( ( 1 2 + ) ( 3 4 + ) * ) 。</p>
+<p>逆波兰表达式主要有以下两个优点：</p>
+<ul>
+<li>去掉括号后表达式无歧义，上式即便写成 1 2 + 3 4 + * 也可以依据次序计算出正确结果。</li>
+<li>适合用栈操作运算：遇到数字则入栈；遇到运算符则取出栈顶两个数字进行计算，并将结果压入栈中</li>
+</ul>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li><strong>核心逻辑：<strong>逆波兰表达式（后缀表达式）的计算天然适配</strong>栈的「后进先出」特性</strong>—— 数字入栈，运算符取出栈顶两个数字计算，结果重新入栈，最终栈中仅剩一个元素（表达式结果）；</li>
+<li><strong>具体步骤：</strong>
+<ul>
+<li>初始化栈，遍历逆波兰表达式的每个元素：
+<ul>
+<li>若为数字 → 转为整数压入栈；</li>
+<li>若为运算符 → 取出栈顶两个数字（注意顺序：后弹出的是「被操作数」，先弹出的是「操作数」），执行运算后将结果压入栈；</li>
+</ul>
+</li>
+<li>遍历结束后，栈中唯一元素即为表达式的计算结果。</li>
+</ul>
+</li>
+<li><strong>关键注意事项：</strong>
+<ul>
+<li>减法：栈顶第一个数是减数，第二个数是被减数 → 计算 <code>被减数 - 减数</code>；</li>
+<li>除法：栈顶第一个数是除数，第二个数是被除数 → 计算 <code>被除数 / 除数</code>；</li>
+<li>整数除法：题目要求保留整数部分，Java 中整数除法会自动向下取整（符合题目要求）。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">evalRPN</span><span class="params">(String[] tokens)</span> {</span><br><span class="line">        <span class="comment">// 用Deque模拟栈（推荐LinkedList/ArrayDeque，效率高于Stack）</span></span><br><span class="line">        Deque&lt;Integer&gt; stack = <span class="keyword">new</span> <span class="title class_">LinkedList</span>();</span><br><span class="line">        <span class="comment">// 遍历逆波兰表达式的每个元素</span></span><br><span class="line">        <span class="keyword">for</span>(String s : tokens){</span><br><span class="line">            <span class="comment">// 加法：取出栈顶两个数，求和后压入</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="string">"+"</span>.equals(s)){</span><br><span class="line">                stack.push(stack.pop()+stack.pop());</span><br><span class="line">            }<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">"-"</span>.equals(s)){</span><br><span class="line">                stack.push(-stack.pop() + stack.pop());</span><br><span class="line">            }<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">"*"</span>.equals(s)){</span><br><span class="line">                stack.push(stack.pop() * stack.pop());</span><br><span class="line">            }<span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"/"</span>.equals(s)){</span><br><span class="line">               <span class="type">int</span> <span class="variable">temp1</span> <span class="operator">=</span> stack.pop(); <span class="comment">// 除数</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">temp2</span> <span class="operator">=</span> stack.pop();<span class="comment">// 被除数</span></span><br><span class="line">                stack.push(temp2 / temp1);</span><br><span class="line">            }<span class="keyword">else</span>{</span><br><span class="line">                stack.push(Integer.valueOf(s));</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> stack.pop();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li><strong>核心知识点：</strong>
+<ul>
+<li>**栈的经典应用：**逆波兰表达式的计算是栈的「标志性场景」—— 运算符作用于「最近的两个数字」，栈顶正好是最近入栈的数字，完美适配；</li>
+<li>**运算顺序是关键：**减法 / 除法必须注意「被操作数和操作数的顺序」（先弹出的是操作数，后弹出的是被操作数），这是面试最高频的坑；</li>
+<li>**效率优势：**逆波兰表达式无需处理括号和运算符优先级，仅需一次遍历（O (n)）即可完成计算，是编译器处理表达式的核心思路。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>栈</tag>
+        <tag>逆波兰表达式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>四数相加</title>
+    <url>/2026/01/19/FourSumII/</url>
+    <content><![CDATA[<h1>算法-四数相加</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–四数相加</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j, k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</p>
+<p>为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500 。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1 。</p>
+<p><strong>例如:</strong></p>
+<p>输入:</p>
+<ul>
+<li>A = [ 1, 2]</li>
+<li>B = [-2,-1]</li>
+<li>C = [-1, 2]</li>
+<li>D = [ 0, 2]</li>
+</ul>
+<p>输出:</p>
+<p>2</p>
+<p><strong>解释:</strong></p>
+<p>两个元组如下:</p>
+<ol>
+<li>(0, 0, 0, 1) -&gt; A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0</li>
+<li>(1, 1, 0, 0) -&gt; A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0</li>
+</ol>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>定义一个哈希map，key放a和b俩数之和，value放a和b俩数和出现的次数</li>
+<li>遍历A、B数组，统计两数和和出现次数</li>
+<li>再遍历C、D数组、找到0-（c+d）在map中出现，count+value（value即出现的次数）</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fourSumCount</span><span class="params">(<span class="type">int</span>[] nums1, <span class="type">int</span>[] nums2, <span class="type">int</span>[] nums3, <span class="type">int</span>[] nums4)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Integer,Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums1){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums2){</span><br><span class="line">                <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> i + j;</span><br><span class="line">                map.put(sum,map.getOrDefault(sum,<span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : nums3){</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j : nums4){</span><br><span class="line">                r += map.getOrDefault(<span class="number">0</span> - i - j,<span class="number">0</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li><code>getOrDefault</code> 核心作用：<strong>简化 Map 中 “获取值 + 处理键不存在” 的逻辑</strong>，避免手动判断 <code>containsKey</code>。
+<ul>
+<li>尝试从 <code>Map</code> 中获取指定 <code>key</code> 对应的 <code>value</code>；</li>
+<li>如果 <code>key</code> <strong>存在</strong>，返回对应的 <code>value</code>；</li>
+<li>如果 <code>key</code> <strong>不存在</strong>，返回你指定的 <code>defaultValue</code>（默认值）。</li>
+</ul>
+</li>
+<li>语法规则：<code>map.getOrDefault(键, 默认值)</code>，返回值类型和 “默认值” 类型一致（比如键是 Integer，默认值也得是 Integer）。</li>
+<li>典型场景：计数统计（如四数相加的次数统计）、避免空值（NPE）、默认值兜底等。</li>
+<li>关键逻辑：利用 <code>a + b + c + d = 0</code> 等价于 <code>a + b = -(c + d)</code>，通过哈希表快速匹配目标值。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>哈希</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用栈实现队列</title>
+    <url>/2026/01/27/ImplementAQueueUsingStacks/</url>
+    <content><![CDATA[<h1>算法-用栈实现队列</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–用栈实现队列</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>使用栈实现队列的下列操作：</p>
+<p>push(x) – 将一个元素放入队列的尾部。<br>
+pop() – 从队列首部移除元素。<br>
+peek() – 返回队列首部的元素。<br>
+empty() – 返回队列是否为空。</p>
+<p>示例:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">MyQueue queue = <span class="keyword">new</span> <span class="built_in">MyQueue</span>();</span><br><span class="line">queue.<span class="built_in">push</span>(<span class="number">1</span>);</span><br><span class="line">queue.<span class="built_in">push</span>(<span class="number">2</span>);</span><br><span class="line">queue.<span class="built_in">peek</span>();  <span class="comment">// 返回 1</span></span><br><span class="line">queue.<span class="built_in">pop</span>();   <span class="comment">// 返回 1</span></span><br><span class="line">queue.<span class="built_in">empty</span>(); <span class="comment">// 返回 false</span></span><br></pre></td></tr></table></figure>
+<p>说明:</p>
+<ul>
+<li>你只能使用标准的栈操作 – 也就是只有 push to top, peek/pop from top, size, 和 is empty 操作是合法的。</li>
+<li>你所使用的语言也许不支持栈。你可以使用 list 或者 deque（双端队列）来模拟一个栈，只要是标准的栈操作即可。</li>
+<li>假设所有操作都是有效的 （例如，一个空的队列不会调用 pop 或者 peek 操作）</li>
+</ul>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>
+<p><strong>核心矛盾</strong>：栈是「后进先出（LIFO）」，队列是「先进先出（FIFO）」，单个栈无法实现队列，需用<strong>两个栈（输入栈 + 输出栈）</strong> 配合；</p>
+</li>
+<li>
+<p><strong>输入栈（stackIn）</strong>：专门处理 <code>push</code> 操作，所有新元素先压入输入栈；</p>
+</li>
+<li>
+<p><strong>输出栈（stackOut）</strong>：专门处理 <code>pop/peek</code> 操作，当输出栈为空时，将输入栈的所有元素「倒序」压入输出栈（此时输出栈的栈顶就是队列的队首）；</p>
+</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyQueue</span> {</span><br><span class="line">    <span class="comment">// 输入栈：仅用于push操作，存储待倒序的元素</span></span><br><span class="line">    Stack&lt;Integer&gt; stackIn;</span><br><span class="line">    <span class="comment">// 输出栈：仅用于pop/peek操作，存储已倒序的元素（栈顶=队首）</span></span><br><span class="line">    Stack&lt;Integer&gt; stackOut;</span><br><span class="line">    <span class="comment">// 初始化两个栈</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyQueue</span><span class="params">()</span> {</span><br><span class="line">        stackIn = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;&gt;();</span><br><span class="line">        stackOut = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;&gt;();</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 入队：直接压入输入栈</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> x)</span> {</span><br><span class="line">        stackIn.push(x);</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 出队：先倒腾元素到输出栈，再弹出输出栈栈顶</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pop</span><span class="params">()</span> {</span><br><span class="line">        <span class="comment">// 核心：输出栈为空时，才将输入栈元素倒压入输出栈</span></span><br><span class="line">        dumpstackIn();</span><br><span class="line">        <span class="keyword">return</span> stackOut.pop();</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 查看队首：逻辑同pop，仅不弹出元素</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">peek</span><span class="params">()</span> {</span><br><span class="line">        dumpstackIn();</span><br><span class="line">        <span class="keyword">return</span> stackOut.peek();</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 判断队列是否为空：两个栈都为空时，队列才为空</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">empty</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> stackIn.isEmpty() &amp;&amp; stackOut.isEmpty();</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//将输入栈元素倒压入输出栈（仅当输出栈为空时执行）</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">dumpstackIn</span><span class="params">()</span>{</span><br><span class="line">        <span class="comment">// 输出栈非空时，直接返回</span></span><br><span class="line">        <span class="keyword">if</span>(!stackOut.isEmpty()){</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 输入栈元素依次弹出，压入输出栈</span></span><br><span class="line">        <span class="keyword">while</span>(!stackIn.isEmpty()){</span><br><span class="line">            stackOut.push(stackIn.pop());</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li>面试中需掌握「双栈→队列」和「双队列→栈」的双向转换思路，以及时间复杂度分析。</li>
+<li>面试可能考点：
+<ul>
+<li>为什么需要两个栈？
+<ul>
+<li>核心原因：<strong>栈是「后进先出（LIFO）」，队列是「先进先出（FIFO）」，单个栈无法扭转元素的顺序</strong>。</li>
+<li>简单说：<strong>一个栈负责「进」，一个栈负责「出」，两个栈配合完成「先进先出」的转换</strong>。</li>
+</ul>
+</li>
+<li>倒腾元素的时机？（核心优化点）
+<ul>
+<li>倒腾时机：<strong>仅当输出栈为空时，才把输入栈的所有元素倒腾到输出栈</strong>（「懒加载」策略）。</li>
+</ul>
+</li>
+<li>拓展问题：如何用队列实现栈？（反向思路）
+<ul>
+<li>栈是「后进先出」，队列是「先进先出」，核心思路：<strong>用两个队列，每次入队后倒腾 n-1 个元素，让「最后入队的元素」留在队列头（模拟栈顶）</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>队列</tag>
+        <tag>算法</tag>
+        <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用队列实现栈</title>
+    <url>/2026/01/28/ImplementAStackUsingAQueue/</url>
+    <content><![CDATA[<h1>算法-用队列实现栈</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–用队列实现栈</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>使用队列实现栈的下列操作：</p>
+<ul>
+<li>push(x) – 元素 x 入栈</li>
+<li>pop() – 移除栈顶元素</li>
+<li>top() – 获取栈顶元素</li>
+<li>empty() – 返回栈是否为空</li>
+</ul>
+<p>注意:</p>
+<ul>
+<li>你只能使用队列的基本操作-- 也就是 push to back, peek/pop from front, size, 和 is empty 这些操作是合法的。</li>
+<li>你所使用的语言也许不支持队列。 你可以使用 list 或者 deque（双端队列）来模拟一个队列 , 只要是标准的队列操作即可。</li>
+<li>你可以假设所有操作都是有效的（例如, 对一个空的栈不会调用 pop 或者 top 操作）</li>
+</ul>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li><strong>核心矛盾</strong>：队列是「先进先出（FIFO）」，栈是「后进先出（LIFO）」，需通过「队列元素倒腾」让「最后入队的元素」留在队首（模拟栈顶）；</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyStack</span> {</span><br><span class="line">    Queue&lt;Integer&gt; queue;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyStack</span><span class="params">()</span> {</span><br><span class="line">       queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();  </span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> x)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> queue.size();  <span class="comment">// 记录入队前的元素个数</span></span><br><span class="line">        queue.offer(x);</span><br><span class="line">         <span class="comment">// 把前面size个旧元素逐个出队，再入队到队尾，新元素留在队首（栈顶）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;size;i++){</span><br><span class="line">            queue.offer(queue.poll());</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pop</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> queue.poll();</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">top</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> queue.peek();</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">empty</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> queue.isEmpty();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li><strong>面试可能考点</strong>：
+<ul>
+<li>单队列 vs 双队列实现对比：
+<ul>
+<li>双队列：入队 O (1)，出队 O (n)（倒腾 n-1 个元素）；</li>
+<li>单队列：入队 O (n)，出队 O (1)；</li>
+<li>本质：都是「空间换时间」，总时间复杂度一致，单队列代码更简洁；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>队列</tag>
+        <tag>算法</tag>
+        <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>实现strStr()</title>
+    <url>/2026/01/27/ImplementstrStr()/</url>
+    <content><![CDATA[<h1>算法-实现strStr()</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–实现strStr()</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>实现 strStr() 函数。</p>
+<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回 -1。</p>
+<p>示例 1: 输入: haystack = “hello”, needle = “ll” 输出: 2</p>
+<p>示例 2: 输入: haystack = “aaaaa”, needle = “bba” 输出: -1</p>
+<p>说明: 当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。 对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li><strong>strStr () 的本质是「字符串匹配」</strong>：在<code>haystack</code>（主串）中找<code>needle</code>（模式串）的第一个出现位置。</li>
+<li><strong>前缀表（next 数组）</strong>：记录模式串<code>needle</code>中每个位置的「最长相等前后缀长度」，目的是当匹配失败时，模式串不用从头匹配，而是回退到最长相等前缀的位置，减少重复匹配。
+<ul>
+<li>前缀：不包含最后一个字符的所有以第一个字符开头的子串（比如<code>"abc"</code>的前缀是<code>"a"</code>、<code>"ab"</code>）；</li>
+<li>后缀：不包含第一个字符的所有以最后一个字符结尾的子串（比如<code>"abc"</code>的后缀是<code>"c"</code>、<code>"bc"</code>）；</li>
+</ul>
+</li>
+<li><strong>匹配过程</strong>：
+<ul>
+<li>用两个指针<code>i</code>（主串指针）、<code>j</code>（模式串指针）遍历；</li>
+<li>当<code>haystack[i] == needle[j]</code>时，两个指针同时后移；</li>
+<li>当匹配失败时，<code>j</code>根据 next 数组回退（<code>j = next[j-1]</code>），而<code>i</code>不回退；</li>
+<li>当<code>j == needle.length()</code>时，说明匹配成功，返回起始位置<code>i - needle.length() + 1</code>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">strStr</span><span class="params">(String haystack, String needle)</span> {</span><br><span class="line">        <span class="comment">// 1. 处理边界：模式串为空，直接返回0（题目要求）</span></span><br><span class="line">        <span class="keyword">if</span>(needle.length() == <span class="number">0</span>){</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        }</span><br><span class="line">         <span class="comment">// 2. 构建next数组（前缀表），长度等于模式串长度</span></span><br><span class="line">        <span class="type">int</span>[] next = <span class="keyword">new</span> <span class="title class_">int</span>[needle.length()];</span><br><span class="line">        getNext(next,needle);</span><br><span class="line">        </span><br><span class="line">        <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>;<span class="comment">// 模式串指针，初始为0</span></span><br><span class="line">         <span class="comment">// 3. 遍历主串（i是主串指针）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; haystack.length();i++){</span><br><span class="line">         <span class="comment">// 3.1 匹配失败：j回退（直到j=0或匹配成功）</span></span><br><span class="line">            <span class="keyword">while</span>(j &gt; <span class="number">0</span> &amp;&amp; needle.charAt(j) != haystack.charAt(i)){</span><br><span class="line">                j = next[j-<span class="number">1</span>];<span class="comment">// 核心：根据前缀表回退，避免暴力回退</span></span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// 3.2 匹配成功：j后移</span></span><br><span class="line">            <span class="keyword">if</span>(needle.charAt(j) ==  haystack.charAt(i)){</span><br><span class="line">                j++;</span><br><span class="line">            }</span><br><span class="line">             <span class="comment">// 3.3 完全匹配：返回起始位置</span></span><br><span class="line">            <span class="keyword">if</span>(j == needle.length()){</span><br><span class="line">                <span class="keyword">return</span> i - needle.length() + <span class="number">1</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 构建next数组（前缀表）的核心方法</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">getNext</span><span class="params">(<span class="type">int</span>[] next,String needle)</span>{</span><br><span class="line">        <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>;<span class="comment">// j表示最长相等前后缀的长度，也指向前缀的末尾</span></span><br><span class="line">        next[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; needle.length(); i++){</span><br><span class="line">             <span class="comment">// 前后缀不相等时，j回退到上一个前缀表的位置，直到相等或j=0</span></span><br><span class="line">            <span class="keyword">while</span>(j &gt; <span class="number">0</span>&amp;&amp;needle.charAt(j) != needle.charAt(i)){</span><br><span class="line">                j = next[j - <span class="number">1</span>];</span><br><span class="line">            }</span><br><span class="line">           <span class="comment">// 前后缀相等，j后移（最长相等前后缀长度+1）</span></span><br><span class="line">            <span class="keyword">if</span>(needle.charAt(j) == needle.charAt(i)){</span><br><span class="line">                j++;</span><br><span class="line">            }</span><br><span class="line">             <span class="comment">// 记录当前位置的前缀表值</span></span><br><span class="line">            next[i] = j;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li>KMP 算法的核心价值
+<ul>
+<li>解决「字符串匹配」问题，避免暴力匹配的重复遍历，时间复杂度从 O (n*m) 优化到 O (n+m)；</li>
+<li>前缀表（next 数组）是 KMP 的灵魂，作用是「记录模式串每个位置的最长相等前后缀长度，匹配失败时指导模式串指针回退」。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>KMP</tag>
+        <tag>next数组</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>滑动窗口最大值</title>
+    <url>/2026/01/29/MaximumOfSlidingWindow/</url>
+    <content><![CDATA[<h1>算法-滑动窗口最大值</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–滑动窗口最大值</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>给定一个数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。</p>
+<p>返回滑动窗口中的最大值。</p>
+<p>进阶：</p>
+<p>你能在线性时间复杂度内解决此题吗？</p>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li><strong>核心逻辑：<strong>滑动窗口求最大值的核心是</strong>用「单调递减队列」维护窗口内的最大值候选</strong>： - 单调递减队列特性：队列中元素从队首到队尾依次递减，队首始终是当前窗口的最大值； - 核心优势：避免暴力遍历窗口（O(nk)），通过队列维护候选值，每个元素仅入队/出队一次，时间复杂度优化至O(n)。</li>
+<li><strong>具体步骤：</strong>
+<ul>
+<li><strong>自定义单调队列</strong>（核心工具）：
+<ul>
+<li><code>poll(val)</code>：移除窗口左侧滑出的元素——仅当该元素是队首（当前最大值）时，才从队首弹出；</li>
+<li><code>add(val)</code>：添加窗口右侧新元素——循环剔除队尾所有比当前val小的元素（这些元素不可能成为后续窗口的最大值），再将val加入队尾，保证队列单调递减；</li>
+<li><code>peek()</code>：获取当前窗口的最大值（队首元素）。</li>
+</ul>
+</li>
+<li><strong>滑动窗口执行流程</strong>：
+<ul>
+<li>初始化：将前k个元素加入单调队列，记录第一个窗口的最大值；</li>
+<li>滑动遍历：从第k个元素开始，依次执行「移除窗口左侧元素→添加窗口右侧元素→记录当前窗口最大值」；</li>
+<li>最终返回所有窗口的最大值数组。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] maxSlidingWindow(<span class="type">int</span>[] nums, <span class="type">int</span> k) {</span><br><span class="line">        <span class="keyword">if</span>(nums.length == <span class="number">1</span>){</span><br><span class="line">            <span class="keyword">return</span> nums;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 结果数组长度 = 窗口数量</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> nums.length - k + <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span>[] res = <span class="keyword">new</span> <span class="title class_">int</span>[len];</span><br><span class="line">        <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">MyQueue</span> <span class="variable">myQueue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyQueue</span>();</span><br><span class="line">          <span class="comment">// 第一步：初始化前k个元素到队列中</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; k; i++){</span><br><span class="line">            myQueue.add(nums[i]);</span><br><span class="line">        }</span><br><span class="line">         <span class="comment">// 记录第一个窗口的最大值</span></span><br><span class="line">          res[num++] = myQueue.peek();</span><br><span class="line">           <span class="comment">// 第二步：滑动窗口遍历（从第k个元素开始）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> k;i &lt; nums.length;i++){</span><br><span class="line">                <span class="comment">// 1. 移除窗口左侧滑出的元素（nums[i-k]是当前窗口要删掉的最左元素）</span></span><br><span class="line">            myQueue.poll(nums[i-k]);</span><br><span class="line">              <span class="comment">// 2. 添加窗口右侧新进入的元素（nums[i]是当前窗口要加的最右元素）</span></span><br><span class="line">            myQueue.add(nums[i]);</span><br><span class="line">             <span class="comment">// 3. 记录当前窗口的最大值</span></span><br><span class="line">            res[num++] = myQueue.peek();</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyQueue</span>{</span><br><span class="line">     <span class="comment">// 底层用LinkedList实现双端队列，存储的是数组的值（而非下标）</span></span><br><span class="line">    Deque&lt;Integer&gt; deque = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">// 方法1：弹出窗口左侧移除的元素（仅当该元素是队列的队首时才弹出）</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">poll</span><span class="params">(<span class="type">int</span> val)</span>{</span><br><span class="line">        <span class="comment">// 只有当队列非空，且要移除的val正好是队首（当前最大值）时，才弹出队首</span></span><br><span class="line">        <span class="comment">// 若val不是队首，说明它早已被add方法剔除，无需处理</span></span><br><span class="line">        <span class="keyword">if</span>(!deque.isEmpty()&amp;&amp;val == deque.peek()){</span><br><span class="line">            deque.poll();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">       <span class="comment">// 方法2：添加新元素到队列，维护单调递减性</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> val)</span>{</span><br><span class="line">        <span class="comment">// 循环剔除队尾所有比当前val小的元素</span></span><br><span class="line">        <span class="comment">// 因为这些元素在val的右侧，不可能成为后续窗口的最大值</span></span><br><span class="line">        <span class="keyword">while</span>(!deque.isEmpty()&amp;&amp;val&gt;deque.getLast()){</span><br><span class="line">            deque.removeLast();</span><br><span class="line">        }</span><br><span class="line">            <span class="comment">// 此时队尾元素 &gt;= val，加入后队列仍保持单调递减</span></span><br><span class="line">        deque.add(val);</span><br><span class="line">    }</span><br><span class="line">     <span class="comment">// 方法3：获取当前队列的最大值（即队首元素）</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">peek</span><span class="params">()</span>{</span><br><span class="line">        <span class="keyword">return</span> deque.peek();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li><strong>核心知识点:</strong>
+<ul>
+<li>单调队列的核心价值：滑动窗口问题中，通过「维护候选值的单调性」避免重复计算，将时间复杂度从暴力法的 O (nk) 优化至 O (n)；</li>
+<li>单调递减队列的设计逻辑：
+<ul>
+<li>队首：当前窗口的最大值；</li>
+<li>队中元素：后续窗口可能成为最大值的候选（按递减顺序排列）；</li>
+<li>剔除规则：新元素加入时，剔除所有比它小的队尾元素（这些元素无成为最大值的可能）</li>
+</ul>
+</li>
+<li>边界处理：数组长度为 1 时直接返回原数组，避免数组越界。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>赎金信</title>
+    <url>/2026/01/21/RansomNote/</url>
+    <content><![CDATA[<h1>算法-赎金信</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–赎金信</p>
+</li>
+<li>
+<p>博主以[代码随想录](<a href="https://programmercarl.com/0383.%E8%B5%8E%E9%87%91%E4%BF%A1.html#%E6%80%9D%E8%B7%AF">383. 赎金信 | 代码随想录</a>)算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>给定一个赎金信 (ransom) 字符串和一个杂志(magazine)字符串，判断第一个字符串 ransom 能不能由第二个字符串 magazines 里面的字符构成。如果可以构成，返回 true ；否则返回 false。</p>
+<p>(题目说明：为了不暴露赎金信字迹，要从杂志上搜索各个需要的字母，组成单词来表达意思。杂志字符串中的每个字符只能在赎金信字符串中使用一次。)</p>
+<p><strong>注意：</strong></p>
+<p>你可以假设两个字符串均只含有小写字母。</p>
+<p>canConstruct(“a”, “b”) -&gt; false<br>
+canConstruct(“aa”, “ab”) -&gt; false<br>
+canConstruct(“aa”, “aab”) -&gt; true</p>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>暴力枚举：俩层for循环</li>
+<li>哈希数组：使用哈希数组，先定义一个哈希数组int[26]，遍历magazine字符串，在对应的下标增1，再遍历ransomNote字符串，在对应的数组下标减1，如果出现负数，表示false</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canConstruct</span><span class="params">(String ransomNote, String magazine)</span> {</span><br><span class="line">        <span class="keyword">if</span>(ransomNote.length() &gt; magazine.length()){</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="type">int</span>[] record = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">char</span> c : magazine.toCharArray()){</span><br><span class="line">            record[c - <span class="string">'a'</span>] += <span class="number">1</span>; <span class="comment">//即对应的下标加一</span></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">char</span> c : ransomNote.toCharArray()){</span><br><span class="line">            record[c - <span class="string">'a'</span>] -= <span class="number">1</span>;  <span class="comment">//即对应的下标减一</span></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i : record){</span><br><span class="line">            <span class="keyword">if</span>(i &lt; <span class="number">0</span>){</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li>
+<p>核心思路：<strong>用数组代替哈希表统计字符频次</strong>（仅小写字母场景），先统计 <code>magazine</code> 的字符数，再扣除 <code>ransomNote</code> 所需字符数，最后检查是否有字符不足。</p>
+</li>
+<li>
+<p>关键转换：<code>c - 'a'</code> 将字符映射到数组下标，是处理小写字母计数的经典技巧。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>哈希数组</tag>
+        <tag>暴力</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>重复的子字符串</title>
+    <url>/2026/01/27/RepeatedSubstring/</url>
+    <content><![CDATA[<h1>算法-重复的子字符串</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–重复的子字符串</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>给定一个非空的字符串，判断它是否可以由它的一个子串重复多次构成。给定的字符串只含有小写英文字母，并且长度不超过10000。</p>
+<p>示例 1:</p>
+<ul>
+<li>输入: “abab”</li>
+<li>输出: True</li>
+<li>解释: 可由子字符串 “ab” 重复两次构成。</li>
+</ul>
+<p>示例 2:</p>
+<ul>
+<li>输入: “aba”</li>
+<li>输出: False</li>
+</ul>
+<p>示例 3:</p>
+<ul>
+<li>输入: “abcabcabcabc”</li>
+<li>输出: True</li>
+<li>解释: 可由子字符串 “abc” 重复四次构成。 (或者子字符串 “abcabc” 重复两次构成。)</li>
+</ul>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>
+<p>判断字符串<code>s</code>是否由某个子串重复多次构成，核心逻辑基于 KMP 的「最长相等前后缀」：</p>
+</li>
+<li>
+<p>设字符串长度为<code>len</code>，其前缀表（next 数组）的最后一个值为<code>next[len-1]</code>。</p>
+<p>如果满足两个条件：</p>
+<ul>
+<li><code>len % (len - next[len-1]) == 0</code>（字符串长度能被「长度 - 最长相等前后缀长度」整除）；</li>
+<li><code>next[len-1] != 0</code>（存在非空的最长相等前后缀）。则字符串<code>s</code>可以由子串<code>s[0 : len - next[len-1]]</code>重复构成。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">repeatedSubstringPattern</span><span class="params">(String s)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> s.length();</span><br><span class="line">        <span class="type">int</span>[] next = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        next[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;i &lt; n;i++){</span><br><span class="line">            <span class="keyword">while</span>(j &gt; <span class="number">0</span>&amp;&amp;s.charAt(j) != s.charAt(i)){</span><br><span class="line">                j = next[j - <span class="number">1</span>];</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(s.charAt(j) == s.charAt(i)){</span><br><span class="line">                j++;</span><br><span class="line">            }</span><br><span class="line">            next[i] = j;</span><br><span class="line">        }</span><br><span class="line">         <span class="comment">// 3. 核心判断：是否由重复子串构成</span></span><br><span class="line">        <span class="comment">// 条件1：next[n-1] &gt; 0 → 存在非空的最长相等前后缀</span></span><br><span class="line">        <span class="comment">// 条件2：n % (n - next[n-1]) == 0 → 总长度能被「非前后缀部分的长度」整除</span></span><br><span class="line">        <span class="keyword">if</span>(next[n - <span class="number">1</span>]&gt;<span class="number">0</span>&amp;&amp;n%(n-next[n-<span class="number">1</span>])==<span class="number">0</span>){</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        }<span class="keyword">else</span>{</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li>next 数组的核心作用：记录模式串每个位置的最长相等前后缀长度，避免暴力匹配的重复遍历；</li>
+<li>关键公式：最小重复子串长度 = 字符串总长度 - 最长相等前后缀长度，若总长度能被该值整除，则存在重复子串</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>KMP</tag>
+        <tag>next数组</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>删除字符串中的所有相邻重复项</title>
+    <url>/2026/01/29/RemoveAllAdjacentDuplicatesInAString/</url>
+    <content><![CDATA[<h1>算法-删除字符串中的所有相邻重复项</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–删除字符串中的所有相邻重复项</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。</p>
+<p>在 S 上反复执行重复项删除操作，直到无法继续删除。</p>
+<p>在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。</p>
+<p>示例：</p>
+<ul>
+<li>输入：“abbaca”</li>
+<li>输出：“ca”</li>
+<li>解释：例如，在 “abbaca” 中，我们可以删除 “bb” 由于两字母相邻且相同，这是此时唯一可以执行删除操作的重复项。之后我们得到字符串 “aaca”，其中又只有 “aa” 可以执行重复项删除操作，所以最后的字符串为 “ca”。</li>
+</ul>
+<p>提示：</p>
+<ul>
+<li>1 &lt;= S.length &lt;= 20000</li>
+<li>S 仅由小写英文字母组成</li>
+</ul>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li><strong>核心逻辑：<strong>利用</strong>栈的「后进先出」特性</strong>处理相邻重复项——遍历字符串时，用栈存储未重复的字符，当前字符与栈顶相同则弹出栈顶（删除重复项），不同则压入栈；</li>
+<li><strong>具体步骤：</strong>
+<ul>
+<li>初始化栈，遍历字符串每个字符：
+<ul>
+<li>若栈为空 或 当前字符 ≠ 栈顶字符 → 压入栈（无重复，保留字符）；</li>
+<li>若当前字符 = 栈顶字符 → 弹出栈顶（删除相邻重复项）；</li>
+</ul>
+</li>
+<li>遍历结束后，栈中剩余字符即为「无相邻重复的最终字符串」，按顺序拼接即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">removeDuplicates</span><span class="params">(String s)</span> {</span><br><span class="line">        <span class="comment">// 用ArrayDeque模拟栈（效率高于Stack）</span></span><br><span class="line">        ArrayDeque&lt;Character&gt; deque = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">        <span class="type">char</span> ch;</span><br><span class="line">         <span class="comment">// 遍历字符串每个字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt;s.length();i++){</span><br><span class="line">            ch = s.charAt(i);</span><br><span class="line">             <span class="comment">// 栈空 或 当前字符≠栈顶 → 压入栈</span></span><br><span class="line">            <span class="keyword">if</span>(deque.isEmpty()||deque.peek() != ch){</span><br><span class="line">                deque.push(ch);</span><br><span class="line">            }<span class="keyword">else</span>{</span><br><span class="line">                <span class="comment">// 当前字符=栈顶 → 弹出栈顶（删除重复项）</span></span><br><span class="line">                deque.pop();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">         <span class="comment">// 拼接栈中剩余字符（栈是倒序，需从栈底到栈顶拼接）</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">while</span>(!deque.isEmpty()){</span><br><span class="line">            <span class="comment">// 每次取栈顶拼接到字符串前面，保证顺序正确</span></span><br><span class="line">            str = deque.pop() + str;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li><strong>栈的经典应用</strong>：相邻重复项的删除符合「后进先出」逻辑 —— 最新遍历的字符需与「最近未重复的字符（栈顶）」匹配，栈天然适配这种场景；</li>
+<li><strong>效率优势</strong>：相比「暴力遍历 + 反复删除」（时间复杂度 O (n²)），栈解法仅需一次遍历（O (n)），是最优解；</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>栈</tag>
+        <tag>字符串</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>替换数字</title>
     <url>/2026/01/25/ReplaceNumbers/</url>
     <content><![CDATA[<h1>算法-替换数字</h1>
@@ -385,10 +847,58 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
         <category>算法</category>
       </categories>
       <tags>
-        <tag>字符串</tag>
         <tag>数据结构</tag>
+        <tag>字符串</tag>
         <tag>双指针</tag>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>反转字符串</title>
+    <url>/2026/01/24/ReverseAString/</url>
+    <content><![CDATA[<h1>算法-反转字符串</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–反转字符串</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。</p>
+<p>不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。</p>
+<p>你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。</p>
+<p>示例 1：<br>
+输入：[“h”,“e”,“l”,“l”,“o”]<br>
+输出：[“o”,“l”,“l”,“e”,“h”]</p>
+<p>示例 2：<br>
+输入：[“H”,“a”,“n”,“n”,“a”,“h”]<br>
+输出：[“h”,“a”,“n”,“n”,“a”,“H”]</p>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>采用双指针法</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reverseString</span><span class="params">(<span class="type">char</span>[] s)</span> {</span><br><span class="line">        <span class="comment">// 左指针：初始指向数组头部</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 右指针：初始指向数组尾部</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> s.length - <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 两指针未相遇时循环交换</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) {</span><br><span class="line">            <span class="comment">// 临时变量存储左指针值，避免覆盖</span></span><br><span class="line">            <span class="type">char</span> <span class="variable">t</span> <span class="operator">=</span> s[l];</span><br><span class="line">            <span class="comment">// 交换左右指针对应的值</span></span><br><span class="line">            s[l] = s[r];</span><br><span class="line">            s[r] = t;</span><br><span class="line">            <span class="comment">// 左指针右移</span></span><br><span class="line">            l++;</span><br><span class="line">            <span class="comment">// 右指针左移</span></span><br><span class="line">            r--;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li>还可以使用位运算</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>字符串</tag>
+        <tag>反转</tag>
       </tags>
   </entry>
   <entry>
@@ -498,8 +1008,8 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       <tags>
         <tag>算法</tag>
         <tag>字符串</tag>
-        <tag>反转</tag>
         <tag>双指针</tag>
+        <tag>反转</tag>
       </tags>
   </entry>
   <entry>
@@ -710,6 +1220,312 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       </tags>
   </entry>
   <entry>
+    <title>单向环形链表</title>
+    <url>/2024/09/17/Unidirectionalcircularlinkedlist/</url>
+    <content><![CDATA[<h1>单向环形链表</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>数据结构——单向链表</p>
+</li>
+<li>
+<p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="问题">问题</h2>
+<p>Josephu（约瑟夫，约瑟夫环）问题</p>
+<p>设编号1，2，3…n的n个人围坐一圈，约定编号为k（1&lt;=k&lt;=n）的人从1开始报数，数到m的那个人出列，它 的下一位又从1开始报数，数到m的那个人又出列，以此类推，直到所有人出列为止。</p>
+<h2 id="思路">思路</h2>
+<ul>
+<li>
+<p>构建一个单向环形链表的思路</p>
+<ul>
+<li>先创建第一个节点，让first指向该节点,并形成环形</li>
+<li>后面当我们每创建一个新的节点，就把该节点加入到已有的环形链表当中</li>
+</ul>
+</li>
+<li>
+<p>遍历环形链表</p>
+<ul>
+<li>先让一个辅助指针（变量）<strong>curboy</strong>，指向<strong>first</strong>节点</li>
+<li>然后通过一个while循环遍历该环形链表</li>
+<li><strong>curBoy.next == firs</strong>t遍历结束</li>
+</ul>
+</li>
+<li>
+<p>出圈</p>
+<ul>
+<li>
+<p>先创建一个辅助指针<strong>helper</strong>，先指向环形链表的最后节点</p>
+</li>
+<li>
+<p>小孩报数前，先让<strong>first</strong>和<strong>helper</strong>移动k-1次</p>
+</li>
+<li></li>
+<li>
+<p>这时就可以将<strong>first</strong>指向的小孩节点出圈</p>
+<ul>
+<li>
+<p><strong>first = first.next</strong></p>
+</li>
+<li>
+<p><strong>helper.next= first</strong></p>
+</li>
+<li>
+<p>原来的节点没有被引用，就会被回收</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="步骤">步骤</h2>
+<ul>
+<li>
+<p>创建一个Boy类，表示一个节点</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Boy</span>{</span><br><span class="line">    <span class="meta">@SuppressWarnings("all")</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> no;<span class="comment">//编号</span></span><br><span class="line">    <span class="keyword">private</span> Boy next;<span class="comment">//表示指向下个节点</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Boy</span><span class="params">(<span class="type">int</span> no)</span>{</span><br><span class="line">        <span class="built_in">this</span>.no=no;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getNo</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> no;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNo</span><span class="params">(<span class="type">int</span> no)</span> {</span><br><span class="line">        <span class="built_in">this</span>.no = no;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Boy <span class="title function_">getNext</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNext</span><span class="params">(Boy next)</span> {</span><br><span class="line">        <span class="built_in">this</span>.next = next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>创建一个单向环形链表CircleSingleLinkedList类</p>
+<ul>
+<li>
+<p>创建一个first节点，当前没有编号</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CircleSingleLinkedList</span>{</span><br><span class="line">    <span class="comment">//创建一个first节点，当前没有编号</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">Boy</span> <span class="variable">first</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Boy</span>(-<span class="number">1</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>添加小孩节点addBoy，构建一个环形链表</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addBoy</span><span class="params">(<span class="type">int</span> nums)</span>{</span><br><span class="line">    <span class="comment">//nums做一个数据校验</span></span><br><span class="line">    <span class="keyword">if</span>(nums&lt;<span class="number">1</span>){</span><br><span class="line">        System.out.println(<span class="string">"nums不正确"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="type">Boy</span> <span class="variable">curBoy</span> <span class="operator">=</span> <span class="literal">null</span>;<span class="comment">//辅助变量，帮助构建环形链表</span></span><br><span class="line">    <span class="comment">//使用for来创建我们的环形链表</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;i&lt;=nums;i++){</span><br><span class="line">        <span class="comment">//根据编号，创建小孩节点</span></span><br><span class="line">       <span class="type">Boy</span> <span class="variable">boy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Boy</span>(i);</span><br><span class="line">       <span class="comment">//如果是第一个小孩</span></span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">1</span>){</span><br><span class="line">            first =boy;</span><br><span class="line">            first.setNext(first);<span class="comment">//构成环</span></span><br><span class="line">            curBoy = first;<span class="comment">//让curBoy指向第一个小孩</span></span><br><span class="line">        }<span class="keyword">else</span>{</span><br><span class="line">              curBoy.setNext(boy);</span><br><span class="line">              boy.setNext(first);</span><br><span class="line">              curBoy = boy;</span><br><span class="line">    }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>遍历当前环形链表</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">showBoy</span><span class="params">()</span>{</span><br><span class="line">    <span class="comment">//判断链表是否为空</span></span><br><span class="line">        <span class="keyword">if</span>(first == <span class="literal">null</span>){</span><br><span class="line">            System.out.println(<span class="string">"没有任何小孩"</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">    <span class="comment">//因为first不能动，所以使用辅助指针</span></span><br><span class="line">    <span class="type">Boy</span> <span class="variable">curBoy</span> <span class="operator">=</span> first;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">            System.out.printf(<span class="string">"小孩的编号%d\n"</span>,curBoy.getNo());</span><br><span class="line">            <span class="keyword">if</span>(curBoy.getNext()==first){<span class="comment">//说明遍历完毕</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">            curBoy = curBoy.getNext();<span class="comment">//curBoy后移</span></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>根据用户输入，计算小孩出圈的顺序</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//根据用户输入，计算小孩出圈的顺序</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">countBoy</span><span class="params">(<span class="type">int</span> startNo,<span class="type">int</span> countNum,<span class="type">int</span> nums)</span>{</span><br><span class="line">     <span class="comment">//startNo表示从哪个小孩开始数</span></span><br><span class="line">     <span class="comment">//countNum表示数几下</span></span><br><span class="line">     <span class="comment">//nums表示最初有多少小孩在圈中</span></span><br><span class="line">     <span class="keyword">if</span>(first==<span class="literal">null</span>||startNo&lt;<span class="number">1</span>||startNo&gt;nums){</span><br><span class="line">         System.out.println(<span class="string">"参数输入有误，请重新输入"</span>);</span><br><span class="line">         <span class="keyword">return</span>;</span><br><span class="line">     }</span><br><span class="line">     <span class="comment">//创建辅助指针，帮助小孩出圈</span></span><br><span class="line">     <span class="type">Boy</span> <span class="variable">helper</span> <span class="operator">=</span> first;</span><br><span class="line">     <span class="comment">//应指向环形链表最后节点</span></span><br><span class="line">     <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">         <span class="keyword">if</span>(helper.getNext() == first){</span><br><span class="line">             <span class="comment">//说明helper指向最后小孩节点</span></span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">         }</span><br><span class="line">         helper = helper.getNext();</span><br><span class="line">     }</span><br><span class="line">     <span class="comment">//小孩报数前，先让first和helper移动k-1次</span></span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> j= <span class="number">0</span>;j&lt;startNo-<span class="number">1</span>;j++){</span><br><span class="line">         first = first.getNext();</span><br><span class="line">         helper = helper.getNext();</span><br><span class="line">     }</span><br><span class="line">     <span class="comment">//当小孩报数时，让first和helper指针同时移动m-1次,直到圈中只有一个人</span></span><br><span class="line">     <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">         <span class="keyword">if</span>(helper == first){<span class="comment">//说明圈中只有一个人</span></span><br><span class="line">         <span class="keyword">break</span>;</span><br><span class="line">         }</span><br><span class="line">         <span class="comment">//让first和helper指针同时移动countNum-1，然后出圈</span></span><br><span class="line">         <span class="keyword">for</span>(<span class="type">int</span> j= <span class="number">0</span>;j&lt;countNum-<span class="number">1</span>;j++){</span><br><span class="line">             first = first.getNext();</span><br><span class="line">             helper = helper.getNext();</span><br><span class="line">         }</span><br><span class="line">         <span class="comment">//这时first指向的节点就是小孩出圈的节点</span></span><br><span class="line">         System.out.printf(<span class="string">"小孩%d出圈\n"</span>,first.getNo());</span><br><span class="line">         <span class="comment">//这时将first指向小孩节点出圈</span></span><br><span class="line">         first = first.getNext();</span><br><span class="line">         helper.setNext(first);</span><br><span class="line">     }</span><br><span class="line">     System.out.printf(<span class="string">"最后留在圈中的小孩编号%d\n"</span>,first.getNo());</span><br><span class="line"> }</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前 K 个高频元素</title>
+    <url>/2026/01/30/TopKFrequentElements/</url>
+    <content><![CDATA[<h1>算法-前 K 个高频元素</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–前 K 个高频元素</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>给定一个非空的整数数组，返回其中出现频率前 k 高的元素。</p>
+<p>示例 1:</p>
+<ul>
+<li>输入: nums = [1,1,1,2,2,3], k = 2</li>
+<li>输出: [1,2]</li>
+</ul>
+<p>示例 2:</p>
+<ul>
+<li>输入: nums = [1], k = 1</li>
+<li>输出: [1]</li>
+</ul>
+<p>提示：</p>
+<ul>
+<li>你可以假设给定的 k 总是合理的，且 1 ≤ k ≤ 数组中不相同的元素的个数。</li>
+<li>你的算法的时间复杂度必须优于 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="9.847ex" height="2.262ex" role="img" focusable="false" viewbox="0 -750 4352.3 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"/></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"/></g><g data-mml-node="mi" transform="translate(1152,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mi" transform="translate(1918.7,0)"><path data-c="6C" d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z"/><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(278,0)"/><path data-c="67" d="M329 409Q373 453 429 453Q459 453 472 434T485 396Q485 382 476 371T449 360Q416 360 412 390Q410 404 415 411Q415 412 416 414V415Q388 412 363 393Q355 388 355 386Q355 385 359 381T368 369T379 351T388 325T392 292Q392 230 343 187T222 143Q172 143 123 171Q112 153 112 133Q112 98 138 81Q147 75 155 75T227 73Q311 72 335 67Q396 58 431 26Q470 -13 470 -72Q470 -139 392 -175Q332 -206 250 -206Q167 -206 107 -175Q29 -140 29 -75Q29 -39 50 -15T92 18L103 24Q67 55 67 108Q67 155 96 193Q52 237 52 292Q52 355 102 398T223 442Q274 442 318 416L329 409ZM299 343Q294 371 273 387T221 404Q192 404 171 388T145 343Q142 326 142 292Q142 248 149 227T179 192Q196 182 222 182Q244 182 260 189T283 207T294 227T299 242Q302 258 302 292T299 343ZM403 -75Q403 -50 389 -34T348 -11T299 -2T245 0H218Q151 0 138 -6Q118 -15 107 -34T95 -74Q95 -84 101 -97T122 -127T170 -155T250 -167Q319 -167 361 -139T403 -75Z" transform="translate(778,0)"/></g><g data-mml-node="mo" transform="translate(3196.7,0)"><path data-c="2061" d=""/></g><g data-mml-node="mi" transform="translate(3363.3,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"/></g><g data-mml-node="mo" transform="translate(3963.3,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"/></g></g></g></svg></mjx-container> , n 是数组的大小。</li>
+<li>题目数据保证答案唯一，换句话说，数组中前 k 个高频元素的集合是唯一的。</li>
+<li>你可以按任意顺序返回答案</li>
+</ul>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>**核心逻辑：**前K个高频元素的核心解法是「<strong>哈希表统计频率 + 小顶堆筛选高频元素</strong>」：
+<ul>
+<li>哈希表：统计每个元素的出现频率（O(n)）；</li>
+<li>小顶堆：维护当前「频率前k高」的元素，堆顶是这k个元素中频率最低的，遍历过程中仅保留高频元素，最终堆中即为结果（堆操作的时间复杂度为O(m log k)，m是不同元素的个数，m≤n）；</li>
+<li>优势：时间复杂度为O(n + m log k)，优于O(n log n)（直接排序的复杂度），满足题目进阶要求。</li>
+</ul>
+</li>
+<li><strong>具体步骤：</strong>
+<ul>
+<li><strong>统计频率</strong>：遍历数组，用HashMap记录每个元素的出现次数（键=元素，值=频率）；</li>
+<li><strong>小顶堆筛选</strong>：遍历HashMap中的键值对，维护大小为k的小顶堆：
+<ul>
+<li>堆大小 &lt; k：直接将「元素+频率」加入堆；</li>
+<li>堆大小 = k：若当前元素频率 &gt; 堆顶元素频率 → 弹出堆顶（频率最低的元素），加入当前元素；</li>
+</ul>
+</li>
+<li><strong>提取结果</strong>：小顶堆中存储的是频率前k高的元素，但弹出顺序是「频率低→高」，需倒序存入结果数组。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] topKFrequent(<span class="type">int</span>[] nums, <span class="type">int</span> k) {</span><br><span class="line">        Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> num : nums){</span><br><span class="line">            map.put(num,map.getOrDefault(num,<span class="number">0</span>)+<span class="number">1</span>);</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//定义小顶堆，比较逻辑是pair1[1]-pair2[1],即频率低的排在对头</span></span><br><span class="line">        PriorityQueue&lt;<span class="type">int</span>[]&gt; pq = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((pair1,pair2)-&gt; pair1[<span class="number">1</span>]-pair2[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span>(Map.Entry&lt;Integer,Integer&gt; entry : map.entrySet()){</span><br><span class="line">            <span class="keyword">if</span>(pq.size()&lt;k){  <span class="comment">// 堆大小不足k时，直接加入</span></span><br><span class="line">                pq.add(<span class="keyword">new</span> <span class="title class_">int</span>[] {entry.getKey(),entry.getValue()});</span><br><span class="line">            }<span class="keyword">else</span>{</span><br><span class="line">                  <span class="comment">// 当前元素频率 &gt; 堆顶元素频率（堆顶是当前k个元素中频率最低的）</span></span><br><span class="line">                <span class="keyword">if</span>(entry.getValue()&gt;pq.peek()[<span class="number">1</span>]){</span><br><span class="line">                    pq.poll();<span class="comment">// 弹出频率最低的元素</span></span><br><span class="line">                    pq.add(<span class="keyword">new</span> <span class="title class_">int</span>[] {entry.getKey(),entry.getValue()}); <span class="comment">// 加入当前高频元素</span></span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 倒序存结果：小顶堆弹出的顺序是「频率低→高」，所以从后往前填</span></span><br><span class="line">        <span class="type">int</span>[] ans = <span class="keyword">new</span> <span class="title class_">int</span>[k];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> k-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--){</span><br><span class="line">            ans[i] = pq.poll()[<span class="number">0</span>];</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li><strong>核心知识点:</strong>
+<ul>
+<li><strong>哈希表的应用：</strong><code>HashMap</code>统计频率是处理「元素 - 频次」问题的基础，<code>getOrDefault</code>方法简化了「存在则 + 1，不存在则初始化为 1」的逻辑；</li>
+<li><strong>小顶堆的核心价值：</strong>
+<ul>
+<li>维护 k 个高频元素，堆顶是当前 k 个元素中频率最低的，保证堆中始终是「频率前 k 高」的元素；</li>
+<li>堆的插入 / 弹出操作复杂度为 O (log k)，相比直接排序（O (m log m)），当 k 远小于 m 时效率更高；</li>
+</ul>
+</li>
+<li><strong>时间复杂度优化：</strong>
+<ul>
+<li>统计频率：O (n)；</li>
+<li>堆操作：O (m log k)（m 是不同元素的个数，m≤n）；</li>
+<li>总复杂度：O (n + m log k)，优于 O (n log n)，满足题目进阶要求。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>哈希表</tag>
+        <tag>堆</tag>
+        <tag>优先队列</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>有效的括号</title>
+    <url>/2026/01/28/ValidParentheses/</url>
+    <content><![CDATA[<h1>算法-有效的括号</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–有效的括号</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>给定一个只包括 ‘(’，‘)’，‘{’，‘}’，‘[’，‘]’ 的字符串，判断字符串是否有效。</p>
+<p>有效字符串需满足：</p>
+<ul>
+<li>左括号必须用相同类型的右括号闭合。</li>
+<li>左括号必须以正确的顺序闭合。</li>
+<li>注意空字符串可被认为是有效字符串。</li>
+</ul>
+<p>示例 1:</p>
+<ul>
+<li>输入: “()”</li>
+<li>输出: true</li>
+</ul>
+<p>示例 2:</p>
+<ul>
+<li>输入: “()[]{}”</li>
+<li>输出: true</li>
+</ul>
+<p>示例 3:</p>
+<ul>
+<li>输入: “(]”</li>
+<li>输出: false</li>
+</ul>
+<p>示例 4:</p>
+<ul>
+<li>输入: “([)]”</li>
+<li>输出: false</li>
+</ul>
+<p>示例 5:</p>
+<ul>
+<li>输入: “{[]}”</li>
+<li>输出: true</li>
+</ul>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li><strong>核心逻辑</strong>：利用<strong>栈的「后进先出」特性</strong>匹配括号——左括号入栈，右括号匹配栈顶左括号，匹配成功则出栈，失败则直接返回false；</li>
+<li><strong>具体步骤</strong>：
+<ul>
+<li>遍历字符串每个字符：
+<ul>
+<li>若为左括号（<code>(</code>/<code>{</code>/<code>[</code>）：将<strong>对应的右括号</strong>压入栈（简化后续匹配逻辑）；</li>
+<li>若为右括号：
+<ul>
+<li>栈为空 → 无左括号匹配，返回false；</li>
+<li>栈顶元素≠当前右括号 → 类型不匹配，返回false；</li>
+<li>栈顶元素=当前右括号 → 匹配成功，弹出栈顶；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>遍历结束后：栈为空则所有括号匹配成功，否则存在未闭合的左括号。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(String s)</span> {</span><br><span class="line">        Deque&lt;Character&gt; deque = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">char</span> ch;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt;s.length();i++){</span><br><span class="line">             ch = s.charAt(i);</span><br><span class="line">            <span class="keyword">if</span>(ch == <span class="string">'('</span>){</span><br><span class="line">                deque.push(<span class="string">')'</span>);</span><br><span class="line">            }<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">'{'</span>){</span><br><span class="line">                deque.push(<span class="string">'}'</span>);</span><br><span class="line">            }<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">'['</span>){</span><br><span class="line">                deque.push(<span class="string">']'</span>);</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// 碰到右括号时：如果栈为空（无左括号匹配），或栈顶不是当前右括号（匹配失败）</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(deque.isEmpty()||deque.peek() != ch){</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// 右括号匹配成功 → 弹出栈顶</span></span><br><span class="line">            <span class="keyword">else</span>{</span><br><span class="line">                deque.pop();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> deque.isEmpty();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li>有效的括号核心是<strong>栈+括号映射</strong>，利用栈的LIFO特性匹配嵌套括号；</li>
+<li>关键技巧：左括号入栈时压入对应右括号，简化后续匹配逻辑；</li>
+<li>面试需掌握「核心逻辑」「边界案例」「Deque替代Stack的原因」三个考点；</li>
+<li>复杂度为O(n)（时间+空间）</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数组环形队列</title>
     <url>/2024/08/19/arrayCircularQueue/</url>
     <content><![CDATA[<h1>数组环形队列</h1>
@@ -857,129 +1673,6 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       </tags>
   </entry>
   <entry>
-    <title>单向环形链表</title>
-    <url>/2024/09/17/Unidirectionalcircularlinkedlist/</url>
-    <content><![CDATA[<h1>单向环形链表</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li>
-<p>数据结构——单向链表</p>
-</li>
-<li>
-<p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
-<span id="more"></span>
-</li>
-</ul>
-<h2 id="问题">问题</h2>
-<p>Josephu（约瑟夫，约瑟夫环）问题</p>
-<p>设编号1，2，3…n的n个人围坐一圈，约定编号为k（1&lt;=k&lt;=n）的人从1开始报数，数到m的那个人出列，它 的下一位又从1开始报数，数到m的那个人又出列，以此类推，直到所有人出列为止。</p>
-<h2 id="思路">思路</h2>
-<ul>
-<li>
-<p>构建一个单向环形链表的思路</p>
-<ul>
-<li>先创建第一个节点，让first指向该节点,并形成环形</li>
-<li>后面当我们每创建一个新的节点，就把该节点加入到已有的环形链表当中</li>
-</ul>
-</li>
-<li>
-<p>遍历环形链表</p>
-<ul>
-<li>先让一个辅助指针（变量）<strong>curboy</strong>，指向<strong>first</strong>节点</li>
-<li>然后通过一个while循环遍历该环形链表</li>
-<li><strong>curBoy.next == firs</strong>t遍历结束</li>
-</ul>
-</li>
-<li>
-<p>出圈</p>
-<ul>
-<li>
-<p>先创建一个辅助指针<strong>helper</strong>，先指向环形链表的最后节点</p>
-</li>
-<li>
-<p>小孩报数前，先让<strong>first</strong>和<strong>helper</strong>移动k-1次</p>
-</li>
-<li></li>
-<li>
-<p>这时就可以将<strong>first</strong>指向的小孩节点出圈</p>
-<ul>
-<li>
-<p><strong>first = first.next</strong></p>
-</li>
-<li>
-<p><strong>helper.next= first</strong></p>
-</li>
-<li>
-<p>原来的节点没有被引用，就会被回收</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="步骤">步骤</h2>
-<ul>
-<li>
-<p>创建一个Boy类，表示一个节点</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Boy</span>{</span><br><span class="line">    <span class="meta">@SuppressWarnings("all")</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> no;<span class="comment">//编号</span></span><br><span class="line">    <span class="keyword">private</span> Boy next;<span class="comment">//表示指向下个节点</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Boy</span><span class="params">(<span class="type">int</span> no)</span>{</span><br><span class="line">        <span class="built_in">this</span>.no=no;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getNo</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> no;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNo</span><span class="params">(<span class="type">int</span> no)</span> {</span><br><span class="line">        <span class="built_in">this</span>.no = no;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Boy <span class="title function_">getNext</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNext</span><span class="params">(Boy next)</span> {</span><br><span class="line">        <span class="built_in">this</span>.next = next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>创建一个单向环形链表CircleSingleLinkedList类</p>
-<ul>
-<li>
-<p>创建一个first节点，当前没有编号</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CircleSingleLinkedList</span>{</span><br><span class="line">    <span class="comment">//创建一个first节点，当前没有编号</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">Boy</span> <span class="variable">first</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Boy</span>(-<span class="number">1</span>);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>添加小孩节点addBoy，构建一个环形链表</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addBoy</span><span class="params">(<span class="type">int</span> nums)</span>{</span><br><span class="line">    <span class="comment">//nums做一个数据校验</span></span><br><span class="line">    <span class="keyword">if</span>(nums&lt;<span class="number">1</span>){</span><br><span class="line">        System.out.println(<span class="string">"nums不正确"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="type">Boy</span> <span class="variable">curBoy</span> <span class="operator">=</span> <span class="literal">null</span>;<span class="comment">//辅助变量，帮助构建环形链表</span></span><br><span class="line">    <span class="comment">//使用for来创建我们的环形链表</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;i&lt;=nums;i++){</span><br><span class="line">        <span class="comment">//根据编号，创建小孩节点</span></span><br><span class="line">       <span class="type">Boy</span> <span class="variable">boy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Boy</span>(i);</span><br><span class="line">       <span class="comment">//如果是第一个小孩</span></span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">1</span>){</span><br><span class="line">            first =boy;</span><br><span class="line">            first.setNext(first);<span class="comment">//构成环</span></span><br><span class="line">            curBoy = first;<span class="comment">//让curBoy指向第一个小孩</span></span><br><span class="line">        }<span class="keyword">else</span>{</span><br><span class="line">              curBoy.setNext(boy);</span><br><span class="line">              boy.setNext(first);</span><br><span class="line">              curBoy = boy;</span><br><span class="line">    }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>遍历当前环形链表</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">showBoy</span><span class="params">()</span>{</span><br><span class="line">    <span class="comment">//判断链表是否为空</span></span><br><span class="line">        <span class="keyword">if</span>(first == <span class="literal">null</span>){</span><br><span class="line">            System.out.println(<span class="string">"没有任何小孩"</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">    <span class="comment">//因为first不能动，所以使用辅助指针</span></span><br><span class="line">    <span class="type">Boy</span> <span class="variable">curBoy</span> <span class="operator">=</span> first;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">            System.out.printf(<span class="string">"小孩的编号%d\n"</span>,curBoy.getNo());</span><br><span class="line">            <span class="keyword">if</span>(curBoy.getNext()==first){<span class="comment">//说明遍历完毕</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">            curBoy = curBoy.getNext();<span class="comment">//curBoy后移</span></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>根据用户输入，计算小孩出圈的顺序</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//根据用户输入，计算小孩出圈的顺序</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">countBoy</span><span class="params">(<span class="type">int</span> startNo,<span class="type">int</span> countNum,<span class="type">int</span> nums)</span>{</span><br><span class="line">     <span class="comment">//startNo表示从哪个小孩开始数</span></span><br><span class="line">     <span class="comment">//countNum表示数几下</span></span><br><span class="line">     <span class="comment">//nums表示最初有多少小孩在圈中</span></span><br><span class="line">     <span class="keyword">if</span>(first==<span class="literal">null</span>||startNo&lt;<span class="number">1</span>||startNo&gt;nums){</span><br><span class="line">         System.out.println(<span class="string">"参数输入有误，请重新输入"</span>);</span><br><span class="line">         <span class="keyword">return</span>;</span><br><span class="line">     }</span><br><span class="line">     <span class="comment">//创建辅助指针，帮助小孩出圈</span></span><br><span class="line">     <span class="type">Boy</span> <span class="variable">helper</span> <span class="operator">=</span> first;</span><br><span class="line">     <span class="comment">//应指向环形链表最后节点</span></span><br><span class="line">     <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">         <span class="keyword">if</span>(helper.getNext() == first){</span><br><span class="line">             <span class="comment">//说明helper指向最后小孩节点</span></span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">         }</span><br><span class="line">         helper = helper.getNext();</span><br><span class="line">     }</span><br><span class="line">     <span class="comment">//小孩报数前，先让first和helper移动k-1次</span></span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> j= <span class="number">0</span>;j&lt;startNo-<span class="number">1</span>;j++){</span><br><span class="line">         first = first.getNext();</span><br><span class="line">         helper = helper.getNext();</span><br><span class="line">     }</span><br><span class="line">     <span class="comment">//当小孩报数时，让first和helper指针同时移动m-1次,直到圈中只有一个人</span></span><br><span class="line">     <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">         <span class="keyword">if</span>(helper == first){<span class="comment">//说明圈中只有一个人</span></span><br><span class="line">         <span class="keyword">break</span>;</span><br><span class="line">         }</span><br><span class="line">         <span class="comment">//让first和helper指针同时移动countNum-1，然后出圈</span></span><br><span class="line">         <span class="keyword">for</span>(<span class="type">int</span> j= <span class="number">0</span>;j&lt;countNum-<span class="number">1</span>;j++){</span><br><span class="line">             first = first.getNext();</span><br><span class="line">             helper = helper.getNext();</span><br><span class="line">         }</span><br><span class="line">         <span class="comment">//这时first指向的节点就是小孩出圈的节点</span></span><br><span class="line">         System.out.printf(<span class="string">"小孩%d出圈\n"</span>,first.getNo());</span><br><span class="line">         <span class="comment">//这时将first指向小孩节点出圈</span></span><br><span class="line">         first = first.getNext();</span><br><span class="line">         helper.setNext(first);</span><br><span class="line">     }</span><br><span class="line">     System.out.printf(<span class="string">"最后留在圈中的小孩编号%d\n"</span>,first.getNo());</span><br><span class="line"> }</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-        <tag>链表</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>冒泡排序</title>
     <url>/2024/10/09/bubbleSort/</url>
     <content><![CDATA[<h1>冒泡排序</h1>
@@ -1077,129 +1770,6 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
 <p>// 3. contains(s)：判断截取后的字符串是否包含原字符串s</p>
 </li>
 </ul>
-]]></content>
-      <categories>
-        <category>札记</category>
-      </categories>
-      <tags>
-        <tag>备忘录</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>双向链表</title>
-    <url>/2024/09/08/doubleLinkedList/</url>
-    <content><![CDATA[<h1>双向链表</h1>
-<h2 id="双向链表的增删查改">双向链表的增删查改</h2>
-<h2 id="背景">背景</h2>
-<ul>
-<li>
-<p>数据结构——双向链表</p>
-</li>
-<li>
-<p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
-<span id="more"></span>
-</li>
-</ul>
-<h2 id="概念">概念</h2>
-<ul>
-<li>
-<p>双向链表遍历方法与单向链表相同，不过双向链表可以向前和向后查找</p>
-</li>
-<li>
-<p>添加，默认添加到最后</p>
-<ul>
-<li>先找到双向链表的最后节点</li>
-<li><strong>temp.next = newHeroNode</strong></li>
-<li><strong>newHeroNode.pre = temp</strong></li>
-</ul>
-</li>
-<li>
-<p>修改，与单链表相同</p>
-</li>
-<li>
-<p>删除</p>
-<ul>
-<li>双向链表可以自我删除</li>
-<li>直接找到要删除的节点temp</li>
-<li><strong>temp.pre.next = temp.next</strong></li>
-<li><strong>temp.next.pre = temp.pre</strong></li>
-</ul>
-</li>
-</ul>
-<h2 id="问题">问题</h2>
-<ul>
-<li>使用双向链表实现–水浒传排行榜管理</li>
-</ul>
-<h2 id="步骤">步骤</h2>
-<ul>
-<li>与单链表类似</li>
-</ul>
-<h3 id="代码实现">代码实现</h3>
-<ul>
-<li>
-<p>修改单链表中HeroNode类</p>
-<ul>
-<li>
-<p>增加pre变量指向链表中上一个节点</p>
-</li>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HeroNode2</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> no;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> String nickname;</span><br><span class="line">    <span class="keyword">public</span> HeroNode2 next;<span class="comment">//指向下个节点，默认为null</span></span><br><span class="line">    <span class="keyword">public</span> HeroNode2 pre;<span class="comment">//指向上个节点，默认为null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HeroNode2</span><span class="params">(<span class="type">int</span> no, String name, String nickname)</span> {</span><br><span class="line">        <span class="built_in">this</span>.no = no;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.nickname = nickname;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为了显示方便，重写toString方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"HeroNode{"</span> +</span><br><span class="line">                <span class="string">"no="</span> + no +</span><br><span class="line">                <span class="string">", name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", nickname='"</span> + nickname + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'}'</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>遍历</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//遍历双向链表，与单链表一样</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">list</span><span class="params">()</span> {</span><br><span class="line">    <span class="comment">//判断链表是否为空</span></span><br><span class="line">    <span class="keyword">if</span> (head.next == <span class="literal">null</span>) {</span><br><span class="line">        System.out.println(<span class="string">"链表为空"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//因为头节点不能动，所以需要辅助变量遍历</span></span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="comment">//判断链表是否最后</span></span><br><span class="line">        <span class="keyword">if</span> (temp == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//输出节点的信息</span></span><br><span class="line">        System.out.println(temp);</span><br><span class="line">        <span class="comment">//将节点后移</span></span><br><span class="line">        temp = temp.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>添加</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(HeroNode2 heroNode)</span> {</span><br><span class="line">    <span class="comment">//当不考虑编号顺序时</span></span><br><span class="line">    <span class="comment">//先找到当前链表的最后节点</span></span><br><span class="line">    <span class="comment">//将最后节点next指向新的节点</span></span><br><span class="line">    <span class="comment">//因为head头节点不能动，所以需要辅助遍历temp</span></span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="comment">//遍历链表找到最后</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="comment">//代表找到链表的最后</span></span><br><span class="line">        <span class="keyword">if</span> (temp.next == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//找不到就将temp后移，直至找到退出循环</span></span><br><span class="line">        temp = temp.next;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//当退出循环时，temp指向链表的最后</span></span><br><span class="line">    <span class="comment">//形成双向链表</span></span><br><span class="line">    temp.next = heroNode;</span><br><span class="line">    heroNode.pre = temp;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>修改</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//修改双向链表节点</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">upadate</span><span class="params">(HeroNode2 newHeroNode)</span> {</span><br><span class="line">    <span class="comment">//判断链表是否为空</span></span><br><span class="line">    <span class="keyword">if</span> (head.next == <span class="literal">null</span>) {</span><br><span class="line">        System.out.println(<span class="string">"链表为空"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//找到需要修改的节点，根据no编号</span></span><br><span class="line">    <span class="comment">//定义一个辅助变量temp</span></span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;<span class="comment">//表示是否找到该节点</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (temp == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">break</span>;<span class="comment">//已经遍历完链表了</span></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (temp.no == newHeroNode.no) {</span><br><span class="line">            flag = <span class="literal">true</span>;<span class="comment">//找到</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        temp = temp.next;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 根据flag判断是否找到要修改的节点</span></span><br><span class="line">    <span class="keyword">if</span> (flag) {</span><br><span class="line">        temp.name = newHeroNode.name;</span><br><span class="line">        temp.nickname = newHeroNode.nickname;</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="comment">//没有找到</span></span><br><span class="line">        System.out.println(<span class="string">"没有找到"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>删除</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//从双向链表删除节点</span></span><br><span class="line"><span class="comment">//双向链表可以自我删除</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">del</span><span class="params">(<span class="type">int</span> no)</span>{</span><br><span class="line">    <span class="comment">//判断当前链表是否为空</span></span><br><span class="line">    <span class="keyword">if</span>(head.next == <span class="literal">null</span>){{</span><br><span class="line">        System.out.println(<span class="string">"链表为空，不能删除"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;<span class="comment">//辅助变量直接指向要删除的节点</span></span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;<span class="comment">//判断是否找到要删除节点的标志</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">        <span class="keyword">if</span>(temp == <span class="literal">null</span>){</span><br><span class="line">            <span class="keyword">break</span>;<span class="comment">//到了链表最后</span></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span>(temp.no == no){<span class="comment">//找到要删除的节点</span></span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        temp = temp.next;<span class="comment">//后移</span></span><br><span class="line">    }<span class="keyword">if</span>(flag){<span class="comment">//找到执行</span></span><br><span class="line">            temp.pre.next = temp.next;</span><br><span class="line">            <span class="keyword">if</span> (temp.next != <span class="literal">null</span>) {</span><br><span class="line">                temp.next.pre = temp.pre;<span class="comment">//存在风险，如果是最后一个节点，不需要执行这段代码，否则会出现空指针异常</span></span><br><span class="line">            }</span><br><span class="line">            }</span><br><span class="line">        }<span class="keyword">else</span>{<span class="comment">//没有找到执行</span></span><br><span class="line">            System.out.printf(<span class="string">"要删除的节点%d不存在\n"</span>,no);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-        <tag>链表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>小技巧</title>
-    <url>/2024/07/31/paper/</url>
-    <content><![CDATA[<h1>小技巧</h1>
-<span id="more"></span>截断文章，让首页不显示所有文章
-<p>哈哈哈哈</p>
 ]]></content>
       <categories>
         <category>札记</category>
@@ -1347,6 +1917,129 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
         <tag>数据结构</tag>
         <tag>栈</tag>
         <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>双向链表</title>
+    <url>/2024/09/08/doubleLinkedList/</url>
+    <content><![CDATA[<h1>双向链表</h1>
+<h2 id="双向链表的增删查改">双向链表的增删查改</h2>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>数据结构——双向链表</p>
+</li>
+<li>
+<p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="概念">概念</h2>
+<ul>
+<li>
+<p>双向链表遍历方法与单向链表相同，不过双向链表可以向前和向后查找</p>
+</li>
+<li>
+<p>添加，默认添加到最后</p>
+<ul>
+<li>先找到双向链表的最后节点</li>
+<li><strong>temp.next = newHeroNode</strong></li>
+<li><strong>newHeroNode.pre = temp</strong></li>
+</ul>
+</li>
+<li>
+<p>修改，与单链表相同</p>
+</li>
+<li>
+<p>删除</p>
+<ul>
+<li>双向链表可以自我删除</li>
+<li>直接找到要删除的节点temp</li>
+<li><strong>temp.pre.next = temp.next</strong></li>
+<li><strong>temp.next.pre = temp.pre</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="问题">问题</h2>
+<ul>
+<li>使用双向链表实现–水浒传排行榜管理</li>
+</ul>
+<h2 id="步骤">步骤</h2>
+<ul>
+<li>与单链表类似</li>
+</ul>
+<h3 id="代码实现">代码实现</h3>
+<ul>
+<li>
+<p>修改单链表中HeroNode类</p>
+<ul>
+<li>
+<p>增加pre变量指向链表中上一个节点</p>
+</li>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HeroNode2</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> no;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> String nickname;</span><br><span class="line">    <span class="keyword">public</span> HeroNode2 next;<span class="comment">//指向下个节点，默认为null</span></span><br><span class="line">    <span class="keyword">public</span> HeroNode2 pre;<span class="comment">//指向上个节点，默认为null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HeroNode2</span><span class="params">(<span class="type">int</span> no, String name, String nickname)</span> {</span><br><span class="line">        <span class="built_in">this</span>.no = no;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.nickname = nickname;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为了显示方便，重写toString方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"HeroNode{"</span> +</span><br><span class="line">                <span class="string">"no="</span> + no +</span><br><span class="line">                <span class="string">", name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", nickname='"</span> + nickname + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'}'</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>遍历</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//遍历双向链表，与单链表一样</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">list</span><span class="params">()</span> {</span><br><span class="line">    <span class="comment">//判断链表是否为空</span></span><br><span class="line">    <span class="keyword">if</span> (head.next == <span class="literal">null</span>) {</span><br><span class="line">        System.out.println(<span class="string">"链表为空"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//因为头节点不能动，所以需要辅助变量遍历</span></span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="comment">//判断链表是否最后</span></span><br><span class="line">        <span class="keyword">if</span> (temp == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//输出节点的信息</span></span><br><span class="line">        System.out.println(temp);</span><br><span class="line">        <span class="comment">//将节点后移</span></span><br><span class="line">        temp = temp.next;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>添加</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(HeroNode2 heroNode)</span> {</span><br><span class="line">    <span class="comment">//当不考虑编号顺序时</span></span><br><span class="line">    <span class="comment">//先找到当前链表的最后节点</span></span><br><span class="line">    <span class="comment">//将最后节点next指向新的节点</span></span><br><span class="line">    <span class="comment">//因为head头节点不能动，所以需要辅助遍历temp</span></span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="comment">//遍历链表找到最后</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="comment">//代表找到链表的最后</span></span><br><span class="line">        <span class="keyword">if</span> (temp.next == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//找不到就将temp后移，直至找到退出循环</span></span><br><span class="line">        temp = temp.next;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//当退出循环时，temp指向链表的最后</span></span><br><span class="line">    <span class="comment">//形成双向链表</span></span><br><span class="line">    temp.next = heroNode;</span><br><span class="line">    heroNode.pre = temp;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>修改</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//修改双向链表节点</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">upadate</span><span class="params">(HeroNode2 newHeroNode)</span> {</span><br><span class="line">    <span class="comment">//判断链表是否为空</span></span><br><span class="line">    <span class="keyword">if</span> (head.next == <span class="literal">null</span>) {</span><br><span class="line">        System.out.println(<span class="string">"链表为空"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//找到需要修改的节点，根据no编号</span></span><br><span class="line">    <span class="comment">//定义一个辅助变量temp</span></span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;<span class="comment">//表示是否找到该节点</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (temp == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">break</span>;<span class="comment">//已经遍历完链表了</span></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (temp.no == newHeroNode.no) {</span><br><span class="line">            flag = <span class="literal">true</span>;<span class="comment">//找到</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        temp = temp.next;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 根据flag判断是否找到要修改的节点</span></span><br><span class="line">    <span class="keyword">if</span> (flag) {</span><br><span class="line">        temp.name = newHeroNode.name;</span><br><span class="line">        temp.nickname = newHeroNode.nickname;</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="comment">//没有找到</span></span><br><span class="line">        System.out.println(<span class="string">"没有找到"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>删除</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//从双向链表删除节点</span></span><br><span class="line"><span class="comment">//双向链表可以自我删除</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">del</span><span class="params">(<span class="type">int</span> no)</span>{</span><br><span class="line">    <span class="comment">//判断当前链表是否为空</span></span><br><span class="line">    <span class="keyword">if</span>(head.next == <span class="literal">null</span>){{</span><br><span class="line">        System.out.println(<span class="string">"链表为空，不能删除"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="type">HeroNode2</span> <span class="variable">temp</span> <span class="operator">=</span> head.next;<span class="comment">//辅助变量直接指向要删除的节点</span></span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;<span class="comment">//判断是否找到要删除节点的标志</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">        <span class="keyword">if</span>(temp == <span class="literal">null</span>){</span><br><span class="line">            <span class="keyword">break</span>;<span class="comment">//到了链表最后</span></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span>(temp.no == no){<span class="comment">//找到要删除的节点</span></span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        temp = temp.next;<span class="comment">//后移</span></span><br><span class="line">    }<span class="keyword">if</span>(flag){<span class="comment">//找到执行</span></span><br><span class="line">            temp.pre.next = temp.next;</span><br><span class="line">            <span class="keyword">if</span> (temp.next != <span class="literal">null</span>) {</span><br><span class="line">                temp.next.pre = temp.pre;<span class="comment">//存在风险，如果是最后一个节点，不需要执行这段代码，否则会出现空指针异常</span></span><br><span class="line">            }</span><br><span class="line">            }</span><br><span class="line">        }<span class="keyword">else</span>{<span class="comment">//没有找到执行</span></span><br><span class="line">            System.out.printf(<span class="string">"要删除的节点%d不存在\n"</span>,no);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>小技巧</title>
+    <url>/2024/07/31/paper/</url>
+    <content><![CDATA[<h1>小技巧</h1>
+<span id="more"></span>截断文章，让首页不显示所有文章
+<p>哈哈哈哈</p>
+]]></content>
+      <categories>
+        <category>札记</category>
+      </categories>
+      <tags>
+        <tag>备忘录</tag>
       </tags>
   </entry>
   <entry>
@@ -1953,6 +2646,74 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       </tags>
   </entry>
   <entry>
+    <title>两数之和</title>
+    <url>/2026/01/19/sumOfTwoNumbers/</url>
+    <content><![CDATA[<h1>算法-两数之和</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–两数之和</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。</p>
+<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。</p>
+<p><strong>示例:</strong></p>
+<p>给定 nums = [2, 7, 11, 15], target = 9</p>
+<p>因为 nums[0] + nums[1] = 2 + 7 = 9</p>
+<p>所以返回 [0, 1]</p>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>使用哈希法的时候：当我们需要查询一个元素是否在集合里的时候</li>
+<li>本题需要一个集合来存放我们遍历后的元素，在遍历数组的时候再询问这个集合，看元素是否遍历过</li>
+<li>map是一种key value的存储结构，key = 数值，value = 下标</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] twoSum(<span class="type">int</span>[] nums, <span class="type">int</span> target) {</span><br><span class="line">         <span class="type">int</span>[] r = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>];<span class="comment">//储存两个下标</span></span><br><span class="line">         <span class="keyword">if</span>(nums == <span class="literal">null</span> || nums.length == <span class="number">0</span>){</span><br><span class="line">            <span class="keyword">return</span> r;</span><br><span class="line">         }</span><br><span class="line">         Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++){</span><br><span class="line">                <span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> target - nums[i]; <span class="comment">//通过相减得出另一个数是什么</span></span><br><span class="line">                <span class="keyword">if</span>(map.containsKey(t)){ <span class="comment">// 关键判断：HashMap中是否存在补数t（说明之前遍历过这个数）</span></span><br><span class="line">                    r[<span class="number">1</span>] = i;</span><br><span class="line">                    r[<span class="number">0</span>] = map.get(t);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">                map.put(nums[i],i);  <span class="comment">// 若补数不存在，把当前元素的“数值-下标”存入HashMap，供后续元素查询</span></span><br><span class="line"></span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">         <span class="keyword">return</span> r;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li>为什么会想到用哈希表
+<ul>
+<li>当我们需要查询一个元素是否在集合里的时候</li>
+</ul>
+</li>
+<li>哈希表为什么用map
+<ul>
+<li>Set 只能存 “值”，只能判断补数是否存在；而我们需要同时获取补数的下标，Map 的 “键值对” 结构刚好能满足 “存数值 + 存下标” 的需求。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>本题map是用来存什么的
+<ul>
+<li>存已遍历过的数组元素及其下标，相当于 “遍历账本”，供后续元素快速查补数</li>
+</ul>
+</li>
+<li>map中的key和value用来存什么的
+<ul>
+<li>key：数值</li>
+<li>value：数组下标</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>哈希</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>栈</title>
     <url>/2024/10/01/stack/</url>
     <content><![CDATA[<h1>栈</h1>
@@ -2091,74 +2852,6 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       <tags>
         <tag>数据结构</tag>
         <tag>栈</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>两数之和</title>
-    <url>/2026/01/19/sumOfTwoNumbers/</url>
-    <content><![CDATA[<h1>算法-两数之和</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li>
-<p>算法–两数之和</p>
-</li>
-<li>
-<p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span>
-</li>
-</ul>
-<h2 id="题目">题目</h2>
-<ul>
-<li>
-<p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。</p>
-<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。</p>
-<p><strong>示例:</strong></p>
-<p>给定 nums = [2, 7, 11, 15], target = 9</p>
-<p>因为 nums[0] + nums[1] = 2 + 7 = 9</p>
-<p>所以返回 [0, 1]</p>
-</li>
-</ul>
-<h2 id="思路">思路</h2>
-<ul>
-<li>使用哈希法的时候：当我们需要查询一个元素是否在集合里的时候</li>
-<li>本题需要一个集合来存放我们遍历后的元素，在遍历数组的时候再询问这个集合，看元素是否遍历过</li>
-<li>map是一种key value的存储结构，key = 数值，value = 下标</li>
-</ul>
-<h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] twoSum(<span class="type">int</span>[] nums, <span class="type">int</span> target) {</span><br><span class="line">         <span class="type">int</span>[] r = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>];<span class="comment">//储存两个下标</span></span><br><span class="line">         <span class="keyword">if</span>(nums == <span class="literal">null</span> || nums.length == <span class="number">0</span>){</span><br><span class="line">            <span class="keyword">return</span> r;</span><br><span class="line">         }</span><br><span class="line">         Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++){</span><br><span class="line">                <span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> target - nums[i]; <span class="comment">//通过相减得出另一个数是什么</span></span><br><span class="line">                <span class="keyword">if</span>(map.containsKey(t)){ <span class="comment">// 关键判断：HashMap中是否存在补数t（说明之前遍历过这个数）</span></span><br><span class="line">                    r[<span class="number">1</span>] = i;</span><br><span class="line">                    r[<span class="number">0</span>] = map.get(t);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">                map.put(nums[i],i);  <span class="comment">// 若补数不存在，把当前元素的“数值-下标”存入HashMap，供后续元素查询</span></span><br><span class="line"></span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">         <span class="keyword">return</span> r;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="总结">总结</h2>
-<ul>
-<li>为什么会想到用哈希表
-<ul>
-<li>当我们需要查询一个元素是否在集合里的时候</li>
-</ul>
-</li>
-<li>哈希表为什么用map
-<ul>
-<li>Set 只能存 “值”，只能判断补数是否存在；而我们需要同时获取补数的下标，Map 的 “键值对” 结构刚好能满足 “存数值 + 存下标” 的需求。</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>本题map是用来存什么的
-<ul>
-<li>存已遍历过的数组元素及其下标，相当于 “遍历账本”，供后续元素快速查补数</li>
-</ul>
-</li>
-<li>map中的key和value用来存什么的
-<ul>
-<li>key：数值</li>
-<li>value：数组下标</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>哈希</tag>
       </tags>
   </entry>
 </search>
