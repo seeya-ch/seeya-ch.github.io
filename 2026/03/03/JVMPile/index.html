@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="JVM–堆 背景   JVM–堆   博主以黑马JVM进行学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM--堆">
+<meta property="og:url" content="http://seeya-ch.github.io/2026/03/03/JVMPile/index.html">
+<meta property="og:site_name" content="seeya-ch 博客">
+<meta property="og:description" content="JVM–堆 背景   JVM–堆   博主以黑马JVM进行学习">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-03T10:34:23.000Z">
+<meta property="article:modified_time" content="2026-03-03T14:39:16.984Z">
+<meta property="article:author" content="seeya-ch">
+<meta property="article:tag" content="JVM">
+<meta property="article:tag" content="堆">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://seeya-ch.github.io/2026/03/03/JVMPile/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://seeya-ch.github.io/2026/03/03/JVMPile/","path":"2026/03/03/JVMPile/","title":"JVM--堆"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JVM--堆 | seeya-ch 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">seeya-ch 博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>札记</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">JVM–堆</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E7%9A%84%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA"><span class="nav-number">1.4.</span> <span class="nav-text">堆的内存溢出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E5%AD%98%E8%AF%8A%E6%96%AD"><span class="nav-number">1.5.</span> <span class="nav-text">堆内存诊断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%EF%BC%9A%E5%A0%86%E7%9A%84%E5%88%86%E4%BB%A3%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.7.</span> <span class="nav-text">补充：堆的分代模型</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">seeya-ch</p>
+  <div class="site-description" itemprop="description">seeya-ch的博客网站</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://seeya-ch.github.io/2026/03/03/JVMPile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="seeya-ch">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="seeya-ch 博客">
+      <meta itemprop="description" content="seeya-ch的博客网站">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JVM--堆 | seeya-ch 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM--堆
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-03-03 18:34:23 / 修改时间：22:39:16" itemprop="dateCreated datePublished" datetime="2026-03-03T18:34:23+08:00">2026-03-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1>JVM–堆</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>JVM–堆</p>
+</li>
+<li>
+<p>博主以黑马JVM进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="定义">定义</h2>
+<ul>
+<li>通过 <code>new</code> 关键字创建的对象<strong>实例</strong>和数组，都会占用堆内存（补充：对象的元数据存在元空间，而非堆）</li>
+<li>堆是 JVM 运行时数据区中<strong>最大的一块内存区域</strong>，也是 GC（垃圾回收）的核心区域。</li>
+</ul>
+<h2 id="特点">特点</h2>
+<ul>
+<li>线程共享：整个 JVM 进程中只有一个堆，所有线程都能访问堆中的对象，因此堆中对象的读写需要考虑线程安全（比如用 <code>synchronized</code>、<code>Atomic</code> 等）；</li>
+<li>有垃圾回收机制：堆是 GC 唯一的核心工作区域（虚拟机栈 / 本地方法栈无需 GC，程序计数器无 GC 必要），堆内存会被划分为不同区域（年轻代、老年代、元空间），不同区域采用不同的 GC 策略；</li>
+<li>可动态扩展：堆内存大小可通过 JVM 参数调整（默认会根据物理内存自动调整），也可设置固定大小。</li>
+</ul>
+<h2 id="堆的内存溢出">堆的内存溢出</h2>
+<ul>
+<li>堆内存溢出错误：OutOfMemoryError：Java heap space（最常见的 OOM 类型）</li>
+<li>堆溢出原因：
+<ul>
+<li>内存泄漏：对象不再使用但 GC 无法回收（比如静态集合长期持有对象引用、未关闭的资源连接）；</li>
+<li>内存溢出：正常业务创建的对象过多 / 过大，超出堆内存上限（比如一次性加载百万级数据到内存）；</li>
+</ul>
+</li>
+<li>核心参数：
+<ul>
+<li><code>-Xms</code>：堆内存<strong>初始大小</strong>（如 <code>-Xms200m</code>，建议和 <code>-Xmx</code> 设为相同值，避免运行时动态扩容消耗性能）；</li>
+<li><code>-Xmx</code>：堆内存<strong>最大上限</strong>（如 <code>-Xmx512m</code>，超出该值则抛出堆 OOM）；</li>
+</ul>
+</li>
+</ul>
+<h2 id="堆内存诊断">堆内存诊断</h2>
+<ul>
+<li>
+<p>jps工具：查看当前系统中有哪些java进程（定位目标进程 ID）</p>
+<ul>
+<li>
+<pre><code class="language-bash">jps # 输出示例：12345 YourMainClass（12345是进程ID）
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* jmap工具：查看堆内存占用情况 jmap - heap 进程id</span><br><span class="line"></span><br><span class="line">  * ```bash</span><br><span class="line">    jmap -heap 进程ID # 查看堆的整体配置和使用情况（年轻代、老年代占用率）</span><br><span class="line">    jmap -histo 进程ID # 查看堆中对象的数量、大小（按内存占用排序，定位大对象）</span><br><span class="line">    jmap -dump:format=b,file=heapdump.hprof 进程ID # 导出堆快照文件（用于后续分析）</span><br></pre></td></tr></table></figure>
+
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>jconsole工具：图形界面的，多功能的监测工具，可以连续监测（JDK 自带，无需额外安装）</p>
+<ul>
+<li>启动方式：命令行输入 <code>jconsole</code>，选择目标 Java 进程即可连接；</li>
+<li>核心功能：实时监测堆内存变化、GC 次数 / 耗时、线程状态等，支持连续监测。</li>
+</ul>
+</li>
+<li>
+<p>案例：垃圾回收后，内存占用仍然很高</p>
+<ul>
+<li>
+<p>场景：程序运行一段时间后，GC 频繁触发，但回收后堆内存占用仍居高不下（大概率是内存泄漏）</p>
+</li>
+<li>
+<p>使用jvisualvm工具（JDK 自带，可视化分析神器）</p>
+<ul>
+<li>可视化的虚拟机</li>
+<li>堆Dump功能：导出堆快照文件（.hprof）；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结">总结</h2>
+<ul>
+<li>堆是 JVM 最大的线程共享内存区域，<code>new</code> 创建的对象实例 / 数组都存于堆中，需考虑线程安全；</li>
+<li>堆是 GC 的核心区域，堆内存溢出会抛出 <code>OutOfMemoryError: Java heap space</code>，可通过 <code>-Xms/-Xmx</code> 调整堆大小，核心解决思路是排查内存泄漏 / 减少大对象创建；</li>
+<li>堆内存诊断常用工具：jps（查进程）→ jmap（查静态内存）→ jconsole（实时监测）→ jvisualvm（堆 Dump 分析），其中 jvisualvm 是排查内存泄漏的核心工具。</li>
+</ul>
+<h2 id="补充：堆的分代模型">补充：堆的分代模型</h2>
+<ul>
+<li>
+<p>堆内存内部会划分为：</p>
+<ul>
+<li>
+<p>年轻代（Young Generation）：存储新创建的对象，GC 频率高（Minor GC），分为 Eden 区、S0/S1（Survivor）区；</p>
+</li>
+<li>
+<p>老年代（Old Generation）：存储存活时间长的对象，GC 频率低（Major GC/Full GC）；</p>
+</li>
+<li>
+<p>元空间（Metaspace）：JDK 8 后取代永久代，存储类的元数据（不属于堆，但常和堆一起讨论）；</p>
+<p>这是 GC 策略的基础，理解分代模型能更好地解释 “为何 GC 后内存仍高”（比如老年代对象无法被 Minor GC 回收）。</p>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JVM/" rel="tag"># JVM</a>
+              <a href="/tags/%E5%A0%86/" rel="tag"># 堆</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/03/03/JVMProgramCounterRegister/" rel="prev" title="JVM--程序计数器">
+                  <i class="fa fa-angle-left"></i> JVM--程序计数器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/03/03/JVMMethodArea/" rel="next" title="JVM--方法区（Method Area）">
+                  JVM--方法区（Method Area） <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">seeya-ch</span>
+  </div>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script>
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    // window.MathJax = {
+    //   loader: {
+    //
+    //     source: {
+    //       '[tex]/amsCd': '[tex]/amscd',
+    //       '[tex]/AMScd': '[tex]/amscd'
+    //     }
+    //   },
+    //   tex: {
+    //     inlineMath: {'[+]': [['$', '$']]},
+    //
+    //     tags: 'ams'
+    //   },
+    //   options: {
+    //     renderActions: {
+    //       findScript: [10, doc => {
+    //         document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+    //           const display = !!node.type.match(/; *mode=display/);
+    //           const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+    //           const text = document.createTextNode('');
+    //           node.parentNode.replaceChild(text, node);
+    //           math.start = {node: text, delim: '', n: 0};
+    //           math.end = {node: text, delim: '', n: 0};
+    //           doc.math.push(math);
+    //         });
+    //       }, '', false],
+    //       insertedScript: [200, () => {
+    //         document.querySelectorAll('mjx-container').forEach(node => {
+    //           let target = node.parentNode;
+    //           if (target.nodeName.toLowerCase() === 'li') {
+    //             target.parentNode.classList.add('has-jax');
+    //           }
+    //         });
+    //       }, '', false]
+    //     }
+    //   }
+    // };
+    window.MathJax = {
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '[object Object]';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</body>
+</html>

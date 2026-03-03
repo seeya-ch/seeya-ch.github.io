@@ -157,6 +157,166 @@
       </tags>
   </entry>
   <entry>
+    <title>ClassLoader（类加载器）</title>
+    <url>/2026/03/03/ClassLoader/</url>
+    <content><![CDATA[<h1>ClassLoader（类加载器）</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>JVM</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="定义">定义</h2>
+<ul>
+<li>ClassLoader 是 JVM 提供的<strong>类加载机制</strong>（也是具体实现类的统称），核心作用是：<strong>将硬盘上的 .class 文件（字节码）加载到 JVM 内存中，并生成对应的 Class 对象</strong>，让程序能使用该类（比如 <code>new</code> 实例、调用静态方法）</li>
+</ul>
+<h2 id="ClassLoader-的核心作用">ClassLoader 的核心作用</h2>
+<ul>
+<li><strong>加载</strong>：查找并读取 .class 文件到内存；</li>
+<li><strong>链接</strong>：验证（校验字节码合法性）→ 准备（为静态变量分配内存）→ 解析（将符号引用转为直接引用）；</li>
+<li><strong>初始化</strong>：执行静态代码块、初始化静态变量（类的生命周期核心步骤）；</li>
+<li><strong>双亲委派</strong>（Parent Delegation Model）：ClassLoader 最核心的设计原则</li>
+</ul>
+<h2 id="JVM-内置的-ClassLoader-分类（核心）">JVM 内置的 ClassLoader 分类（核心）</h2>
+<table>
+<thead>
+<tr>
+<th>类加载器类型</th>
+<th>作用</th>
+<th>加载范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>启动类加载器（Bootstrap）</td>
+<td>最顶层的类加载器，由 C/C++ 实现（无对应的 Java 类）</td>
+<td>JRE/lib/rt.jar（核心类，如 java.lang.*）</td>
+</tr>
+<tr>
+<td>扩展类加载器（Extension）</td>
+<td>继承自 Bootstrap，Java 实现</td>
+<td>JRE/lib/ext/*.jar（扩展类）</td>
+</tr>
+<tr>
+<td>应用程序类加载器（Application）</td>
+<td>也叫系统类加载器，继承自 Extension，Java 实现</td>
+<td>项目的 classpath 下的类（自己写的代码、第三方依赖）</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>补充：自定义类加载器
+<ul>
+<li>如果需要加载非 classpath 下的类（比如加载网络上的 .class 文件、加密的 .class 文件），可以继承 <code>java.lang.ClassLoader</code> 重写 <code>findClass()</code> 方法，实现自定义加载逻辑。</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心机制：双亲委派模型（Parent-Delegation-Model）（重点）">核心机制：双亲委派模型（Parent Delegation Model）（重点）</h2>
+<ul>
+<li>
+<p>定义：当一个类加载器收到类加载请求时，<strong>不会先自己加载</strong>，而是先把请求委托给父类加载器，直到传递到顶层的 Bootstrap 加载器；只有父类加载器无法加载该类（找不到对应的 .class 文件），子类加载器才会自己尝试加载。</p>
+</li>
+<li>
+<p>工作流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[应用程序类加载器] --&gt;|委托加载| B[扩展类加载器]</span><br><span class="line">    B --&gt;|委托加载| C[启动类加载器]</span><br><span class="line">    C --&gt;|找不到 com.example.MyClass| B</span><br><span class="line">    B --&gt;|找不到 com.example.MyClass| A</span><br><span class="line">    A --&gt;|加载 classpath 下的 com/example/MyClass.class| D[生成 Class 对象]</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>为什么要设计双亲委派？</p>
+<ul>
+<li><strong>核心目的：保证类加载的安全性</strong>，避免核心类被篡改（比如自己写一个 <code>java.lang.String</code> 类，双亲委派会优先用 Bootstrap 加载核心库的 String，而非自定义的，防止恶意替换）；</li>
+<li><strong>避免类重复加载</strong>：同一个类只会被一个类加载器加载一次，保证内存中只有一份 Class 对象。</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结">总结</h2>
+<ul>
+<li>ClassLoader 核心是将 .class 文件加载到 JVM 内存生成 Class 对象，JVM 内置 Bootstrap/Extension/Application 三层加载器；</li>
+<li>双亲委派模型是核心设计，优先委托父类加载器加载，保证核心类安全、避免类重复加载；</li>
+<li>类只有 “主动使用” 时才会加载，常见问题需区分 <code>ClassNotFoundException</code>（加载不到文件）和 <code>NoClassDefFoundError</code>（运行时缺失）；</li>
+<li>自定义类加载器可实现热部署、插件化、加密加载等高级功能。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+        <tag>Class</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ClassWriter</title>
+    <url>/2026/03/03/ClassWriter/</url>
+    <content><![CDATA[<h1>ClassWriter</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>JVM</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="定义">定义</h2>
+<ul>
+<li><code>ClassWriter</code> 是 <strong>ASM 框架</strong>（一个轻量级、高性能的 Java 字节码操作框架）提供的核心类，属于 <code>org.objectweb.asm</code> 包，核心作用是：<strong>以编程的方式手动构建或修改 Java 类的字节码（.class 文件），最终生成字节数组形式的字节码</strong>。</li>
+</ul>
+<h2 id="为什么要用-ClassWriter？">为什么要用 ClassWriter？</h2>
+<ul>
+<li><code>ClassWriter</code> 是操作字节码的 “底层工具”，相比直接手写字节码（难度极高），ASM 封装了字节码的底层细节，让开发者能通过简单的 API 生成 / 修改类。常见应用场景：
+<ul>
+<li><strong>动态生成类</strong>：比如框架（Spring、MyBatis）动态生成代理类（如 JDK 动态代理的底层优化）；</li>
+<li><strong>字节码增强</strong>：比如 AOP 框架（AspectJ）、性能监控工具（Arthas），在不修改源码的情况下，给类的方法添加日志、监控、埋点等逻辑；</li>
+<li><strong>代码混淆 / 加密</strong>：修改类的字节码，防止反编译；</li>
+<li><strong>自定义编译器 / 解释器</strong>：比如实现一门基于 JVM 的新语言，用 <code>ClassWriter</code> 生成字节码。</li>
+</ul>
+</li>
+</ul>
+<h2 id="前置依赖（使用-ClassWriter-需引入-ASM）">前置依赖（使用 ClassWriter 需引入 ASM）</h2>
+<ul>
+<li>
+<pre><code class="language-xml">&lt;!-- ASM 核心依赖 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.ow2.asm&lt;/groupId&gt;
+    &lt;artifactId&gt;asm&lt;/artifactId&gt;
+    &lt;version&gt;9.5&lt;/version&gt; &lt;!-- 推荐稳定版本 --&gt;
+&lt;/dependency&gt;
+</code></pre>
+</li>
+</ul>
+<h2 id="核心API解释">核心API解释</h2>
+<p><strong>ClassWriter 构造参数</strong>：</p>
+<ul>
+<li><code>ClassWriter.COMPUTE_FRAMES</code>：自动计算栈帧、局部变量表等（无需手动写 <code>visitMaxs</code>），简化开发；</li>
+<li><code>ClassWriter.COMPUTE_MAXS</code>：仅自动计算栈深度和局部变量数。</li>
+</ul>
+<p><strong>关键方法</strong>：</p>
+<ul>
+<li><code>visit()</code>：定义类的基本信息（版本、访问修饰符、类名、父类、接口）；</li>
+<li><code>visitMethod()</code>：创建方法，返回 <code>MethodVisitor</code> 用于编写方法体；</li>
+<li><code>visitEnd()</code>：完成类的构建；</li>
+<li><code>toByteArray()</code>：生成字节码数组（核心输出）。</li>
+</ul>
+<p><strong>字节码描述符</strong>：</p>
+<ul>
+<li>方法描述符：比如 <code>()V</code> 表示无参数、返回 void；<code>(Ljava/lang/String;)V</code> 表示参数为 String、返回 void；</li>
+<li>类型描述符：比如 <code>Ljava/lang/String;</code> 表示 String 类型，<code>I</code> 表示 int 类型。</li>
+</ul>
+<h2 id="总结">总结</h2>
+<ul>
+<li><code>ClassWriter</code> 是 ASM 框架的核心类，用于<strong>编程式生成 / 修改 Java 字节码</strong>，无需源码即可构建类；</li>
+<li>核心流程：创建 <code>ClassWriter</code> → 定义类基本信息 → 生成方法（通过 <code>MethodVisitor</code> 编写方法体）→ 生成字节数组 → 用类加载器加载执行；</li>
+<li>主要应用于框架的动态代理、字节码增强、AOP 等场景，是理解 JVM 字节码和框架底层原理的关键工具；</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+        <tag>Class</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>逆波兰表达式求值</title>
     <url>/2026/01/29/EvaluateAReversePolishNotationExpression/</url>
     <content><![CDATA[<h1>算法-逆波兰表达式求值</h1>
@@ -441,6 +601,68 @@ empty() – 返回队列是否为空。</p>
       </tags>
   </entry>
   <entry>
+    <title>用队列实现栈</title>
+    <url>/2026/01/28/ImplementAStackUsingAQueue/</url>
+    <content><![CDATA[<h1>算法-用队列实现栈</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–用队列实现栈</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>使用队列实现栈的下列操作：</p>
+<ul>
+<li>push(x) – 元素 x 入栈</li>
+<li>pop() – 移除栈顶元素</li>
+<li>top() – 获取栈顶元素</li>
+<li>empty() – 返回栈是否为空</li>
+</ul>
+<p>注意:</p>
+<ul>
+<li>你只能使用队列的基本操作-- 也就是 push to back, peek/pop from front, size, 和 is empty 这些操作是合法的。</li>
+<li>你所使用的语言也许不支持队列。 你可以使用 list 或者 deque（双端队列）来模拟一个队列 , 只要是标准的队列操作即可。</li>
+<li>你可以假设所有操作都是有效的（例如, 对一个空的栈不会调用 pop 或者 top 操作）</li>
+</ul>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li><strong>核心矛盾</strong>：队列是「先进先出（FIFO）」，栈是「后进先出（LIFO）」，需通过「队列元素倒腾」让「最后入队的元素」留在队首（模拟栈顶）；</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyStack</span> {</span><br><span class="line">    Queue&lt;Integer&gt; queue;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyStack</span><span class="params">()</span> {</span><br><span class="line">       queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();  </span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> x)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> queue.size();  <span class="comment">// 记录入队前的元素个数</span></span><br><span class="line">        queue.offer(x);</span><br><span class="line">         <span class="comment">// 把前面size个旧元素逐个出队，再入队到队尾，新元素留在队首（栈顶）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;size;i++){</span><br><span class="line">            queue.offer(queue.poll());</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pop</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> queue.poll();</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">top</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> queue.peek();</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">empty</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> queue.isEmpty();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li><strong>面试可能考点</strong>：
+<ul>
+<li>单队列 vs 双队列实现对比：
+<ul>
+<li>双队列：入队 O (1)，出队 O (n)（倒腾 n-1 个元素）；</li>
+<li>单队列：入队 O (n)，出队 O (1)；</li>
+<li>本质：都是「空间换时间」，总时间复杂度一致，单队列代码更简洁；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>队列</tag>
+        <tag>算法</tag>
+        <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>实现strStr()</title>
     <url>/2026/01/27/ImplementstrStr()/</url>
     <content><![CDATA[<h1>算法-实现strStr()</h1>
@@ -504,64 +726,429 @@ empty() – 返回队列是否为空。</p>
       </tags>
   </entry>
   <entry>
-    <title>用队列实现栈</title>
-    <url>/2026/01/28/ImplementAStackUsingAQueue/</url>
-    <content><![CDATA[<h1>算法-用队列实现栈</h1>
+    <title>JVM--方法区（Method Area）</title>
+    <url>/2026/03/03/JVMMethodArea/</url>
+    <content><![CDATA[<h1>JVM–方法区（Method Area）</h1>
 <h2 id="背景">背景</h2>
 <ul>
 <li>
-<p>算法–用队列实现栈</p>
+<p>JVM–方法区（Method Area）</p>
 </li>
 <li>
-<p>博主以代码随想录算法公开课进行学习</p>
+<p>博主以黑马JVM进行学习</p>
 <span id="more"></span>
 </li>
 </ul>
-<h2 id="题目">题目</h2>
+<h2 id="定义">定义</h2>
+<ul>
+<li>方法区是 JVM 中<strong>线程共享</strong>的内存区域，用于存储已被虚拟机加载的<strong>类元数据</strong>（类的结构信息）、常量、静态变量、即时编译器编译后的代码缓存等；</li>
+<li>补充：方法区是 JVM 规范中的<strong>逻辑概念</strong>，不同 JVM 实现有不同的物理载体（1.6 用永久代，1.8 用元空间）。</li>
+</ul>
+<h2 id="组成">组成</h2>
 <ul>
 <li>
-<p>使用队列实现栈的下列操作：</p>
+<p>JVM内存结构1.6</p>
 <ul>
-<li>push(x) – 元素 x 入栈</li>
-<li>pop() – 移除栈顶元素</li>
-<li>top() – 获取栈顶元素</li>
-<li>empty() – 返回栈是否为空</li>
+<li>方法区（概念）：PermGen永久代（实现）包括：常量池（StringTable）、Class、ClassLoader</li>
 </ul>
-<p>注意:</p>
+</li>
+<li>
+<p>JVM内存结构1.8</p>
 <ul>
-<li>你只能使用队列的基本操作-- 也就是 push to back, peek/pop from front, size, 和 is empty 这些操作是合法的。</li>
-<li>你所使用的语言也许不支持队列。 你可以使用 list 或者 deque（双端队列）来模拟一个队列 , 只要是标准的队列操作即可。</li>
-<li>你可以假设所有操作都是有效的（例如, 对一个空的栈不会调用 pop 或者 top 操作）</li>
+<li>方法区（概念）：Metaspace元空间（实现）（包括：常量池、Class、ClassLoader）（由本地内存管理），堆（包含StringTable）</li>
+</ul>
+</li>
+<li>
+<p>比较</p>
+<table>
+<thead>
+<tr>
+<th>JVM 版本</th>
+<th>方法区的实现方式</th>
+<th>核心组成</th>
+<th>关键差异</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JDK 1.6</td>
+<td>永久代（PermGen，属于堆内存的一部分）</td>
+<td>1. 类元数据（Class 结构、字段 / 方法信息）2. 运行时常量池（包含 StringTable）3. 静态变量4. ClassLoader 相关信息</td>
+<td>永久代受 JVM 堆内存限制，可通过 <code>-XX:MaxPermSize</code> 限制大小</td>
+</tr>
+<tr>
+<td>JDK 1.8</td>
+<td>元空间（Metaspace，属于本地内存 / 直接内存）</td>
+<td>1. 类元数据、静态变量、ClassLoader 信息（存储在元空间）2. 运行时常量池（仍属于方法区逻辑范畴）3. StringTable（移至堆内存）</td>
+<td>元空间默认使用本地内存（不受 JVM 堆限制），可通过 <code>-XX:MaxMetaspaceSize</code> 限制</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h2 id="方法区的内存溢出">方法区的内存溢出</h2>
+<ul>
+<li>
+<p>1.8以前会导致永久代内存溢出(OutOfMemoryError: PermGen space)</p>
+<ul>
+<li>-XX:MaxPermSize=内存大小</li>
+</ul>
+</li>
+<li>
+<p>1.8之后会导致元空间内存溢出(OutOfMemoryError: Metaspace)</p>
+<ul>
+<li>
+<p>元空间大小根据物理内存大小</p>
+</li>
+<li>
+<p>-MaxMetaspaceSize=内存大小</p>
+</li>
+</ul>
+</li>
+<li>
+<p>比较</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>溢出错误</th>
+<th>核心参数</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JDK 1.6-</td>
+<td><code>OutOfMemoryError: PermGen space</code></td>
+<td><code>-XX:PermSize</code>（初始永久代大小）<code>-XX:MaxPermSize</code>（最大永久代大小）</td>
+<td>默认值较小（比如 64M），超出则溢出</td>
+</tr>
+<tr>
+<td>JDK 1.8+</td>
+<td><code>OutOfMemoryError: Metaspace</code></td>
+<td><code>-XX:MetaspaceSize</code>（元空间初始阈值，触发 GC 的阈值）<code>-XX:MaxMetaspaceSize</code>（元空间最大大小）</td>
+<td>默认无上限（耗尽本地内存才溢出），建议显式设置上限</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>场景：</p>
+<p>核心原因：<strong>动态生成大量类，导致类元数据占满方法区</strong></p>
+<ul>
+<li>spring：通过 CGLIB/JDK 动态代理生成大量代理类；</li>
+<li>mybatis：Mapper 接口动态生成实现类；</li>
+<li>其他：反射、动态字节码生成（ASM/ClassWriter）、热部署频繁加载类；</li>
 </ul>
 </li>
 </ul>
-<h2 id="思路">思路</h2>
+<h2 id="运行时常量池（Constant-pool）">运行时常量池（Constant pool）</h2>
 <ul>
-<li><strong>核心矛盾</strong>：队列是「先进先出（FIFO）」，栈是「后进先出（LIFO）」，需通过「队列元素倒腾」让「最后入队的元素」留在队首（模拟栈顶）；</li>
+<li>
+<p>常量池，就是一张表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、字面量等信息</p>
+</li>
+<li>
+<p>运行时常量池，常量池是*.class文件中的，当该类被加载，它的常量池信息就会放入运行时常量池，并把里面的符号地址变为真实地址</p>
+</li>
+<li>
+<p><code>.class</code> 文件的核心组成：</p>
+</li>
+<li>
+<p>二进制字节码 = 类基本信息 + 常量池 + 类方法定义（含虚拟机指令） + 字段定义</p>
+</li>
+<li>
+<p>虚拟机指令通过常量池的索引查找数据：比如指令 <code>ldc #1</code> 表示加载常量池第 1 项的字面量；</p>
+</li>
+<li>
+<p>JDK中的javap -v反编译后显示详细信息</p>
+</li>
 </ul>
-<h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyStack</span> {</span><br><span class="line">    Queue&lt;Integer&gt; queue;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyStack</span><span class="params">()</span> {</span><br><span class="line">       queue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();  </span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> x)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> queue.size();  <span class="comment">// 记录入队前的元素个数</span></span><br><span class="line">        queue.offer(x);</span><br><span class="line">         <span class="comment">// 把前面size个旧元素逐个出队，再入队到队尾，新元素留在队首（栈顶）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;size;i++){</span><br><span class="line">            queue.offer(queue.poll());</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pop</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> queue.poll();</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">top</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> queue.peek();</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">empty</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> queue.isEmpty();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="总结">总结</h2>
 <ul>
-<li><strong>面试可能考点</strong>：
-<ul>
-<li>单队列 vs 双队列实现对比：
-<ul>
-<li>双队列：入队 O (1)，出队 O (n)（倒腾 n-1 个元素）；</li>
-<li>单队列：入队 O (n)，出队 O (1)；</li>
-<li>本质：都是「空间换时间」，总时间复杂度一致，单队列代码更简洁；</li>
+<li>方法区是 JVM 线程共享的逻辑区域，JDK 1.6 用永久代（堆内）实现，JDK 1.8 改用元空间（本地内存）实现，核心变化是 StringTable 移至堆、元空间不受堆内存限制；</li>
+<li>方法区溢出在 1.6 表现为 <code>PermGen space</code>，1.8 表现为 <code>Metaspace</code>，核心场景是动态生成大量类（Spring/MyBatis 代理），可通过 <code>-XX:MaxPermSize</code>/<code>-XX:MaxMetaspaceSize</code> 限制大小；</li>
+<li>运行时常量池是类加载后常量池的运行时形态，存储字面量和符号引用（加载后转为直接引用），具备动态性，是虚拟机指令执行的核心数据来源。</li>
 </ul>
+<h2 id="补充">补充</h2>
+<ul>
+<li>元空间不是堆内存，而是本地内存，默认无上限，需手动设置 <code>-XX:MaxMetaspaceSize</code> 防止耗尽系统内存；</li>
+<li>StringTable（字符串常量池）在 1.8 移至堆，因此字符串相关的内存溢出是 <code>Java heap space</code>，而非元空间溢出；</li>
+<li>运行时常量池≠字符串常量池：前者包含后者（1.6），1.8 后字符串常量池独立在堆中，运行时常量池仍在元空间（逻辑上属于方法区）。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+        <tag>方法区</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM--堆</title>
+    <url>/2026/03/03/JVMPile/</url>
+    <content><![CDATA[<h1>JVM–堆</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>JVM–堆</p>
+</li>
+<li>
+<p>博主以黑马JVM进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="定义">定义</h2>
+<ul>
+<li>通过 <code>new</code> 关键字创建的对象<strong>实例</strong>和数组，都会占用堆内存（补充：对象的元数据存在元空间，而非堆）</li>
+<li>堆是 JVM 运行时数据区中<strong>最大的一块内存区域</strong>，也是 GC（垃圾回收）的核心区域。</li>
+</ul>
+<h2 id="特点">特点</h2>
+<ul>
+<li>线程共享：整个 JVM 进程中只有一个堆，所有线程都能访问堆中的对象，因此堆中对象的读写需要考虑线程安全（比如用 <code>synchronized</code>、<code>Atomic</code> 等）；</li>
+<li>有垃圾回收机制：堆是 GC 唯一的核心工作区域（虚拟机栈 / 本地方法栈无需 GC，程序计数器无 GC 必要），堆内存会被划分为不同区域（年轻代、老年代、元空间），不同区域采用不同的 GC 策略；</li>
+<li>可动态扩展：堆内存大小可通过 JVM 参数调整（默认会根据物理内存自动调整），也可设置固定大小。</li>
+</ul>
+<h2 id="堆的内存溢出">堆的内存溢出</h2>
+<ul>
+<li>堆内存溢出错误：OutOfMemoryError：Java heap space（最常见的 OOM 类型）</li>
+<li>堆溢出原因：
+<ul>
+<li>内存泄漏：对象不再使用但 GC 无法回收（比如静态集合长期持有对象引用、未关闭的资源连接）；</li>
+<li>内存溢出：正常业务创建的对象过多 / 过大，超出堆内存上限（比如一次性加载百万级数据到内存）；</li>
+</ul>
+</li>
+<li>核心参数：
+<ul>
+<li><code>-Xms</code>：堆内存<strong>初始大小</strong>（如 <code>-Xms200m</code>，建议和 <code>-Xmx</code> 设为相同值，避免运行时动态扩容消耗性能）；</li>
+<li><code>-Xmx</code>：堆内存<strong>最大上限</strong>（如 <code>-Xmx512m</code>，超出该值则抛出堆 OOM）；</li>
+</ul>
+</li>
+</ul>
+<h2 id="堆内存诊断">堆内存诊断</h2>
+<ul>
+<li>
+<p>jps工具：查看当前系统中有哪些java进程（定位目标进程 ID）</p>
+<ul>
+<li>
+<pre><code class="language-bash">jps # 输出示例：12345 YourMainClass（12345是进程ID）
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">* jmap工具：查看堆内存占用情况 jmap - heap 进程id</span><br><span class="line"></span><br><span class="line">  * ```bash</span><br><span class="line">    jmap -heap 进程ID # 查看堆的整体配置和使用情况（年轻代、老年代占用率）</span><br><span class="line">    jmap -histo 进程ID # 查看堆中对象的数量、大小（按内存占用排序，定位大对象）</span><br><span class="line">    jmap -dump:format=b,file=heapdump.hprof 进程ID # 导出堆快照文件（用于后续分析）</span><br></pre></td></tr></table></figure>
+
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>jconsole工具：图形界面的，多功能的监测工具，可以连续监测（JDK 自带，无需额外安装）</p>
+<ul>
+<li>启动方式：命令行输入 <code>jconsole</code>，选择目标 Java 进程即可连接；</li>
+<li>核心功能：实时监测堆内存变化、GC 次数 / 耗时、线程状态等，支持连续监测。</li>
+</ul>
+</li>
+<li>
+<p>案例：垃圾回收后，内存占用仍然很高</p>
+<ul>
+<li>
+<p>场景：程序运行一段时间后，GC 频繁触发，但回收后堆内存占用仍居高不下（大概率是内存泄漏）</p>
+</li>
+<li>
+<p>使用jvisualvm工具（JDK 自带，可视化分析神器）</p>
+<ul>
+<li>可视化的虚拟机</li>
+<li>堆Dump功能：导出堆快照文件（.hprof）；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结">总结</h2>
+<ul>
+<li>堆是 JVM 最大的线程共享内存区域，<code>new</code> 创建的对象实例 / 数组都存于堆中，需考虑线程安全；</li>
+<li>堆是 GC 的核心区域，堆内存溢出会抛出 <code>OutOfMemoryError: Java heap space</code>，可通过 <code>-Xms/-Xmx</code> 调整堆大小，核心解决思路是排查内存泄漏 / 减少大对象创建；</li>
+<li>堆内存诊断常用工具：jps（查进程）→ jmap（查静态内存）→ jconsole（实时监测）→ jvisualvm（堆 Dump 分析），其中 jvisualvm 是排查内存泄漏的核心工具。</li>
+</ul>
+<h2 id="补充：堆的分代模型">补充：堆的分代模型</h2>
+<ul>
+<li>
+<p>堆内存内部会划分为：</p>
+<ul>
+<li>
+<p>年轻代（Young Generation）：存储新创建的对象，GC 频率高（Minor GC），分为 Eden 区、S0/S1（Survivor）区；</p>
+</li>
+<li>
+<p>老年代（Old Generation）：存储存活时间长的对象，GC 频率低（Major GC/Full GC）；</p>
+</li>
+<li>
+<p>元空间（Metaspace）：JDK 8 后取代永久代，存储类的元数据（不属于堆，但常和堆一起讨论）；</p>
+<p>这是 GC 策略的基础，理解分代模型能更好地解释 “为何 GC 后内存仍高”（比如老年代对象无法被 Minor GC 回收）。</p>
 </li>
 </ul>
 </li>
 </ul>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>JVM</category>
       </categories>
       <tags>
-        <tag>队列</tag>
-        <tag>算法</tag>
+        <tag>JVM</tag>
+        <tag>堆</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM--程序计数器</title>
+    <url>/2026/03/03/JVMProgramCounterRegister/</url>
+    <content><![CDATA[<h1>JVM–程序计数器</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>JVM–程序计数器</p>
+</li>
+<li>
+<p>博主以黑马JVM进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="定义">定义</h2>
+<ul>
+<li>程序计数器（Program Counter Register）是 JVM 运行时数据区中<strong>唯一一个不会抛出 OutOfMemoryError 的区域</strong>，它是一块很小的内存空间，可以理解为 JVM 层面的 “指令指针”。（<code>OutOfMemoryError</code> 是 JVM 抛出的一种<strong>严重错误（Error）</strong>，而非普通异常（Exception），它表示：<strong>JVM 已经没有足够的内存空间来满足新的内存分配请求，且垃圾回收器（GC）也无法回收出足够的可用内存</strong>。）</li>
+<li>它的核心定位是：<strong>每个线程都有自己独立的程序计数器</strong>（线程私有），专门用来记录当前线程正在执行的 JVM 字节码指令的地址（也可以是行号），如果执行的是本地方法（native 方法），程序计数器的值则为 undefined（未定义）。</li>
+</ul>
+<h2 id="作用">作用</h2>
+<ul>
+<li>
+<p>程序计数器：记住下一条jvm指令的执行地址</p>
+</li>
+<li>
+<p>第一次执行：二进制字节码（jvm指令）—&gt;解释器—&gt;机器码—&gt;CPU，同时，程序计数器会记录<strong>下一条要执行的字节码指令的地址</strong>。</p>
+</li>
+<li>
+<p>第二次执行：程序计数器&lt;—解释器—&gt;机器码—&gt;CPU，同时，程序计数器再更新为新的 “下一条指令地址”。</p>
+</li>
+<li>
+<p>在物理上程序计数器是通过寄存器来实现的：寄存器是 CPU 内部速度最快的存储单元，程序计数器直接映射到 CPU 的寄存器（或使用寄存器模拟），这也是它执行效率极高、内存占用极小的原因。</p>
+</li>
+</ul>
+<h2 id="特点">特点</h2>
+<ul>
+<li>是线程私有，每个线程都有自己的程序计数器</li>
+<li>不会存在内存溢出</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+        <tag>程序计数器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM--栈</title>
+    <url>/2026/03/03/JVMStack/</url>
+    <content><![CDATA[<h1>JVM–栈</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>JVM–栈</p>
+</li>
+<li>
+<p>博主以黑马JVM进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="定义">定义</h2>
+<ul>
+<li>线程运行需要的内存空间（<strong>线程私有</strong>，每个线程都有独立的虚拟机栈，互不干扰）</li>
+<li>每个栈由多个栈帧（Frame）组成，对应着每次方法调用时所占用的内存</li>
+<li>栈帧：每个方法运行时需要的内存（一个栈帧就对应一次方法的调用）（局部变量表、操作数栈、动态链接、方法返回地址）</li>
+<li>每个线程只能有一个活动栈帧（在顶部），对应着当前正在执行的那个方法</li>
+</ul>
+<h2 id="问题">问题</h2>
+<ul>
+<li>
+<p>垃圾回收是否涉及栈内存？</p>
+<ul>
+<li>不会也不需要，<strong>方法执行完毕后，对应的栈帧会直接出栈并释放内存</strong>，属于自动内存释放，不需要 GC 参与 ——GC 只负责堆内存的回收</li>
+</ul>
+</li>
+<li>
+<p>栈内存分配越大越好吗？</p>
+<ul>
+<li>不会，JVM 总内存固定，栈内存通过 <code>-Xss</code> 参数设置（默认约 1M），栈内存越大，单个线程占用的内存越多，能创建的线程总数就越少，容易导致 <code>OutOfMemoryError: unable to create new native thread</code></li>
+</ul>
+</li>
+<li>
+<p>方法内的局部变量是否线程安全？</p>
+<ul>
+<li>核心结论：<strong>方法内的普通局部变量（非静态、非逃逸）是线程安全的；如果局部变量逃逸出方法（比如返回给外部、传递给其他线程），则可能不安全</strong>；</li>
+<li>判断是否线程安全，先判断是否是静态变量，再看是否逃离了当前线程（返回了）</li>
+</ul>
+</li>
+</ul>
+<h2 id="栈的内存溢出">栈的内存溢出</h2>
+<ul>
+<li>栈帧过多导致栈的内存溢出
+<ul>
+<li>无限递归调用、方法嵌套调用层数过深时容易出现</li>
+<li>抛出异常：<code>StackOverflowError</code></li>
+<li>排查递归终止条件、减少方法嵌套深度、适当调大 <code>-Xss</code>（但不推荐，治标不治本）；</li>
+</ul>
+</li>
+<li>栈帧过大导致内存溢出（不太容易出现）
+<ul>
+<li>方法内定义大量 / 超大局部变量（比如局部变量表中存储超大数组）</li>
+<li>抛出异常：<code>StackOverflowError</code>（注意：栈溢出是 <code>StackOverflowError</code>，而非 <code>OutOfMemoryError</code>，只有创建线程过多导致栈内存总容量不足时，才会抛 OOM）。</li>
+</ul>
+</li>
+</ul>
+<h2 id="线程运行诊断">线程运行诊断</h2>
+<ul>
+<li>cpu占用过多
+<ul>
+<li>Linux的命令：
+<ul>
+<li>top：监测cpu的占用，定位到进程id</li>
+<li>ps H -eo pid,tid,%cpu | grep 进程id：查看该进程下所有线程的 TID（线程 ID，十进制）和 CPU 占用率，定位到高占用线程的 TID；</li>
+<li>jstack线程id
+<ul>
+<li>导出线程栈信息，根据十六进制 TID 找到对应的线程，查看栈帧信息，定位到占用 CPU 过高的代码行（通常是死循环、频繁递归）；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>程序运行很长时间没有结果
+<ul>
+<li>常见原因：死锁、死循环、线程阻塞（比如等待锁 / IO）；
+<ul>
+<li>使用jstack 线程id</li>
+<li>找到Found one Java-level deadlock：</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="本地方法栈Native-Method-Stacks">本地方法栈Native Method Stacks</h2>
+<ul>
+<li>为本地方法（<code>native</code> 修饰的方法，比如 <code>Object.getClass()</code>、<code>System.currentTimeMillis()</code>）提供内存空间；</li>
+<li>线程私有，和虚拟机栈逻辑类似，但服务于本地方法；</li>
+<li>异常：同样会抛出 <code>StackOverflowError</code> 或 <code>OutOfMemoryError</code>；</li>
+<li>注意：HotSpot 虚拟机将 “虚拟机栈” 和 “本地方法栈” 合并实现，因此 <code>-Xss</code> 参数同时控制两者的内存大小。</li>
+</ul>
+<h2 id="总结">总结</h2>
+<ul>
+<li>虚拟机栈是线程私有内存，栈帧对应方法调用，方法执行完栈帧自动释放内存，无需 GC 参与；</li>
+<li>栈溢出（<code>StackOverflowError</code>）主要由无限递归导致，栈内存过大反而会减少线程总数；</li>
+<li>线程诊断核心工具是 <code>top/ps/jstack</code>，CPU 高查死循环 / 频繁递归，无响应查死锁 / 线程阻塞；</li>
+<li>地方法栈为 native 方法提供内存，HotSpot 中与虚拟机栈合并，共用 <code>-Xss</code> 配置。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
         <tag>栈</tag>
       </tags>
   </entry>
@@ -638,6 +1225,60 @@ empty() – 返回队列是否为空。</p>
       </tags>
   </entry>
   <entry>
+    <title>JsonIgnore注解</title>
+    <url>/2026/03/03/JsonIgnore_Annotation/</url>
+    <content><![CDATA[<h1>@JsonIgnore注解</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>JSON</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="定义">定义</h2>
+<ul>
+<li><code>@JsonIgnore</code> 是 <strong>Jackson 框架</strong>（Java 中最常用的 JSON 序列化 / 反序列化工具）提供的注解，作用是：<strong>在将 Java 对象转换成 JSON 字符串（序列化），或把 JSON 字符串转换成 Java 对象（反序列化）时，忽略被该注解标记的字段 / 方法</strong>。简单说：加了这个注解的字段，不会出现在 JSON 数据里；反序列化时，JSON 里的对应字段也不会赋值给 Java 对象的这个字段。</li>
+</ul>
+<h2 id="为什么要用-JsonIgnore？">为什么要用 @JsonIgnore？</h2>
+<ul>
+<li>
+<p>实际开发中常见场景：</p>
+<ul>
+<li>
+<p>隐藏敏感信息：比如用户的密码（password）、token 等字段，不希望返回给前端；</p>
+</li>
+<li>
+<p>避免循环引用：比如 A 对象引用 B，B 又引用 A，序列化时会无限递归，忽略其中一个引用字段就能解决；</p>
+</li>
+<li>
+<p>排除无意义字段：比如临时计算的字段、数据库主键（前端不需要）等。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="和-JsonIgnoreProperties-的区别"><strong>和 @JsonIgnoreProperties 的区别</strong></h2>
+<ul>
+<li><code>@JsonIgnore</code>：标记单个字段 / 方法；</li>
+<li><code>@JsonIgnoreProperties</code>：标记在类上，批量忽略多个字段（比如 <code>@JsonIgnoreProperties({"password", "token"})</code>）；</li>
+<li><strong>框架兼容性</strong>：Spring Boot/Spring MVC 内置了 Jackson，所以在 Controller 中返回对象时，该注解会自动生效；如果用 FastJSON 等其他 JSON 工具，该注解无效（FastJSON 用 <code>@JSONField(serialize=false)</code>）。</li>
+</ul>
+<h2 id="总结">总结</h2>
+<ul>
+<li><code>@JsonIgnore</code> 是 Jackson 框架的注解，核心作用是忽略字段的 JSON 序列化 / 反序列化；</li>
+<li>主要用于隐藏敏感信息、解决循环引用，优先直接标记在实体类字段上；</li>
+<li>使用前需确保引入 Jackson 依赖，且注意不同 JSON 工具的注解不通用。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JSON</category>
+      </categories>
+      <tags>
+        <tag>JSON</tag>
+        <tag>序列化</tag>
+        <tag>反序列化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OutOfMemoryError</title>
     <url>/2026/03/03/OutOfMemoryError/</url>
     <content><![CDATA[<h1>OutOfMemoryError</h1>
@@ -679,54 +1320,6 @@ empty() – 返回队列是否为空。</p>
       <tags>
         <tag>JVM</tag>
         <tag>Error</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JVM--程序计数器</title>
-    <url>/2026/03/03/ProgramCounterRegister/</url>
-    <content><![CDATA[<h1>JVM–程序计数器</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li>
-<p>JVM–程序计数器</p>
-</li>
-<li>
-<p>博主以黑马JVM进行学习</p>
-<span id="more"></span>
-</li>
-</ul>
-<h2 id="定义">定义</h2>
-<ul>
-<li>程序计数器（Program Counter Register）是 JVM 运行时数据区中<strong>唯一一个不会抛出 OutOfMemoryError 的区域</strong>，它是一块很小的内存空间，可以理解为 JVM 层面的 “指令指针”。（<code>OutOfMemoryError</code> 是 JVM 抛出的一种<strong>严重错误（Error）</strong>，而非普通异常（Exception），它表示：<strong>JVM 已经没有足够的内存空间来满足新的内存分配请求，且垃圾回收器（GC）也无法回收出足够的可用内存</strong>。）</li>
-<li>它的核心定位是：<strong>每个线程都有自己独立的程序计数器</strong>（线程私有），专门用来记录当前线程正在执行的 JVM 字节码指令的地址（也可以是行号），如果执行的是本地方法（native 方法），程序计数器的值则为 undefined（未定义）。</li>
-</ul>
-<h2 id="作用">作用</h2>
-<ul>
-<li>
-<p>程序计数器：记住下一条jvm指令的执行地址</p>
-</li>
-<li>
-<p>第一次执行：二进制字节码（jvm指令）—&gt;解释器—&gt;机器码—&gt;CPU，同时，程序计数器会记录<strong>下一条要执行的字节码指令的地址</strong>。</p>
-</li>
-<li>
-<p>第二次执行：程序计数器&lt;—解释器—&gt;机器码—&gt;CPU，同时，程序计数器再更新为新的 “下一条指令地址”。</p>
-</li>
-<li>
-<p>在物理上程序计数器是通过寄存器来实现的：寄存器是 CPU 内部速度最快的存储单元，程序计数器直接映射到 CPU 的寄存器（或使用寄存器模拟），这也是它执行效率极高、内存占用极小的原因。</p>
-</li>
-</ul>
-<h2 id="特点">特点</h2>
-<ul>
-<li>是线程私有，每个线程都有自己的程序计数器</li>
-<li>不会存在内存溢出</li>
-</ul>
-]]></content>
-      <categories>
-        <category>JVM</category>
-      </categories>
-      <tags>
-        <tag>JVM</tag>
-        <tag>程序计数器</tag>
       </tags>
   </entry>
   <entry>
@@ -847,74 +1440,6 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       </tags>
   </entry>
   <entry>
-    <title>替换数字</title>
-    <url>/2026/01/25/ReplaceNumbers/</url>
-    <content><![CDATA[<h1>算法-替换数字</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li>
-<p>算法–替换数字</p>
-</li>
-<li>
-<p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span>
-</li>
-</ul>
-<h2 id="题目">题目</h2>
-<ul>
-<li>
-<p>给定一个字符串 s，它包含小写字母和数字字符，请编写一个函数，将字符串中的字母字符保持不变，而将每个数字字符替换为number。</p>
-<p>例如，对于输入字符串 “a1b2c3”，函数应该将其转换为 “anumberbnumbercnumber”。</p>
-<p>对于输入字符串 “a5b”，函数应该将其转换为 “anumberb”</p>
-<p>输入：一个字符串 s,s 仅包含小写字母和数字字符。</p>
-<p>输出：打印一个新的字符串，其中每个数字字符都被替换为了number</p>
-<p>样例输入：a1b2c3</p>
-<p>样例输出：anumberbnumbercnumber</p>
-<p>数据范围：1 &lt;= s.length &lt; 10000。</p>
-</li>
-</ul>
-<h2 id="思路">思路</h2>
-<ul>
-<li><strong>统计数字数量</strong>：
-<ul>
-<li>先遍历原字符串，统计其中数字字符的个数。这一步的核心目的是计算新字符串的长度 —— 因为每个数字（1 个字符）要替换成 “number”（6 个字符），相当于每个数字会让字符串长度增加 5，因此新长度 = 原长度 + 数字个数 × 5。</li>
-</ul>
-</li>
-<li><strong>创建新字符数组</strong>：
-<ul>
-<li>基于计算出的新长度，创建一个固定长度的字符数组</li>
-</ul>
-</li>
-<li><strong>双指针从后往前填充：</strong>
-<ul>
-<li>定义两个指针：<code>i</code>指向新字符数组的末尾（待填充位置），<code>j</code>指向原字符串的末尾（待遍历位置）。</li>
-<li>从后往前遍历原字符串：
-<ul>
-<li>如果<code>j</code>指向的是字母，直接将该字母复制到<code>i</code>的位置，然后<code>i</code>和<code>j</code>都向前移动一位；</li>
-<li>如果<code>j</code>指向的是数字，从<code>i</code>的位置向前依次填充 ‘r’、‘e’、‘b’、‘m’、‘u’、‘n’（即 “number” 的逆序），然后<code>i</code>向前移动 6 位，<code>j</code>向前移动一位。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">replaceNumber</span><span class="params">(String s)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>; <span class="comment">// 统计数字的个数</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">sOldSize</span> <span class="operator">=</span> s.length();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 第一步：统计字符串中的数字数量</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; sOldSize; i++) {</span><br><span class="line">            <span class="keyword">if</span> (Character.isDigit(s.charAt(i))) {</span><br><span class="line">                count++;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 第二步：创建新字符数组，长度 = 原长度 + 数字个数*5（number是6个字符，替换1个数字多占5位）</span></span><br><span class="line">        <span class="type">char</span>[] newS = <span class="keyword">new</span> <span class="title class_">char</span>[sOldSize + count * <span class="number">5</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">sNewSize</span> <span class="operator">=</span> newS.length;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 第三步：双指针从后往前填充（核心修正）</span></span><br><span class="line">        <span class="comment">// i：新数组指针，j：原字符串指针</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> sNewSize - <span class="number">1</span>, j = sOldSize - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) {</span><br><span class="line">            <span class="comment">// 如果是字母，直接复制到新数组</span></span><br><span class="line">            <span class="keyword">if</span> (!Character.isDigit(s.charAt(j))) {</span><br><span class="line">                newS[i] = s.charAt(j);</span><br><span class="line">                i--;</span><br><span class="line">            } <span class="keyword">else</span> {</span><br><span class="line">                <span class="comment">// 如果是数字，替换为"number"（从后往前填）</span></span><br><span class="line">                newS[i] = <span class="string">'r'</span>;</span><br><span class="line">                newS[i - <span class="number">1</span>] = <span class="string">'e'</span>;</span><br><span class="line">                newS[i - <span class="number">2</span>] = <span class="string">'b'</span>;</span><br><span class="line">                newS[i - <span class="number">3</span>] = <span class="string">'m'</span>;</span><br><span class="line">                newS[i - <span class="number">4</span>] = <span class="string">'u'</span>;</span><br><span class="line">                newS[i - <span class="number">5</span>] = <span class="string">'n'</span>;</span><br><span class="line">                i -= <span class="number">6</span>; <span class="comment">// 直接移动6位，避免循环的i--干扰（更清晰）</span></span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>(newS);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> scanner.next();</span><br><span class="line">        System.out.println(replaceNumber(s));</span><br><span class="line">        scanner.close();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="总结">总结</h2>
-<ul>
-<li>从后往前填充的优势：避免从前往后填充时数字替换导致的字符覆盖，无需频繁移动已处理的字符，时间复杂度为 O (n)（n 为原字符串长度）。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-        <tag>字符串</tag>
-        <tag>双指针</tag>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>重复的子字符串</title>
     <url>/2026/01/27/RepeatedSubstring/</url>
     <content><![CDATA[<h1>算法-重复的子字符串</h1>
@@ -1031,6 +1556,74 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       </tags>
   </entry>
   <entry>
+    <title>替换数字</title>
+    <url>/2026/01/25/ReplaceNumbers/</url>
+    <content><![CDATA[<h1>算法-替换数字</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–替换数字</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>给定一个字符串 s，它包含小写字母和数字字符，请编写一个函数，将字符串中的字母字符保持不变，而将每个数字字符替换为number。</p>
+<p>例如，对于输入字符串 “a1b2c3”，函数应该将其转换为 “anumberbnumbercnumber”。</p>
+<p>对于输入字符串 “a5b”，函数应该将其转换为 “anumberb”</p>
+<p>输入：一个字符串 s,s 仅包含小写字母和数字字符。</p>
+<p>输出：打印一个新的字符串，其中每个数字字符都被替换为了number</p>
+<p>样例输入：a1b2c3</p>
+<p>样例输出：anumberbnumbercnumber</p>
+<p>数据范围：1 &lt;= s.length &lt; 10000。</p>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li><strong>统计数字数量</strong>：
+<ul>
+<li>先遍历原字符串，统计其中数字字符的个数。这一步的核心目的是计算新字符串的长度 —— 因为每个数字（1 个字符）要替换成 “number”（6 个字符），相当于每个数字会让字符串长度增加 5，因此新长度 = 原长度 + 数字个数 × 5。</li>
+</ul>
+</li>
+<li><strong>创建新字符数组</strong>：
+<ul>
+<li>基于计算出的新长度，创建一个固定长度的字符数组</li>
+</ul>
+</li>
+<li><strong>双指针从后往前填充：</strong>
+<ul>
+<li>定义两个指针：<code>i</code>指向新字符数组的末尾（待填充位置），<code>j</code>指向原字符串的末尾（待遍历位置）。</li>
+<li>从后往前遍历原字符串：
+<ul>
+<li>如果<code>j</code>指向的是字母，直接将该字母复制到<code>i</code>的位置，然后<code>i</code>和<code>j</code>都向前移动一位；</li>
+<li>如果<code>j</code>指向的是数字，从<code>i</code>的位置向前依次填充 ‘r’、‘e’、‘b’、‘m’、‘u’、‘n’（即 “number” 的逆序），然后<code>i</code>向前移动 6 位，<code>j</code>向前移动一位。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">replaceNumber</span><span class="params">(String s)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>; <span class="comment">// 统计数字的个数</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">sOldSize</span> <span class="operator">=</span> s.length();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 第一步：统计字符串中的数字数量</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; sOldSize; i++) {</span><br><span class="line">            <span class="keyword">if</span> (Character.isDigit(s.charAt(i))) {</span><br><span class="line">                count++;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 第二步：创建新字符数组，长度 = 原长度 + 数字个数*5（number是6个字符，替换1个数字多占5位）</span></span><br><span class="line">        <span class="type">char</span>[] newS = <span class="keyword">new</span> <span class="title class_">char</span>[sOldSize + count * <span class="number">5</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">sNewSize</span> <span class="operator">=</span> newS.length;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 第三步：双指针从后往前填充（核心修正）</span></span><br><span class="line">        <span class="comment">// i：新数组指针，j：原字符串指针</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> sNewSize - <span class="number">1</span>, j = sOldSize - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) {</span><br><span class="line">            <span class="comment">// 如果是字母，直接复制到新数组</span></span><br><span class="line">            <span class="keyword">if</span> (!Character.isDigit(s.charAt(j))) {</span><br><span class="line">                newS[i] = s.charAt(j);</span><br><span class="line">                i--;</span><br><span class="line">            } <span class="keyword">else</span> {</span><br><span class="line">                <span class="comment">// 如果是数字，替换为"number"（从后往前填）</span></span><br><span class="line">                newS[i] = <span class="string">'r'</span>;</span><br><span class="line">                newS[i - <span class="number">1</span>] = <span class="string">'e'</span>;</span><br><span class="line">                newS[i - <span class="number">2</span>] = <span class="string">'b'</span>;</span><br><span class="line">                newS[i - <span class="number">3</span>] = <span class="string">'m'</span>;</span><br><span class="line">                newS[i - <span class="number">4</span>] = <span class="string">'u'</span>;</span><br><span class="line">                newS[i - <span class="number">5</span>] = <span class="string">'n'</span>;</span><br><span class="line">                i -= <span class="number">6</span>; <span class="comment">// 直接移动6位，避免循环的i--干扰（更清晰）</span></span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>(newS);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> scanner.next();</span><br><span class="line">        System.out.println(replaceNumber(s));</span><br><span class="line">        scanner.close();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li>从后往前填充的优势：避免从前往后填充时数字替换导致的字符覆盖，无需频繁移动已处理的字符，时间复杂度为 O (n)（n 为原字符串长度）。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>字符串</tag>
+        <tag>双指针</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>反转字符串Ⅱ</title>
     <url>/2026/01/24/ReverseAString%E2%85%A1/</url>
     <content><![CDATA[<h1>算法-反转字符串Ⅱ</h1>
@@ -1137,8 +1730,71 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       <tags>
         <tag>算法</tag>
         <tag>字符串</tag>
-        <tag>双指针</tag>
         <tag>反转</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>StackOverflowError</title>
+    <url>/2026/03/03/StackOverflowError/</url>
+    <content><![CDATA[<h1>StackOverflowError</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>JVM的Error</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="定义">定义</h2>
+<ul>
+<li><code>StackOverflowError</code> 是 JVM 抛出的一种<strong>虚拟机栈相关的错误（Error）</strong>，属于 <code>VirtualMachineError</code> 的子类，它表示：<strong>JVM 虚拟机栈（或本地方法栈）的深度超过了虚拟机允许的最大深度</strong>，简单说就是 “方法调用的栈帧层数太多，把栈内存撑爆了”。</li>
+<li>注意：
+<ul>
+<li>它和 <code>OutOfMemoryError</code> 都属于 Error（严重错误），而非 Exception（普通异常），程序无法通过 try-catch 优雅恢复，通常会直接终止线程；</li>
+<li>它本质是<strong>栈内存的 “深度溢出”</strong>，而 OOM 是内存的 “容量不足”，两者成因和场景完全不同。</li>
+</ul>
+</li>
+</ul>
+<h2 id="出现StackOverflowError原因">出现StackOverflowError原因</h2>
+<ul>
+<li>
+<p>核心原因是<strong>方法调用的递归深度 / 栈帧数量超出了虚拟机栈的最大限制</strong>，具体分为俩类：</p>
+<ul>
+<li>
+<p>1.无限递归调用：</p>
+<ul>
+<li>
+<p>方法直接 / 间接调用自身，且没有终止条件，导致栈帧不断压入虚拟机栈，最终超出栈内存上限。</p>
+</li>
+<li>
+<p>代码演示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StackOverflowExample</span> {</span><br><span class="line">    <span class="comment">// 递归方法，无终止条件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">recursiveCall</span><span class="params">()</span> {</span><br><span class="line">        recursiveCall(); <span class="comment">// 方法自己调用自己，无限循环</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            recursiveCall();</span><br><span class="line">        } <span class="keyword">catch</span> (StackOverflowError e) {</span><br><span class="line">            System.out.println(<span class="string">"触发 StackOverflowError："</span> + e.getMessage());</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>2.其它原因</p>
+<ul>
+<li>单个方法的栈帧过大：方法内定义了大量局部变量、大数组，导致单个栈帧占用内存过多，少量调用就占满栈空间；</li>
+<li>JVM 栈内存配置过小：通过 <code>-Xss</code> 参数设置的虚拟机栈内存上限太低（比如 <code>-Xss128k</code>），正常的方法调用深度也会超出限制。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结">总结</h2>
+<ul>
+<li><code>StackOverflowError</code> 是虚拟机栈深度超限导致的错误，核心是方法调用层数过多（如无限递归）；</li>
+<li>它和 OOM 不同：OOM 是内存 “容量不足”（堆 / 元空间等），StackOverflowError 是栈 “深度超标”；</li>
+<li>解决思路：排查无限递归（加终止条件）、减少方法嵌套深度、通过 <code>-Xss</code> 适当调大栈内存（如 <code>-Xss1m</code>）。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+        <tag>Error</tag>
       </tags>
   </entry>
   <entry>
@@ -1302,6 +1958,53 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       </tags>
   </entry>
   <entry>
+    <title>三数之和</title>
+    <url>/2026/01/22/SumOfThreeNumbers/</url>
+    <content><![CDATA[<h1>算法-三数之和</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>算法–三数之和</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="题目">题目</h2>
+<ul>
+<li>
+<p>给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。</p>
+<p><strong>注意：</strong> 答案中不可以包含重复的三元组。</p>
+<p>示例：</p>
+<p>给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
+<p>满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2] ]</p>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>哈希法：俩层for循环，再用哈希法确定第3个数，但是去重难度大</li>
+<li>双指针法：先将数组排序，一层for循环，i重下标为0开始，建立left指针指向i的下一位、rigth指针指向最后一位</li>
+<li>nums[i] + nums[left] + nums[right] &gt; 0表示大了，right向左移</li>
+<li>nums[i] + nums[left] + nums[right] &lt; 0表示小了，left向右移</li>
+<li>nums[i] + nums[left] + nums[right] = 0表示找到符合标准的</li>
+</ul>
+<h2 id="代码">代码</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">threeSum</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">//排序，为去重准备</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; nums.length; i++){</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &gt; <span class="number">0</span>){</span><br><span class="line">                <span class="keyword">return</span> result; <span class="comment">//首位最小但是大于0，表示没有负数，直接返回结果</span></span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i-<span class="number">1</span>]){    <span class="comment">//去重，</span></span><br><span class="line">                <span class="keyword">continue</span>;             </span><br><span class="line">            }</span><br><span class="line">            <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> i + <span class="number">1</span>;   <span class="comment">//左指针</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">rigth</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;  <span class="comment">//右指针</span></span><br><span class="line">            <span class="keyword">while</span>(rigth &gt; left){       <span class="comment">//没有=，因为要求3位数，等于只剩2位</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> nums[i] + nums[left] +nums[rigth];  </span><br><span class="line">                <span class="keyword">if</span>(sum &gt; <span class="number">0</span>){   <span class="comment">//和大，右指针往左移动</span></span><br><span class="line">                    rigth--;</span><br><span class="line">                }<span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; <span class="number">0</span>){ <span class="comment">//和小，左指针往右移动</span></span><br><span class="line">                    left++;</span><br><span class="line">                }<span class="keyword">else</span>{</span><br><span class="line">                    result.add(Arrays.asList(nums[i],nums[left],nums[rigth]));  <span class="comment">//找到符合的结果</span></span><br><span class="line">                    <span class="keyword">while</span>(rigth &gt; left &amp;&amp; nums[rigth] == nums[rigth-<span class="number">1</span>]){    <span class="comment">//去重</span></span><br><span class="line">                        rigth--;</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">while</span>(rigth &gt; left &amp;&amp; nums[left] == nums[left+<span class="number">1</span>]){   <span class="comment">//去重</span></span><br><span class="line">                        left++;</span><br><span class="line">                    }</span><br><span class="line"></span><br><span class="line">                    rigth--;</span><br><span class="line">                    left++;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h2 id="总结">总结</h2>
+<ul>
+<li>三数之和的核心逻辑是：排序 + 固定第一个数 + 双指针找后两个数，去重逻辑是避免重复三元组的关键。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>前 K 个高频元素</title>
     <url>/2026/01/30/TopKFrequentElements/</url>
     <content><![CDATA[<h1>算法-前 K 个高频元素</h1>
@@ -1389,19 +2092,19 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       </categories>
       <tags>
         <tag>算法</tag>
-        <tag>哈希表</tag>
         <tag>堆</tag>
+        <tag>哈希表</tag>
         <tag>优先队列</tag>
       </tags>
   </entry>
   <entry>
-    <title>三数之和</title>
-    <url>/2026/01/22/SumOfThreeNumbers/</url>
-    <content><![CDATA[<h1>算法-三数之和</h1>
+    <title>有效的括号</title>
+    <url>/2026/01/28/ValidParentheses/</url>
+    <content><![CDATA[<h1>算法-有效的括号</h1>
 <h2 id="背景">背景</h2>
 <ul>
 <li>
-<p>算法–三数之和</p>
+<p>算法–有效的括号</p>
 </li>
 <li>
 <p>博主以代码随想录算法公开课进行学习</p>
@@ -1411,26 +2114,69 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
 <h2 id="题目">题目</h2>
 <ul>
 <li>
-<p>给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。</p>
-<p><strong>注意：</strong> 答案中不可以包含重复的三元组。</p>
-<p>示例：</p>
-<p>给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
-<p>满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2] ]</p>
+<p>给定一个只包括 ‘(’，‘)’，‘{’，‘}’，‘[’，‘]’ 的字符串，判断字符串是否有效。</p>
+<p>有效字符串需满足：</p>
+<ul>
+<li>左括号必须用相同类型的右括号闭合。</li>
+<li>左括号必须以正确的顺序闭合。</li>
+<li>注意空字符串可被认为是有效字符串。</li>
+</ul>
+<p>示例 1:</p>
+<ul>
+<li>输入: “()”</li>
+<li>输出: true</li>
+</ul>
+<p>示例 2:</p>
+<ul>
+<li>输入: “()[]{}”</li>
+<li>输出: true</li>
+</ul>
+<p>示例 3:</p>
+<ul>
+<li>输入: “(]”</li>
+<li>输出: false</li>
+</ul>
+<p>示例 4:</p>
+<ul>
+<li>输入: “([)]”</li>
+<li>输出: false</li>
+</ul>
+<p>示例 5:</p>
+<ul>
+<li>输入: “{[]}”</li>
+<li>输出: true</li>
+</ul>
 </li>
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
-<li>哈希法：俩层for循环，再用哈希法确定第3个数，但是去重难度大</li>
-<li>双指针法：先将数组排序，一层for循环，i重下标为0开始，建立left指针指向i的下一位、rigth指针指向最后一位</li>
-<li>nums[i] + nums[left] + nums[right] &gt; 0表示大了，right向左移</li>
-<li>nums[i] + nums[left] + nums[right] &lt; 0表示小了，left向右移</li>
-<li>nums[i] + nums[left] + nums[right] = 0表示找到符合标准的</li>
+<li><strong>核心逻辑</strong>：利用<strong>栈的「后进先出」特性</strong>匹配括号——左括号入栈，右括号匹配栈顶左括号，匹配成功则出栈，失败则直接返回false；</li>
+<li><strong>具体步骤</strong>：
+<ul>
+<li>遍历字符串每个字符：
+<ul>
+<li>若为左括号（<code>(</code>/<code>{</code>/<code>[</code>）：将<strong>对应的右括号</strong>压入栈（简化后续匹配逻辑）；</li>
+<li>若为右括号：
+<ul>
+<li>栈为空 → 无左括号匹配，返回false；</li>
+<li>栈顶元素≠当前右括号 → 类型不匹配，返回false；</li>
+<li>栈顶元素=当前右括号 → 匹配成功，弹出栈顶；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>遍历结束后：栈为空则所有括号匹配成功，否则存在未闭合的左括号。</li>
+</ul>
+</li>
 </ul>
 <h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">threeSum</span><span class="params">(<span class="type">int</span>[] nums)</span> {</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">//排序，为去重准备</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; nums.length; i++){</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &gt; <span class="number">0</span>){</span><br><span class="line">                <span class="keyword">return</span> result; <span class="comment">//首位最小但是大于0，表示没有负数，直接返回结果</span></span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i-<span class="number">1</span>]){    <span class="comment">//去重，</span></span><br><span class="line">                <span class="keyword">continue</span>;             </span><br><span class="line">            }</span><br><span class="line">            <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> i + <span class="number">1</span>;   <span class="comment">//左指针</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">rigth</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;  <span class="comment">//右指针</span></span><br><span class="line">            <span class="keyword">while</span>(rigth &gt; left){       <span class="comment">//没有=，因为要求3位数，等于只剩2位</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> nums[i] + nums[left] +nums[rigth];  </span><br><span class="line">                <span class="keyword">if</span>(sum &gt; <span class="number">0</span>){   <span class="comment">//和大，右指针往左移动</span></span><br><span class="line">                    rigth--;</span><br><span class="line">                }<span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; <span class="number">0</span>){ <span class="comment">//和小，左指针往右移动</span></span><br><span class="line">                    left++;</span><br><span class="line">                }<span class="keyword">else</span>{</span><br><span class="line">                    result.add(Arrays.asList(nums[i],nums[left],nums[rigth]));  <span class="comment">//找到符合的结果</span></span><br><span class="line">                    <span class="keyword">while</span>(rigth &gt; left &amp;&amp; nums[rigth] == nums[rigth-<span class="number">1</span>]){    <span class="comment">//去重</span></span><br><span class="line">                        rigth--;</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">while</span>(rigth &gt; left &amp;&amp; nums[left] == nums[left+<span class="number">1</span>]){   <span class="comment">//去重</span></span><br><span class="line">                        left++;</span><br><span class="line">                    }</span><br><span class="line"></span><br><span class="line">                    rigth--;</span><br><span class="line">                    left++;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(String s)</span> {</span><br><span class="line">        Deque&lt;Character&gt; deque = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">char</span> ch;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt;s.length();i++){</span><br><span class="line">             ch = s.charAt(i);</span><br><span class="line">            <span class="keyword">if</span>(ch == <span class="string">'('</span>){</span><br><span class="line">                deque.push(<span class="string">')'</span>);</span><br><span class="line">            }<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">'{'</span>){</span><br><span class="line">                deque.push(<span class="string">'}'</span>);</span><br><span class="line">            }<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">'['</span>){</span><br><span class="line">                deque.push(<span class="string">']'</span>);</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// 碰到右括号时：如果栈为空（无左括号匹配），或栈顶不是当前右括号（匹配失败）</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(deque.isEmpty()||deque.peek() != ch){</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// 右括号匹配成功 → 弹出栈顶</span></span><br><span class="line">            <span class="keyword">else</span>{</span><br><span class="line">                deque.pop();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> deque.isEmpty();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <h2 id="总结">总结</h2>
 <ul>
-<li>三数之和的核心逻辑是：排序 + 固定第一个数 + 双指针找后两个数，去重逻辑是避免重复三元组的关键。</li>
+<li>有效的括号核心是<strong>栈+括号映射</strong>，利用栈的LIFO特性匹配嵌套括号；</li>
+<li>关键技巧：左括号入栈时压入对应右括号，简化后续匹配逻辑；</li>
+<li>面试需掌握「核心逻辑」「边界案例」「Deque替代Stack的原因」三个考点；</li>
+<li>复杂度为O(n)（时间+空间）</li>
 </ul>
 ]]></content>
       <categories>
@@ -1438,7 +2184,7 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       </categories>
       <tags>
         <tag>算法</tag>
-        <tag>双指针</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -1562,96 +2308,6 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       <tags>
         <tag>数据结构</tag>
         <tag>链表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>有效的括号</title>
-    <url>/2026/01/28/ValidParentheses/</url>
-    <content><![CDATA[<h1>算法-有效的括号</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li>
-<p>算法–有效的括号</p>
-</li>
-<li>
-<p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span>
-</li>
-</ul>
-<h2 id="题目">题目</h2>
-<ul>
-<li>
-<p>给定一个只包括 ‘(’，‘)’，‘{’，‘}’，‘[’，‘]’ 的字符串，判断字符串是否有效。</p>
-<p>有效字符串需满足：</p>
-<ul>
-<li>左括号必须用相同类型的右括号闭合。</li>
-<li>左括号必须以正确的顺序闭合。</li>
-<li>注意空字符串可被认为是有效字符串。</li>
-</ul>
-<p>示例 1:</p>
-<ul>
-<li>输入: “()”</li>
-<li>输出: true</li>
-</ul>
-<p>示例 2:</p>
-<ul>
-<li>输入: “()[]{}”</li>
-<li>输出: true</li>
-</ul>
-<p>示例 3:</p>
-<ul>
-<li>输入: “(]”</li>
-<li>输出: false</li>
-</ul>
-<p>示例 4:</p>
-<ul>
-<li>输入: “([)]”</li>
-<li>输出: false</li>
-</ul>
-<p>示例 5:</p>
-<ul>
-<li>输入: “{[]}”</li>
-<li>输出: true</li>
-</ul>
-</li>
-</ul>
-<h2 id="思路">思路</h2>
-<ul>
-<li><strong>核心逻辑</strong>：利用<strong>栈的「后进先出」特性</strong>匹配括号——左括号入栈，右括号匹配栈顶左括号，匹配成功则出栈，失败则直接返回false；</li>
-<li><strong>具体步骤</strong>：
-<ul>
-<li>遍历字符串每个字符：
-<ul>
-<li>若为左括号（<code>(</code>/<code>{</code>/<code>[</code>）：将<strong>对应的右括号</strong>压入栈（简化后续匹配逻辑）；</li>
-<li>若为右括号：
-<ul>
-<li>栈为空 → 无左括号匹配，返回false；</li>
-<li>栈顶元素≠当前右括号 → 类型不匹配，返回false；</li>
-<li>栈顶元素=当前右括号 → 匹配成功，弹出栈顶；</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>遍历结束后：栈为空则所有括号匹配成功，否则存在未闭合的左括号。</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(String s)</span> {</span><br><span class="line">        Deque&lt;Character&gt; deque = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">char</span> ch;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt;s.length();i++){</span><br><span class="line">             ch = s.charAt(i);</span><br><span class="line">            <span class="keyword">if</span>(ch == <span class="string">'('</span>){</span><br><span class="line">                deque.push(<span class="string">')'</span>);</span><br><span class="line">            }<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">'{'</span>){</span><br><span class="line">                deque.push(<span class="string">'}'</span>);</span><br><span class="line">            }<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">'['</span>){</span><br><span class="line">                deque.push(<span class="string">']'</span>);</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// 碰到右括号时：如果栈为空（无左括号匹配），或栈顶不是当前右括号（匹配失败）</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(deque.isEmpty()||deque.peek() != ch){</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// 右括号匹配成功 → 弹出栈顶</span></span><br><span class="line">            <span class="keyword">else</span>{</span><br><span class="line">                deque.pop();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> deque.isEmpty();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="总结">总结</h2>
-<ul>
-<li>有效的括号核心是<strong>栈+括号映射</strong>，利用栈的LIFO特性匹配嵌套括号；</li>
-<li>关键技巧：左括号入栈时压入对应右括号，简化后续匹配逻辑；</li>
-<li>面试需掌握「核心逻辑」「边界案例」「Deque替代Stack的原因」三个考点；</li>
-<li>复杂度为O(n)（时间+空间）</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -2398,6 +3054,147 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       </tags>
   </entry>
   <entry>
+    <title>栈</title>
+    <url>/2024/10/01/stack/</url>
+    <content><![CDATA[<h1>栈</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>数据结构——栈</p>
+</li>
+<li>
+<p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="介绍">介绍</h2>
+<ul>
+<li>
+<p>栈是一个<strong>先进后出</strong>的有序列表</p>
+</li>
+<li>
+<p>栈是限制线性表中元素的插入和删除只能在线性表的同一端进行的一种特殊线性表。允许插入和删除一端，为变化的一端，称为<strong>栈顶（Top）</strong>；另一端为固定端，称为<strong>栈底（Bottom）</strong></p>
+</li>
+<li>
+<p>先进的元素后删除，后进的元素先删除</p>
+</li>
+</ul>
+<h2 id="思路">思路</h2>
+<ul>
+<li>
+<p>使用数组模拟栈</p>
+</li>
+<li>
+<p>定义一个<strong>top</strong>来表示栈顶，初始化为-1</p>
+</li>
+<li>
+<p>入栈操作，当有数据入栈时，<strong>top++；stack[top] = data;</strong></p>
+</li>
+<li>
+<p>出栈操作，<strong>int value = stack [top];top–,return value;</strong></p>
+</li>
+</ul>
+<h2 id="步骤">步骤</h2>
+<ul>
+<li>
+<p>创建一个测试类ArrayStackDemo</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ArrayStackDemo</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">    <span class="comment">//测试</span></span><br><span class="line">        <span class="type">ArrayStack</span> <span class="variable">stack</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayStack</span>(<span class="number">4</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span><span class="string">" "</span>;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;<span class="comment">//控制是否退出菜单</span></span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="keyword">while</span>(loop){</span><br><span class="line">            System.out.println(<span class="string">"show:"</span>);</span><br><span class="line">            System.out.println(<span class="string">"exit:"</span>);</span><br><span class="line">            System.out.println(<span class="string">"push:"</span>);</span><br><span class="line">            System.out.println(<span class="string">"pop:"</span>);</span><br><span class="line">            System.out.println(<span class="string">"请输入"</span>);</span><br><span class="line">            key = scanner.next();</span><br><span class="line">            <span class="keyword">switch</span> (key){</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"show"</span>:</span><br><span class="line">                    stack.list();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"push"</span>:</span><br><span class="line">                    System.out.println(<span class="string">"请输入一个数："</span>);</span><br><span class="line">                    <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">                    stack.push(value);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"pop"</span>:</span><br><span class="line">                    <span class="keyword">try</span> {</span><br><span class="line">                    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> stack.pop();</span><br><span class="line">                        System.out.printf(<span class="string">"出栈的数据是%d\n"</span>,res);</span><br><span class="line">                    }<span class="keyword">catch</span> (Exception e){</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"exit"</span>:</span><br><span class="line">                    scanner.close();</span><br><span class="line">                    loop = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        System.out.println(<span class="string">"程序退出"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>定义一个ArrayStack类</p>
+<ul>
+<li>
+<p>栈的大小</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> maxSize;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>数组模拟栈，数据放在改数组</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span>[] stack;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>top表示栈顶，初始化为-1</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="variable">top</span> <span class="operator">=</span> -<span class="number">1</span>;   </span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>栈满</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isFull</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> top == maxSize -<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>栈空</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> top == -<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>入栈</p>
+<ul>
+<li>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> value)</span>{</span><br><span class="line">    <span class="comment">//判断栈是否满</span></span><br><span class="line">    <span class="keyword">if</span>(isFull()){</span><br><span class="line">        System.out.println(<span class="string">"栈满"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    top++;</span><br><span class="line">    stack[top] = value;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>出栈</p>
+<ul>
+<li>
+<pre><code class="language-java"> //出栈pop，将栈顶数据返回
+    public int pop(){
+     //先判断栈是否空
+        if(isEmpty()){
+            //抛出异常
+             throw new RuntimeException("栈空");
+        }
+        int value = stack[top];
+        top--;
+        return value;
+    }
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">* 遍历栈</span><br><span class="line"></span><br><span class="line">  * 代码实现</span><br><span class="line"></span><br><span class="line">  ```java</span><br><span class="line">    //遍历栈，遍历时要从栈顶开始</span><br><span class="line">       public void list(){</span><br><span class="line">          if(isEmpty()){</span><br><span class="line">              System.out.println("栈空没有数据");</span><br><span class="line">              return;</span><br><span class="line">          }</span><br><span class="line">          //从栈顶开始显示数据</span><br><span class="line">           for(int i=top;i&gt;=0;i--){</span><br><span class="line">               System.out.printf("stack[%d]==%d\n",i,stack[i]);</span><br><span class="line">           }</span><br><span class="line">       }</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>单链表</title>
     <url>/2024/09/03/singleLinkedList/</url>
     <content><![CDATA[<h1>单链表（其一）</h1>
@@ -2772,147 +3569,6 @@ canConstruct(“aa”, “aab”) -&gt; true</p>
       <tags>
         <tag>数据结构</tag>
         <tag>数组</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>栈</title>
-    <url>/2024/10/01/stack/</url>
-    <content><![CDATA[<h1>栈</h1>
-<h2 id="背景">背景</h2>
-<ul>
-<li>
-<p>数据结构——栈</p>
-</li>
-<li>
-<p>博主以b站尚硅谷Java数据结构与算法课进行学习</p>
-<span id="more"></span>
-</li>
-</ul>
-<h2 id="介绍">介绍</h2>
-<ul>
-<li>
-<p>栈是一个<strong>先进后出</strong>的有序列表</p>
-</li>
-<li>
-<p>栈是限制线性表中元素的插入和删除只能在线性表的同一端进行的一种特殊线性表。允许插入和删除一端，为变化的一端，称为<strong>栈顶（Top）</strong>；另一端为固定端，称为<strong>栈底（Bottom）</strong></p>
-</li>
-<li>
-<p>先进的元素后删除，后进的元素先删除</p>
-</li>
-</ul>
-<h2 id="思路">思路</h2>
-<ul>
-<li>
-<p>使用数组模拟栈</p>
-</li>
-<li>
-<p>定义一个<strong>top</strong>来表示栈顶，初始化为-1</p>
-</li>
-<li>
-<p>入栈操作，当有数据入栈时，<strong>top++；stack[top] = data;</strong></p>
-</li>
-<li>
-<p>出栈操作，<strong>int value = stack [top];top–,return value;</strong></p>
-</li>
-</ul>
-<h2 id="步骤">步骤</h2>
-<ul>
-<li>
-<p>创建一个测试类ArrayStackDemo</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ArrayStackDemo</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">    <span class="comment">//测试</span></span><br><span class="line">        <span class="type">ArrayStack</span> <span class="variable">stack</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayStack</span>(<span class="number">4</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span><span class="string">" "</span>;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;<span class="comment">//控制是否退出菜单</span></span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="keyword">while</span>(loop){</span><br><span class="line">            System.out.println(<span class="string">"show:"</span>);</span><br><span class="line">            System.out.println(<span class="string">"exit:"</span>);</span><br><span class="line">            System.out.println(<span class="string">"push:"</span>);</span><br><span class="line">            System.out.println(<span class="string">"pop:"</span>);</span><br><span class="line">            System.out.println(<span class="string">"请输入"</span>);</span><br><span class="line">            key = scanner.next();</span><br><span class="line">            <span class="keyword">switch</span> (key){</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"show"</span>:</span><br><span class="line">                    stack.list();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"push"</span>:</span><br><span class="line">                    System.out.println(<span class="string">"请输入一个数："</span>);</span><br><span class="line">                    <span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">                    stack.push(value);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"pop"</span>:</span><br><span class="line">                    <span class="keyword">try</span> {</span><br><span class="line">                    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> stack.pop();</span><br><span class="line">                        System.out.printf(<span class="string">"出栈的数据是%d\n"</span>,res);</span><br><span class="line">                    }<span class="keyword">catch</span> (Exception e){</span><br><span class="line">                        System.out.println(e.getMessage());</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"exit"</span>:</span><br><span class="line">                    scanner.close();</span><br><span class="line">                    loop = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        System.out.println(<span class="string">"程序退出"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>定义一个ArrayStack类</p>
-<ul>
-<li>
-<p>栈的大小</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> maxSize;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>数组模拟栈，数据放在改数组</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span>[] stack;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>top表示栈顶，初始化为-1</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="variable">top</span> <span class="operator">=</span> -<span class="number">1</span>;   </span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>栈满</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isFull</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> top == maxSize -<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>栈空</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">return</span> top == -<span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>入栈</p>
-<ul>
-<li>
-<p>代码实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(<span class="type">int</span> value)</span>{</span><br><span class="line">    <span class="comment">//判断栈是否满</span></span><br><span class="line">    <span class="keyword">if</span>(isFull()){</span><br><span class="line">        System.out.println(<span class="string">"栈满"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    top++;</span><br><span class="line">    stack[top] = value;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>出栈</p>
-<ul>
-<li>
-<pre><code class="language-java"> //出栈pop，将栈顶数据返回
-    public int pop(){
-     //先判断栈是否空
-        if(isEmpty()){
-            //抛出异常
-             throw new RuntimeException("栈空");
-        }
-        int value = stack[top];
-        top--;
-        return value;
-    }
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">* 遍历栈</span><br><span class="line"></span><br><span class="line">  * 代码实现</span><br><span class="line"></span><br><span class="line">  ```java</span><br><span class="line">    //遍历栈，遍历时要从栈顶开始</span><br><span class="line">       public void list(){</span><br><span class="line">          if(isEmpty()){</span><br><span class="line">              System.out.println("栈空没有数据");</span><br><span class="line">              return;</span><br><span class="line">          }</span><br><span class="line">          //从栈顶开始显示数据</span><br><span class="line">           for(int i=top;i&gt;=0;i--){</span><br><span class="line">               System.out.printf("stack[%d]==%d\n",i,stack[i]);</span><br><span class="line">           }</span><br><span class="line">       }</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
