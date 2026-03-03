@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="算法-有效的括号 背景   算法–有效的括号   博主以代码随想录算法公开课进行学习">
+    <meta name="description" content="算法-有效的括号 背景  算法--有效的括号 博主以代码随想录算法公开课进行学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="有效的括号">
 <meta property="og:url" content="http://seeya-ch.github.io/2026/01/28/ValidParentheses/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="算法-有效的括号 背景   算法–有效的括号   博主以代码随想录算法公开课进行学习">
+<meta property="og:description" content="算法-有效的括号 背景  算法--有效的括号 博主以代码随想录算法公开课进行学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-01-28T05:34:23.000Z">
 <meta property="article:modified_time" content="2026-02-27T05:58:54.635Z">
@@ -252,7 +252,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">算法-有效的括号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7"><span class="nav-number">1.</span> <span class="nav-text">算法-有效的括号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -265,7 +265,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -276,7 +276,7 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -360,21 +360,17 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1>算法-有效的括号</h1>
+    <div class="post-body" itemprop="articleBody"><h1 id="算法-有效的括号">算法-有效的括号</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li>
-<p>算法–有效的括号</p>
-</li>
-<li>
-<p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span>
-</li>
+<li><p>算法--有效的括号</p></li>
+<li><p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span></li>
 </ul>
 <h2 id="题目">题目</h2>
 <ul>
-<li>
-<p>给定一个只包括 ‘(’，‘)’，‘{’，‘}’，‘[’，‘]’ 的字符串，判断字符串是否有效。</p>
+<li><p>给定一个只包括 '('，')'，'{'，'}'，'['，']'
+的字符串，判断字符串是否有效。</p>
 <p>有效字符串需满足：</p>
 <ul>
 <li>左括号必须用相同类型的右括号闭合。</li>
@@ -383,30 +379,29 @@ mjx-container[display="true"] + br {
 </ul>
 <p>示例 1:</p>
 <ul>
-<li>输入: “()”</li>
+<li>输入: "()"</li>
 <li>输出: true</li>
 </ul>
 <p>示例 2:</p>
 <ul>
-<li>输入: “()[]{}”</li>
+<li>输入: "()<span></span>"</li>
 <li>输出: true</li>
 </ul>
 <p>示例 3:</p>
 <ul>
-<li>输入: “(]”</li>
+<li>输入: "(]"</li>
 <li>输出: false</li>
 </ul>
 <p>示例 4:</p>
 <ul>
-<li>输入: “([)]”</li>
+<li>输入: "([)]"</li>
 <li>输出: false</li>
 </ul>
 <p>示例 5:</p>
 <ul>
-<li>输入: “{[]}”</li>
+<li>输入: "{[]}"</li>
 <li>输出: true</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
@@ -421,13 +416,10 @@ mjx-container[display="true"] + br {
 <li>栈为空 → 无左括号匹配，返回false；</li>
 <li>栈顶元素≠当前右括号 → 类型不匹配，返回false；</li>
 <li>栈顶元素=当前右括号 → 匹配成功，弹出栈顶；</li>
-</ul>
-</li>
-</ul>
-</li>
+</ul></li>
+</ul></li>
 <li>遍历结束后：栈为空则所有括号匹配成功，否则存在未闭合的左括号。</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <h2 id="代码">代码</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(String s)</span> {</span><br><span class="line">        Deque&lt;Character&gt; deque = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">char</span> ch;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt;s.length();i++){</span><br><span class="line">             ch = s.charAt(i);</span><br><span class="line">            <span class="keyword">if</span>(ch == <span class="string">'('</span>){</span><br><span class="line">                deque.push(<span class="string">')'</span>);</span><br><span class="line">            }<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">'{'</span>){</span><br><span class="line">                deque.push(<span class="string">'}'</span>);</span><br><span class="line">            }<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">'['</span>){</span><br><span class="line">                deque.push(<span class="string">']'</span>);</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// 碰到右括号时：如果栈为空（无左括号匹配），或栈顶不是当前右括号（匹配失败）</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(deque.isEmpty()||deque.peek() != ch){</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// 右括号匹配成功 → 弹出栈顶</span></span><br><span class="line">            <span class="keyword">else</span>{</span><br><span class="line">                deque.pop();</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> deque.isEmpty();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>

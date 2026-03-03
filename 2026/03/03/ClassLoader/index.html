@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="ClassLoader（类加载器） 背景   JVM">
+    <meta name="description" content="ClassLoader（类加载器） 背景  JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ClassLoader（类加载器）">
 <meta property="og:url" content="http://seeya-ch.github.io/2026/03/03/ClassLoader/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="ClassLoader（类加载器） 背景   JVM">
+<meta property="og:description" content="ClassLoader（类加载器） 背景  JVM">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-03T10:34:23.000Z">
 <meta property="article:modified_time" content="2026-03-03T14:44:26.435Z">
@@ -252,7 +252,9 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">ClassLoader（类加载器）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ClassLoader-%E7%9A%84%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">ClassLoader 的核心作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM-%E5%86%85%E7%BD%AE%E7%9A%84-ClassLoader-%E5%88%86%E7%B1%BB%EF%BC%88%E6%A0%B8%E5%BF%83%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">JVM 内置的 ClassLoader 分类（核心）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6%EF%BC%9A%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B%EF%BC%88Parent-Delegation-Model%EF%BC%89%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">核心机制：双亲委派模型（Parent Delegation Model）（重点）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#classloader%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">ClassLoader（类加载器）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#classloader-%E7%9A%84%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">ClassLoader 的核心作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jvm-%E5%86%85%E7%BD%AE%E7%9A%84-classloader-%E5%88%86%E7%B1%BB%E6%A0%B8%E5%BF%83"><span class="nav-number">1.4.</span> <span class="nav-text">JVM 内置的 ClassLoader
+分类（核心）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8Bparent-delegation-model%E9%87%8D%E7%82%B9"><span class="nav-number">1.5.</span> <span class="nav-text">核心机制：双亲委派模型（Parent
+Delegation Model）（重点）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -265,7 +267,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -276,7 +278,7 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -354,27 +356,37 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1>ClassLoader（类加载器）</h1>
+    <div class="post-body" itemprop="articleBody"><h1 id="classloader类加载器">ClassLoader（类加载器）</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li>
-<p>JVM</p>
-<span id="more"></span>
-</li>
+<li><p>JVM</p>
+<span id="more"></span></li>
 </ul>
 <h2 id="定义">定义</h2>
 <ul>
-<li>ClassLoader 是 JVM 提供的<strong>类加载机制</strong>（也是具体实现类的统称），核心作用是：<strong>将硬盘上的 .class 文件（字节码）加载到 JVM 内存中，并生成对应的 Class 对象</strong>，让程序能使用该类（比如 <code>new</code> 实例、调用静态方法）</li>
+<li>ClassLoader 是 JVM
+提供的<strong>类加载机制</strong>（也是具体实现类的统称），核心作用是：<strong>将硬盘上的
+.class 文件（字节码）加载到 JVM 内存中，并生成对应的 Class
+对象</strong>，让程序能使用该类（比如 <code>new</code>
+实例、调用静态方法）</li>
 </ul>
-<h2 id="ClassLoader-的核心作用">ClassLoader 的核心作用</h2>
+<h2 id="classloader-的核心作用">ClassLoader 的核心作用</h2>
 <ul>
 <li><strong>加载</strong>：查找并读取 .class 文件到内存；</li>
-<li><strong>链接</strong>：验证（校验字节码合法性）→ 准备（为静态变量分配内存）→ 解析（将符号引用转为直接引用）；</li>
+<li><strong>链接</strong>：验证（校验字节码合法性）→
+准备（为静态变量分配内存）→ 解析（将符号引用转为直接引用）；</li>
 <li><strong>初始化</strong>：执行静态代码块、初始化静态变量（类的生命周期核心步骤）；</li>
-<li><strong>双亲委派</strong>（Parent Delegation Model）：ClassLoader 最核心的设计原则</li>
+<li><strong>双亲委派</strong>（Parent Delegation Model）：ClassLoader
+最核心的设计原则</li>
 </ul>
-<h2 id="JVM-内置的-ClassLoader-分类（核心）">JVM 内置的 ClassLoader 分类（核心）</h2>
+<h2 id="jvm-内置的-classloader-分类核心">JVM 内置的 ClassLoader
+分类（核心）</h2>
 <table>
+<colgroup>
+<col style="width: 23%">
+<col style="width: 38%">
+<col style="width: 38%">
+</colgroup>
 <thead>
 <tr>
 <th>类加载器类型</th>
@@ -403,32 +415,36 @@ mjx-container[display="true"] + br {
 <ul>
 <li>补充：自定义类加载器
 <ul>
-<li>如果需要加载非 classpath 下的类（比如加载网络上的 .class 文件、加密的 .class 文件），可以继承 <code>java.lang.ClassLoader</code> 重写 <code>findClass()</code> 方法，实现自定义加载逻辑。</li>
+<li>如果需要加载非 classpath 下的类（比如加载网络上的 .class
+文件、加密的 .class 文件），可以继承 <code>java.lang.ClassLoader</code>
+重写 <code>findClass()</code> 方法，实现自定义加载逻辑。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h2 id="核心机制：双亲委派模型（Parent-Delegation-Model）（重点）">核心机制：双亲委派模型（Parent Delegation Model）（重点）</h2>
+<h2 id="核心机制双亲委派模型parent-delegation-model重点">核心机制：双亲委派模型（Parent
+Delegation Model）（重点）</h2>
 <ul>
-<li>
-<p>定义：当一个类加载器收到类加载请求时，<strong>不会先自己加载</strong>，而是先把请求委托给父类加载器，直到传递到顶层的 Bootstrap 加载器；只有父类加载器无法加载该类（找不到对应的 .class 文件），子类加载器才会自己尝试加载。</p>
-</li>
-<li>
-<p>工作流程：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[应用程序类加载器] --&gt;|委托加载| B[扩展类加载器]</span><br><span class="line">    B --&gt;|委托加载| C[启动类加载器]</span><br><span class="line">    C --&gt;|找不到 com.example.MyClass| B</span><br><span class="line">    B --&gt;|找不到 com.example.MyClass| A</span><br><span class="line">    A --&gt;|加载 classpath 下的 com/example/MyClass.class| D[生成 Class 对象]</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>为什么要设计双亲委派？</p>
+<li><p>定义：当一个类加载器收到类加载请求时，<strong>不会先自己加载</strong>，而是先把请求委托给父类加载器，直到传递到顶层的
+Bootstrap 加载器；只有父类加载器无法加载该类（找不到对应的 .class
+文件），子类加载器才会自己尝试加载。</p></li>
+<li><p>工作流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[应用程序类加载器] --&gt;|委托加载| B[扩展类加载器]</span><br><span class="line">    B --&gt;|委托加载| C[启动类加载器]</span><br><span class="line">    C --&gt;|找不到 com.example.MyClass| B</span><br><span class="line">    B --&gt;|找不到 com.example.MyClass| A</span><br><span class="line">    A --&gt;|加载 classpath 下的 com/example/MyClass.class| D[生成 Class 对象]</span><br></pre></td></tr></table></figure></li>
+<li><p>为什么要设计双亲委派？</p>
 <ul>
-<li><strong>核心目的：保证类加载的安全性</strong>，避免核心类被篡改（比如自己写一个 <code>java.lang.String</code> 类，双亲委派会优先用 Bootstrap 加载核心库的 String，而非自定义的，防止恶意替换）；</li>
-<li><strong>避免类重复加载</strong>：同一个类只会被一个类加载器加载一次，保证内存中只有一份 Class 对象。</li>
-</ul>
-</li>
+<li><strong>核心目的：保证类加载的安全性</strong>，避免核心类被篡改（比如自己写一个
+<code>java.lang.String</code> 类，双亲委派会优先用 Bootstrap
+加载核心库的 String，而非自定义的，防止恶意替换）；</li>
+<li><strong>避免类重复加载</strong>：同一个类只会被一个类加载器加载一次，保证内存中只有一份
+Class 对象。</li>
+</ul></li>
 </ul>
 <h2 id="总结">总结</h2>
 <ul>
-<li>ClassLoader 核心是将 .class 文件加载到 JVM 内存生成 Class 对象，JVM 内置 Bootstrap/Extension/Application 三层加载器；</li>
+<li>ClassLoader 核心是将 .class 文件加载到 JVM 内存生成 Class 对象，JVM
+内置 Bootstrap/Extension/Application 三层加载器；</li>
 <li>双亲委派模型是核心设计，优先委托父类加载器加载，保证核心类安全、避免类重复加载；</li>
-<li>类只有 “主动使用” 时才会加载，常见问题需区分 <code>ClassNotFoundException</code>（加载不到文件）和 <code>NoClassDefFoundError</code>（运行时缺失）；</li>
+<li>类只有 “主动使用” 时才会加载，常见问题需区分
+<code>ClassNotFoundException</code>（加载不到文件）和
+<code>NoClassDefFoundError</code>（运行时缺失）；</li>
 <li>自定义类加载器可实现热部署、插件化、加密加载等高级功能。</li>
 </ul>
 
