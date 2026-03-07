@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="JVM–栈 背景   JVM–栈   博主以黑马JVM进行学习">
+    <meta name="description" content="JVM--栈 背景  JVM--栈 博主以黑马JVM进行学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM--栈">
 <meta property="og:url" content="http://seeya-ch.github.io/2026/03/03/JVMStack/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="JVM–栈 背景   JVM–栈   博主以黑马JVM进行学习">
+<meta property="og:description" content="JVM--栈 背景  JVM--栈 博主以黑马JVM进行学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-03T10:34:23.000Z">
 <meta property="article:modified_time" content="2026-03-03T14:37:30.152Z">
@@ -252,7 +252,8 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">JVM–栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA"><span class="nav-number">1.4.</span> <span class="nav-text">栈的内存溢出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E8%BF%90%E8%A1%8C%E8%AF%8A%E6%96%AD"><span class="nav-number">1.5.</span> <span class="nav-text">线程运行诊断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88Native-Method-Stacks"><span class="nav-number">1.6.</span> <span class="nav-text">本地方法栈Native Method Stacks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jvm--%E6%A0%88"><span class="nav-number">1.</span> <span class="nav-text">JVM--栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA"><span class="nav-number">1.4.</span> <span class="nav-text">栈的内存溢出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E8%BF%90%E8%A1%8C%E8%AF%8A%E6%96%AD"><span class="nav-number">1.5.</span> <span class="nav-text">线程运行诊断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88native-method-stacks"><span class="nav-number">1.6.</span> <span class="nav-text">本地方法栈Native Method
+Stacks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -354,16 +355,12 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1>JVM–栈</h1>
+    <div class="post-body" itemprop="articleBody"><h1 id="jvm--栈">JVM--栈</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li>
-<p>JVM–栈</p>
-</li>
-<li>
-<p>博主以黑马JVM进行学习</p>
-<span id="more"></span>
-</li>
+<li><p>JVM--栈</p></li>
+<li><p>博主以黑马JVM进行学习</p>
+<span id="more"></span></li>
 </ul>
 <h2 id="定义">定义</h2>
 <ul>
@@ -374,25 +371,22 @@ mjx-container[display="true"] + br {
 </ul>
 <h2 id="问题">问题</h2>
 <ul>
-<li>
-<p>垃圾回收是否涉及栈内存？</p>
+<li>垃圾回收是否涉及栈内存？
 <ul>
-<li>不会也不需要，<strong>方法执行完毕后，对应的栈帧会直接出栈并释放内存</strong>，属于自动内存释放，不需要 GC 参与 ——GC 只负责堆内存的回收</li>
-</ul>
-</li>
-<li>
-<p>栈内存分配越大越好吗？</p>
+<li>不会也不需要，<strong>方法执行完毕后，对应的栈帧会直接出栈并释放内存</strong>，属于自动内存释放，不需要
+GC 参与 ——GC 只负责堆内存的回收</li>
+</ul></li>
+<li>栈内存分配越大越好吗？
 <ul>
-<li>不会，JVM 总内存固定，栈内存通过 <code>-Xss</code> 参数设置（默认约 1M），栈内存越大，单个线程占用的内存越多，能创建的线程总数就越少，容易导致 <code>OutOfMemoryError: unable to create new native thread</code></li>
-</ul>
-</li>
-<li>
-<p>方法内的局部变量是否线程安全？</p>
+<li>不会，JVM 总内存固定，栈内存通过 <code>-Xss</code> 参数设置（默认约
+1M），栈内存越大，单个线程占用的内存越多，能创建的线程总数就越少，容易导致
+<code>OutOfMemoryError: unable to create new native thread</code></li>
+</ul></li>
+<li>方法内的局部变量是否线程安全？
 <ul>
 <li>核心结论：<strong>方法内的普通局部变量（非静态、非逃逸）是线程安全的；如果局部变量逃逸出方法（比如返回给外部、传递给其他线程），则可能不安全</strong>；</li>
 <li>判断是否线程安全，先判断是否是静态变量，再看是否逃离了当前线程（返回了）</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <h2 id="栈的内存溢出">栈的内存溢出</h2>
 <ul>
@@ -400,15 +394,17 @@ mjx-container[display="true"] + br {
 <ul>
 <li>无限递归调用、方法嵌套调用层数过深时容易出现</li>
 <li>抛出异常：<code>StackOverflowError</code></li>
-<li>排查递归终止条件、减少方法嵌套深度、适当调大 <code>-Xss</code>（但不推荐，治标不治本）；</li>
-</ul>
-</li>
+<li>排查递归终止条件、减少方法嵌套深度、适当调大
+<code>-Xss</code>（但不推荐，治标不治本）；</li>
+</ul></li>
 <li>栈帧过大导致内存溢出（不太容易出现）
 <ul>
 <li>方法内定义大量 / 超大局部变量（比如局部变量表中存储超大数组）</li>
-<li>抛出异常：<code>StackOverflowError</code>（注意：栈溢出是 <code>StackOverflowError</code>，而非 <code>OutOfMemoryError</code>，只有创建线程过多导致栈内存总容量不足时，才会抛 OOM）。</li>
-</ul>
-</li>
+<li>抛出异常：<code>StackOverflowError</code>（注意：栈溢出是
+<code>StackOverflowError</code>，而非
+<code>OutOfMemoryError</code>，只有创建线程过多导致栈内存总容量不足时，才会抛
+OOM）。</li>
+</ul></li>
 </ul>
 <h2 id="线程运行诊断">线程运行诊断</h2>
 <ul>
@@ -417,40 +413,45 @@ mjx-container[display="true"] + br {
 <li>Linux的命令：
 <ul>
 <li>top：监测cpu的占用，定位到进程id</li>
-<li>ps H -eo pid,tid,%cpu | grep 进程id：查看该进程下所有线程的 TID（线程 ID，十进制）和 CPU 占用率，定位到高占用线程的 TID；</li>
+<li>ps H -eo pid,tid,%cpu | grep 进程id：查看该进程下所有线程的
+TID（线程 ID，十进制）和 CPU 占用率，定位到高占用线程的 TID；</li>
 <li>jstack线程id
 <ul>
-<li>导出线程栈信息，根据十六进制 TID 找到对应的线程，查看栈帧信息，定位到占用 CPU 过高的代码行（通常是死循环、频繁递归）；</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li>导出线程栈信息，根据十六进制 TID
+找到对应的线程，查看栈帧信息，定位到占用 CPU
+过高的代码行（通常是死循环、频繁递归）；</li>
+</ul></li>
+</ul></li>
+</ul></li>
 <li>程序运行很长时间没有结果
 <ul>
 <li>常见原因：死锁、死循环、线程阻塞（比如等待锁 / IO）；
 <ul>
 <li>使用jstack 线程id</li>
 <li>找到Found one Java-level deadlock：</li>
+</ul></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="本地方法栈Native-Method-Stacks">本地方法栈Native Method Stacks</h2>
+<h2 id="本地方法栈native-method-stacks">本地方法栈Native Method
+Stacks</h2>
 <ul>
-<li>为本地方法（<code>native</code> 修饰的方法，比如 <code>Object.getClass()</code>、<code>System.currentTimeMillis()</code>）提供内存空间；</li>
+<li>为本地方法（<code>native</code> 修饰的方法，比如
+<code>Object.getClass()</code>、<code>System.currentTimeMillis()</code>）提供内存空间；</li>
 <li>线程私有，和虚拟机栈逻辑类似，但服务于本地方法；</li>
-<li>异常：同样会抛出 <code>StackOverflowError</code> 或 <code>OutOfMemoryError</code>；</li>
-<li>注意：HotSpot 虚拟机将 “虚拟机栈” 和 “本地方法栈” 合并实现，因此 <code>-Xss</code> 参数同时控制两者的内存大小。</li>
+<li>异常：同样会抛出 <code>StackOverflowError</code> 或
+<code>OutOfMemoryError</code>；</li>
+<li>注意：HotSpot 虚拟机将 “虚拟机栈” 和 “本地方法栈” 合并实现，因此
+<code>-Xss</code> 参数同时控制两者的内存大小。</li>
 </ul>
 <h2 id="总结">总结</h2>
 <ul>
-<li>虚拟机栈是线程私有内存，栈帧对应方法调用，方法执行完栈帧自动释放内存，无需 GC 参与；</li>
+<li>虚拟机栈是线程私有内存，栈帧对应方法调用，方法执行完栈帧自动释放内存，无需
+GC 参与；</li>
 <li>栈溢出（<code>StackOverflowError</code>）主要由无限递归导致，栈内存过大反而会减少线程总数；</li>
-<li>线程诊断核心工具是 <code>top/ps/jstack</code>，CPU 高查死循环 / 频繁递归，无响应查死锁 / 线程阻塞；</li>
-<li>地方法栈为 native 方法提供内存，HotSpot 中与虚拟机栈合并，共用 <code>-Xss</code> 配置。</li>
+<li>线程诊断核心工具是 <code>top/ps/jstack</code>，CPU 高查死循环 /
+频繁递归，无响应查死锁 / 线程阻塞；</li>
+<li>地方法栈为 native 方法提供内存，HotSpot 中与虚拟机栈合并，共用
+<code>-Xss</code> 配置。</li>
 </ul>
 
     </div>
@@ -469,13 +470,13 @@ mjx-container[display="true"] + br {
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2026/03/03/JsonIgnore_Annotation/" rel="prev" title="JsonIgnore注解">
-                  <i class="fa fa-angle-left"></i> JsonIgnore注解
+                <a href="/2026/03/03/OutOfMemoryError/" rel="prev" title="OutOfMemoryError">
+                  <i class="fa fa-angle-left"></i> OutOfMemoryError
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2026/03/03/JVMProgramCounterRegister/" rel="next" title="JVM--程序计数器">
-                  JVM--程序计数器 <i class="fa fa-angle-right"></i>
+                <a href="/2026/03/03/JsonIgnore_Annotation/" rel="next" title="JsonIgnore注解">
+                  JsonIgnore注解 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
