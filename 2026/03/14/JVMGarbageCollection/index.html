@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="JVM–垃圾回收(GarbageCollection) 背景   JVM–垃圾回收(GarbageCollection)   博主以黑马JVM进行学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM--垃圾回收">
+<meta property="og:url" content="http://seeya-ch.github.io/2026/03/14/JVMGarbageCollection/index.html">
+<meta property="og:site_name" content="seeya-ch 博客">
+<meta property="og:description" content="JVM–垃圾回收(GarbageCollection) 背景   JVM–垃圾回收(GarbageCollection)   博主以黑马JVM进行学习">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-14T10:34:23.000Z">
+<meta property="article:modified_time" content="2026-03-14T10:32:49.195Z">
+<meta property="article:author" content="seeya-ch">
+<meta property="article:tag" content="JVM">
+<meta property="article:tag" content="GarbageCollection">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://seeya-ch.github.io/2026/03/14/JVMGarbageCollection/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://seeya-ch.github.io/2026/03/14/JVMGarbageCollection/","path":"2026/03/14/JVMGarbageCollection/","title":"JVM--垃圾回收"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JVM--垃圾回收 | seeya-ch 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">seeya-ch 博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>札记</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">JVM–垃圾回收(GarbageCollection)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E5%8F%AF%E4%BB%A5%E5%9B%9E%E6%94%B6"><span class="nav-number">1.3.</span> <span class="nav-text">如何判断对象可以回收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">垃圾回收算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E4%BB%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">1.5.</span> <span class="nav-text">分代垃圾回收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8"><span class="nav-number">1.6.</span> <span class="nav-text">垃圾回收器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E8%B0%83%E4%BC%98"><span class="nav-number">1.7.</span> <span class="nav-text">垃圾回收调优</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">seeya-ch</p>
+  <div class="site-description" itemprop="description">seeya-ch的博客网站</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://seeya-ch.github.io/2026/03/14/JVMGarbageCollection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="seeya-ch">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="seeya-ch 博客">
+      <meta itemprop="description" content="seeya-ch的博客网站">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JVM--垃圾回收 | seeya-ch 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM--垃圾回收
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-03-14 18:34:23 / 修改时间：18:32:49" itemprop="dateCreated datePublished" datetime="2026-03-14T18:34:23+08:00">2026-03-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1>JVM–垃圾回收(GarbageCollection)</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li>
+<p>JVM–垃圾回收(GarbageCollection)</p>
+</li>
+<li>
+<p>博主以黑马JVM进行学习</p>
+<span id="more"></span>
+</li>
+</ul>
+<h2 id="概述">概述</h2>
+<ul>
+<li>如何判断对象可以回收</li>
+<li>垃圾回收算法</li>
+<li>分代垃圾回收</li>
+<li>垃圾回收器</li>
+<li>垃圾回收调优</li>
+</ul>
+<h2 id="如何判断对象可以回收">如何判断对象可以回收</h2>
+<ul>
+<li>
+<p>引用计数法</p>
+<ul>
+<li>
+<p>被引用一次就+1</p>
+</li>
+<li>
+<p>可能出现循环引用问题</p>
+</li>
+</ul>
+</li>
+<li>
+<p>可达性分析算法</p>
+<ul>
+<li>先确定根对象，即肯定不能被回收的对象</li>
+<li>看对象有没有被根对象直接或间接使用，如果有不能回收，没有可以回收</li>
+<li>Java虚拟机中的垃圾回收器采用可达性分析来探索所有存活的对象</li>
+<li>扫描堆中的对象，看是否能沿着GC Root对象为起点的引用链找到该对象，找不到，表示可以回收</li>
+<li>哪些对象可以作为GC Root呢？
+<ul>
+<li>通过Memory Analyzer（MAT）工具和jmap工具</li>
+<li>jmap -dump:format=b,live,file=1.bin 21384
+<ul>
+<li><code>format=b</code>：生成二进制格式的堆转储文件</li>
+<li><code>live</code>：只导出存活的对象（会触发一次 Full GC）</li>
+<li><code>file=1.bin</code>：导出到 1.bin 文件</li>
+<li><code>21384</code>：目标 Java 进程的 PID</li>
+</ul>
+</li>
+<li>根对象有
+<ul>
+<li>System Class: 系统加载的类（如 rt.jar 中的 java.lang.String），不会被回收</li>
+<li>Native Stack: JNI 方法引用的对象（本地方法栈中的对象）</li>
+<li>Thread: 活跃线程（如正在运行的用户线程、GC 线程）</li>
+<li>Busy Monitor: 持有同步锁（synchronized）的对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>四种引用</p>
+<ul>
+<li>
+<p>强引用</p>
+<ul>
+<li>只有所有的GC Roots对象都不通过【强引用】引用该对象，该对象才能被垃圾回收</li>
+</ul>
+</li>
+<li>
+<p>软引用（SoftReference）</p>
+<ul>
+<li>
+<p>-Xmx20m -XX:+PrintGCDetails -verbose:gc</p>
+</li>
+<li>
+<p>当没有强引用它时，仅有软引用引用该对象时，在垃圾回收后，当内存不充足时，会再次触发垃圾回收</p>
+</li>
+<li>
+<p>关联了引用队列，但软引用锁关联的对象被回收时，软引用对象会进入引用队列，方便进一步释放（即可以配合引用队列来释放软引用自身）</p>
+</li>
+<li>
+<p>引用队列ReferenceQueue&lt;&gt;()</p>
+</li>
+</ul>
+</li>
+<li>
+<p>弱引用（WeakReference）</p>
+<ul>
+<li>
+<p>-Xmx20m -XX:+PrintGCDetails -verbose:gc</p>
+</li>
+<li>
+<p>当没有强引用它时，仅有软引用引用该对象时，不管内存充不充足，都会回收弱引用对象</p>
+</li>
+<li>
+<p>弱引用对象会进入引用队列，方便进一步释放（即可以配合引用队列来释放弱引用自身）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>虚引用</p>
+<ul>
+<li>
+<p>必须配合引用队列使用，主要配合ByteBuffer使用，被引用对象回收时，会将虚引用入队，由Reference Handler 线程调用虚引用相关方法释放直接内存</p>
+</li>
+<li>
+<p>Cleaner虚引用对象</p>
+</li>
+<li>
+<p>当ByteBuffer被垃圾回收时，ByteBuffer的直接内存部分不能被java管理，所以虚引用对象进入引用队列，调用Unsafe.freeMemory方法释放直接内存</p>
+</li>
+</ul>
+</li>
+<li>
+<p>终结器引用</p>
+<ul>
+<li>所有对象都会继承Object对象，都会有finallize()方法</li>
+<li>当对象被垃圾回收时，终结器引用对象就会进入引用队列</li>
+<li>finallize()方法工作效率很低，第一次并不能释放</li>
+<li>无需手动编码。但其内部配合引用队列使用，在垃圾回收时，终结器引用入队（被引用对象暂时没有被回收），再由Finalizer线程通过终结器引用找到被引用对象并调用它的finalize方法，第二次GC时才能回收被引用对象</li>
+</ul>
+</li>
+<li>
+<p>对比</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>引用类型</th>
+<th>回收时机</th>
+<th>典型应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>强引用</td>
+<td>永不回收</td>
+<td>普通对象引用（<code>Object o = new Object()</code>）</td>
+</tr>
+<tr>
+<td>软引用</td>
+<td>内存不足时</td>
+<td>缓存（如图片缓存，内存不足自动释放）</td>
+</tr>
+<tr>
+<td>弱引用</td>
+<td>GC 时必回收</td>
+<td>ThreadLocal、WeakHashMap（缓存临时数据）</td>
+</tr>
+<tr>
+<td>虚引用</td>
+<td>仅作为回收通知</td>
+<td>DirectByteBuffer 直接内存释放</td>
+</tr>
+<tr>
+<td>终结器引用</td>
+<td>两次 GC 后回收</td>
+<td>Object.finalize ()（已被标记为过时）</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h2 id="垃圾回收算法">垃圾回收算法</h2>
+<ul>
+<li>标记清除
+<ul>
+<li>根据GCRoot是否引用进行标记</li>
+<li>再清除，记住位置坐标</li>
+<li>优点：速度快</li>
+<li>缺点：容易产生内存碎片，内存空间不连续</li>
+</ul>
+</li>
+<li>标记整理
+<ul>
+<li>根据GCRoot是否引用进行标记</li>
+<li>整理：避免出现内存碎片，让内存变得更紧凑</li>
+<li>优点：不易产生内存碎片</li>
+<li>缺点：效率较低</li>
+</ul>
+</li>
+<li>复制
+<ul>
+<li>把内存区划分成大小相等的俩个区，一个称为FROM,另一个分为TO（空着）</li>
+<li>把FROM区存活的对象复制到TO区，清空FROM,再进行俩个区交换·</li>
+<li>优点：不会产生内存碎片</li>
+<li>缺点：会占用双倍内存空间</li>
+</ul>
+</li>
+<li>对比</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用区域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标记清除</td>
+<td>速度快、不移动对象</td>
+<td>内存碎片、空间不连续</td>
+<td>老年代（CMS）</td>
+</tr>
+<tr>
+<td>标记整理</td>
+<td>无内存碎片</td>
+<td>效率低（需要移动对象）</td>
+<td>老年代（SerialOld）</td>
+</tr>
+<tr>
+<td>复制</td>
+<td>无碎片、效率高</td>
+<td>占用双倍内存</td>
+<td>新生代（Eden/Survivor）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="分代垃圾回收">分代垃圾回收</h2>
+<ul>
+<li>分为老年代（垃圾回收频率较低）、新生代（经常释放）</li>
+<li>新生代三个区：伊甸园、幸存区From、幸存区To</li>
+<li>对象创建时，先存伊甸园中，当伊甸园满时（新生代空间不足时），就会触发一次垃圾回收（Minor GC），如果存活就复制到幸存区To并寿命+1同时幸存区To变成From，而From变成To</li>
+<li>minor gc 会引发 stop the world ，暂停其它用户的线程，等垃圾回收结束，用户线程才恢复运行</li>
+<li>当在幸存区的对象超过了一个阈值（最大寿命是15（4bit）），则晋升到老年代</li>
+<li>当新生代和老年代都放不下对象时，会先尝试触发一次minor gc ，之后仍然不足，就会触发一次Full GC</li>
+<li>Full GC 也会引发 stop the world ，不过时间更长</li>
+<li>GC分析
+<ul>
+<li>相关的VM参数</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>堆初始大小</td>
+<td>-Xms</td>
+</tr>
+<tr>
+<td>堆最大大小</td>
+<td>-Xmx 或 -XX:MaxHeapSize=size</td>
+</tr>
+<tr>
+<td>新生代大小</td>
+<td>-Xmn 或 (-XX:NewSize=size + -XX:MaxNewSize=size)</td>
+</tr>
+<tr>
+<td>幸存区比例（动态）</td>
+<td>-XX:InitialSurvivorRatio=ratio 和 -XX:+UseAdaptiveSizePolicy</td>
+</tr>
+<tr>
+<td>幸存区比例</td>
+<td>-XX:SurvivorRatio=ratio</td>
+</tr>
+<tr>
+<td>晋升阈值</td>
+<td>-XX:MaxTenuringThreshold=threshold</td>
+</tr>
+<tr>
+<td>打印详情</td>
+<td>-XX:+PrintTenuringDistribution</td>
+</tr>
+<tr>
+<td>GC 详情</td>
+<td>-XX:+PrintGCDetails -verbose:gc</td>
+</tr>
+<tr>
+<td>FullGC 前 MinorGC</td>
+<td>-XX:+ScavengeBeforeFullGC</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>CG大对象oom，在新生代空间不够的情况下，会直接晋升老年代</li>
+</ul>
+<h2 id="垃圾回收器">垃圾回收器</h2>
+<ul>
+<li>
+<p>串行</p>
+<ul>
+<li>单线程</li>
+<li>堆内存较小，适合个人电脑</li>
+<li>开启语句：-XX:+UseSerialGC = Serial（工作在新生代：复制算法） + SerialOld（老年代：标记整理算法）</li>
+<li>因为是单线程工作，所以当垃圾回收线程工作时，其它线程会发生阻塞</li>
+</ul>
+</li>
+<li>
+<p>吞吐量优先</p>
+<ul>
+<li>多线程</li>
+<li>堆内存较大，多核cpu</li>
+<li>让单位时间内，STW的时间最短</li>
+<li>开启语句：
+<ul>
+<li>-XX:+UseParallelGC ~ -XX:+UseParallelOldGC</li>
+<li>-XX:+UseAdaptiveSizePolicy  //采用自适应调整大小</li>
+<li>-XX:GCTimeRatio=ratio   //调整堆的大小   公示 1/1+ratio</li>
+<li>-XX:MaxGCPauseMillis=ms  //最大暂停时间毫秒数，默认200ms</li>
+<li>-XX:ParallelGCThreads=n   //控制线程数</li>
+</ul>
+</li>
+<li>垃圾回收线程数与cpu多少核有关</li>
+</ul>
+</li>
+<li>
+<p>响应时间优先</p>
+<ul>
+<li>多线程</li>
+<li>堆内存较大，多核cpu</li>
+<li>尽可能让单次STW的时间最短</li>
+<li>其它用户线程仍然可以运行</li>
+<li>开启语句：
+<ul>
+<li>-XX:+UseConcMarkSweepGC ~ -XX:+UseParNewGC ~ SerialOld</li>
+<li>-XX:ParallelGCThreads=n ~ -XX:ConcGCThreads=threads  //并行的垃圾回收线程/并发的垃圾回收线程</li>
+<li>-XX:CMSInitiatingOccupancyFraction=percent   //何时执行垃圾回收
+<ul>
+<li>-XX:+CMSScavengeBeforeRemark   //在重新标记之前，做一次垃圾回收</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>对整个应用的吞吐量是有影响的</li>
+</ul>
+</li>
+<li>
+<p>G1:Garbage First</p>
+<ul>
+<li>
+<p>同时注重吞吐量（Throughput）和低延迟（Low latency）,默认的暂停目标是200ms</p>
+</li>
+<li>
+<p>超大堆内存，会将堆划分为多个大小相等的Region</p>
+</li>
+<li>
+<p>整体上是标记+整理算法，两个区域之间是复制算法</p>
+</li>
+<li>
+<p>相关JVM参数</p>
+<ul>
+<li>-XX:+UseG1GC    //jdk9以后默认启动</li>
+<li>-XX:G1HeapRegionSize=size</li>
+<li>-XX:MaxGCPauseMillis= time</li>
+</ul>
+</li>
+<li>
+<p>G1垃圾回收阶段</p>
+<ul>
+<li>循环:   —&gt;young Collection—&gt;Young Collection + Concurrent Mark —&gt;Mixed Collection—&gt;</li>
+</ul>
+</li>
+<li>
+<p>Young Collection</p>
+<ul>
+<li>会STW</li>
+</ul>
+</li>
+<li>
+<p>Young  Collection + CM</p>
+<ul>
+<li>在Young GC 时会进行GC Root的初始标记</li>
+<li>老年代占用堆空间比例达到阈值，进行并发标记（不会STW），由下面的JVM参数决定
+<ul>
+<li>-XX:InitiatingHeapOccupancyPercent=percent(默认45%s)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Mixed Collection</p>
+<ul>
+<li>
+<p>会对E（伊甸园区）、S（幸存区）、O（老年区）进行全面的垃圾回收</p>
+<ul>
+<li>
+<p>最终标记（Remark）会STW</p>
+</li>
+<li>
+<p>拷贝存活（Evacuation）会STW</p>
+<p>-XX:MaxGCPauseMillis=ms   //最大暂停时间</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Full GC</p>
+<ul>
+<li>
+<p>SerialGC</p>
+<ul>
+<li>新生代内存不足发生的垃圾收集 - minor gc</li>
+<li>老年代内存不足发生的垃圾收集 - full gc</li>
+</ul>
+</li>
+<li>
+<p>ParallelGC</p>
+<ul>
+<li>新生代内存不足发生的垃圾收集 - minor gc</li>
+<li>老年代内存不足发生的垃圾收集 - full gc</li>
+</ul>
+</li>
+<li>
+<p>CMS</p>
+<ul>
+<li>新生代内存不足发生的垃圾收集 - minor gc</li>
+<li>老年代内存不足</li>
+</ul>
+</li>
+<li>
+<p>G1</p>
+<ul>
+<li>新生代内存不足发生的垃圾收集 - minor gc</li>
+<li>老年代内存不足，分俩中情况
+<ul>
+<li>第一种，清理垃圾速度足够清理干净</li>
+<li>第二种，清理垃圾速度比产生垃圾速度慢，就会退为并行垃圾回收</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Young Collection 跨代引用</p>
+<ul>
+<li>新生代回收的跨代引用（老年代引用新生代）问题
+<ul>
+<li>使用查表技术，将老年代分成card，有脏卡区</li>
+<li>卡表与Remembered Set</li>
+<li>在引用变更时通过post -write barrier + dirty card queue</li>
+<li>concurrent refinement threads 更新 Remember Set</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Remark（重标记）</p>
+<ul>
+<li>pre-write barrier + satb_mark_queue</li>
+</ul>
+</li>
+<li>
+<p>JDK 8u20字符串去重</p>
+<ul>
+<li>
+<p>优点：节省大量内存</p>
+</li>
+<li>
+<p>缺点：略微多占用了cpu时间，新生代回收时间略微增加</p>
+</li>
+<li>
+<p>-XX:+UseStringDeduplication</p>
+<ul>
+<li>
+<pre><code class="language-java">String s1 = new String("hello"); // char[]{'h','e','l','l','o'}
+String s2 = new String("hello"); // char[]{'h','e','l','l','o'}
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>将所有新分配的字符串放到一个队列</p>
+</li>
+<li>
+<p>当新生代回收时，G1并发检查是否有字符串重复</p>
+</li>
+<li>
+<p>如果它们的值一样，让它们引用同一个char[]</p>
+</li>
+<li>
+<p>注意，与String.intern()不一样</p>
+<ul>
+<li>String.intern()关注的是字符串对象</li>
+<li>而字符串去重关注的是char[]</li>
+<li>在JVM内部，使用了不同的字符串表</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>JDK 8u40并发标记类卸载</p>
+<ul>
+<li>所有对象都经过并发标记后，就能知道哪些类不再被使用，当一个类加载器的所有类都不再使用，则卸载所加载的所有类</li>
+<li>-XX:+ClassUnloadingWithConcurrentMark 默认开启</li>
+</ul>
+</li>
+<li>
+<p>JDK 8u60回收巨型对象</p>
+<ul>
+<li>一个对象大于region的一半时，称之为巨型对象</li>
+<li>G1不会对巨型对象进行拷贝</li>
+<li>回收时被优先考虑</li>
+<li>G1会跟踪老年代所有incoming引用，这样老年代incoming引用为0的巨型对象就可以在新生代垃圾回收时处理掉（希望越早回收越好）</li>
+</ul>
+</li>
+<li>
+<p>JDK 9并发标记起始时间的调整</p>
+<ul>
+<li>并发标记必须在堆空间占满前完成，否则退化为FullGC</li>
+<li>JDK9之前需要使用-XX:InitiatingHeapOccupancyPercent（默认45%）</li>
+<li>JDK9可以动态调整
+<ul>
+<li>-XX:InitiatingHeapOccupanyPercent用来设置初始值</li>
+<li>进行数据采样并动态调整</li>
+<li>总会添加一个安全的空挡空间</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>JDK 9更高效的回收</p>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>回收器</th>
+<th>核心目标</th>
+<th>适用场景</th>
+<th>JVM 参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Serial + SerialOld</td>
+<td>简单、低内存</td>
+<td>单机程序、小堆内存（&lt;1G）</td>
+<td><code>-XX:+UseSerialGC</code></td>
+</tr>
+<tr>
+<td>ParallelGC</td>
+<td>高吞吐量</td>
+<td>后台计算、批处理程序</td>
+<td><code>-XX:+UseParallelGC</code></td>
+</tr>
+<tr>
+<td>CMS</td>
+<td>低延迟</td>
+<td>电商、Web 应用（JDK8）</td>
+<td><code>-XX:+UseConcMarkSweepGC</code></td>
+</tr>
+<tr>
+<td>G1</td>
+<td>平衡吞吐 &amp; 延迟</td>
+<td>大堆内存（&gt;4G）、分布式应用</td>
+<td><code>-XX:+UseG1GC</code></td>
+</tr>
+<tr>
+<td>ZGC/Shenandoah</td>
+<td>极低延迟（&lt;10ms）</td>
+<td>高并发、低延迟场景（JDK11+）</td>
+<td><code>-XX:+UseZGC</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="垃圾回收调优">垃圾回收调优</h2>
+<ul>
+<li>
+<p>预备知识</p>
+<ul>
+<li>掌握GC相关的VM参数，会基本的空间调整</li>
+<li>掌握相关工具</li>
+<li>调优跟应用、环境有关</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase">https://docs.oracle.com/en/java/javase</a> 官网学习</li>
+<li>查看虚拟机运行的参数：-XX:+PrintFlagsFinal -version | findstr “GC”</li>
+</ul>
+</li>
+<li>
+<p>调优领域</p>
+<ul>
+<li>内存</li>
+<li>锁竞争</li>
+<li>cpu占用</li>
+<li>io</li>
+</ul>
+</li>
+<li>
+<p>确定目标</p>
+<ul>
+<li>【低延迟】还是【高吞吐量】，选择合适的回收器</li>
+<li>CMS,G1,ZGC</li>
+<li>ParallelGC(高吞吐量)</li>
+<li>Zing</li>
+</ul>
+</li>
+<li>
+<p>最快的GC是不发生GC</p>
+<ul>
+<li>查看FullGC前后的内存占用，考虑下面几个问题
+<ul>
+<li>数据是不是太多？
+<ul>
+<li>resultSet = statement.executeQuery(“select * from 大表 limit n”)</li>
+</ul>
+</li>
+<li>数据表示是否太臃肿？
+<ul>
+<li>对象图（用到哪个查哪个）</li>
+<li>对象大小 （能用基本类型int 4字节，就不用Integer 24字节）</li>
+</ul>
+</li>
+<li>是否存在内存泄漏？
+<ul>
+<li>static Map map =</li>
+<li>软引用</li>
+<li>弱引用</li>
+<li>第三方缓存实现，如redis等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>新生代调优</p>
+<ul>
+<li>
+<p>内存调优都建议从新生代开始</p>
+</li>
+<li>
+<p>所有的new操作的内存分配非常廉价</p>
+<ul>
+<li>TLAB thread-local allocation buffer</li>
+</ul>
+</li>
+<li>
+<p>死亡对象的回收代价是零</p>
+</li>
+<li>
+<p>大部分对象用过即死</p>
+</li>
+<li>
+<p>Minor GC的时间远远低于Full GC</p>
+</li>
+<li>
+<p>新生代内存越大越好？</p>
+<ul>
+<li>一开始，空间大小越大，吞吐量越高，到一定时间后，垃圾回收时间变长，吞吐量开始下降
+<ul>
+<li>建议大小：新生代能容纳所有【并发量* （请求-响应）】的数据</li>
+</ul>
+</li>
+<li>幸存区大到能保留【当前活跃对象+需要晋升对象】</li>
+<li>晋升阈值配置得当，让长时间存活的对象尽快晋升
+<ul>
+<li>-XX:MaxTenuringThreshold=threshold  调整最大晋升阈值</li>
+<li>-XX:+PrintTenuringDistribution</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>老年代调优</p>
+<ul>
+<li>以CMS为例
+<ul>
+<li>CMS的老年代内存越大越好</li>
+<li>先尝试不做调优，如果没有Full GC那么已经。。。，否则先尝试调优新生代</li>
+<li>观察发生Full GC时老年代内存占用，将老年代内存预设调大1/4~1/3
+<ul>
+<li>-XX:CMSInitiationOccupancyFraction=percent  //值越低，触发时间越早</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>案例</p>
+<ul>
+<li>
+<p>案例1 Full GC 和Minor GC频繁</p>
+<ul>
+<li>先增大新生代内存</li>
+</ul>
+</li>
+<li>
+<p>案例2 请求高峰期发生Full GC,单次暂停时间特别长（CMS）</p>
+<ul>
+<li>使用工具查看是哪个阶段暂停时间长</li>
+</ul>
+</li>
+<li>
+<p>案例3 老年代充裕情况下，发生Full GC（CMS JDK1.7）</p>
+<ul>
+<li>1.7永久代，空间设置小了，就会触发GC</li>
+</ul>
+</li>
+<li>
+<table>
+<thead>
+<tr>
+<th>问题现象</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Minor GC 频繁</td>
+<td>增大新生代内存（-Xmn）</td>
+</tr>
+<tr>
+<td>Full GC 频繁</td>
+<td>增大老年代内存、检查内存泄漏、调整 CMS 触发阈值</td>
+</tr>
+<tr>
+<td>STW 时间过长</td>
+<td>切换到 G1/ZGC、降低 MaxGCPauseMillis</td>
+</tr>
+<tr>
+<td>JDK7 永久代 OOM</td>
+<td>增大永久代（-XX:MaxPermSize=256m）</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JVM/" rel="tag"># JVM</a>
+              <a href="/tags/GarbageCollection/" rel="tag"># GarbageCollection</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/03/07/JVMDirectMemory/" rel="prev" title="JVM--直接内存(Direct Memory)">
+                  <i class="fa fa-angle-left"></i> JVM--直接内存(Direct Memory)
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">seeya-ch</span>
+  </div>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script>
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    // window.MathJax = {
+    //   loader: {
+    //
+    //     source: {
+    //       '[tex]/amsCd': '[tex]/amscd',
+    //       '[tex]/AMScd': '[tex]/amscd'
+    //     }
+    //   },
+    //   tex: {
+    //     inlineMath: {'[+]': [['$', '$']]},
+    //
+    //     tags: 'ams'
+    //   },
+    //   options: {
+    //     renderActions: {
+    //       findScript: [10, doc => {
+    //         document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+    //           const display = !!node.type.match(/; *mode=display/);
+    //           const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+    //           const text = document.createTextNode('');
+    //           node.parentNode.replaceChild(text, node);
+    //           math.start = {node: text, delim: '', n: 0};
+    //           math.end = {node: text, delim: '', n: 0};
+    //           doc.math.push(math);
+    //         });
+    //       }, '', false],
+    //       insertedScript: [200, () => {
+    //         document.querySelectorAll('mjx-container').forEach(node => {
+    //           let target = node.parentNode;
+    //           if (target.nodeName.toLowerCase() === 'li') {
+    //             target.parentNode.classList.add('has-jax');
+    //           }
+    //         });
+    //       }, '', false]
+    //     }
+    //   }
+    // };
+    window.MathJax = {
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '[object Object]';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</body>
+</html>

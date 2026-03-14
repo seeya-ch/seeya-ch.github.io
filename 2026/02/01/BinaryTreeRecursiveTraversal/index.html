@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="算法-二叉树的递归遍历 背景  算法--二叉树的递归遍历 博主以代码随想录算法公开课进行学习">
+    <meta name="description" content="算法-二叉树的递归遍历 背景   算法–二叉树的递归遍历   博主以代码随想录算法公开课进行学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="二叉树的递归遍历">
 <meta property="og:url" content="http://seeya-ch.github.io/2026/02/01/BinaryTreeRecursiveTraversal/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="算法-二叉树的递归遍历 背景  算法--二叉树的递归遍历 博主以代码随想录算法公开课进行学习">
+<meta property="og:description" content="算法-二叉树的递归遍历 背景   算法–二叉树的递归遍历   博主以代码随想录算法公开课进行学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-01T07:34:23.000Z">
 <meta property="article:modified_time" content="2026-03-03T16:39:24.421Z">
@@ -252,7 +252,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86"><span class="nav-number">1.</span> <span class="nav-text">算法-二叉树的递归遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">算法-二叉树的递归遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -265,7 +265,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -276,7 +276,7 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -360,12 +360,16 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="算法-二叉树的递归遍历">算法-<strong>二叉树的递归遍历</strong></h1>
+    <div class="post-body" itemprop="articleBody"><h1>算法-<strong>二叉树的递归遍历</strong></h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li><p>算法--二叉树的递归遍历</p></li>
-<li><p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span></li>
+<li>
+<p>算法–二叉树的递归遍历</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
 </ul>
 <h2 id="题目">题目</h2>
 <ul>
@@ -373,26 +377,23 @@ mjx-container[display="true"] + br {
 </ul>
 <h2 id="思路">思路</h2>
 <ul>
-<li>二叉树递归遍历核心原理：递归遍历的核心是<strong>确定 “访问当前节点”
-的时机</strong>
+<li>二叉树递归遍历核心原理：递归遍历的核心是<strong>确定 “访问当前节点” 的时机</strong>
 <ul>
-<li>前序遍历：中 → 左 →
-右（先访问根节点，再递归左子树，最后递归右子树）</li>
-<li>中序遍历：左 → 中 →
-右（先递归左子树，再访问根节点，最后递归右子树）</li>
-<li>中序遍历：左 → 中 →
-右（先递归左子树，再访问根节点，最后递归右子树）</li>
-</ul></li>
+<li>前序遍历：中 → 左 → 右（先访问根节点，再递归左子树，最后递归右子树）</li>
+<li>中序遍历：左 → 中 → 右（先递归左子树，再访问根节点，最后递归右子树）</li>
+<li>中序遍历：左 → 中 → 右（先递归左子树，再访问根节点，最后递归右子树）</li>
+</ul>
+</li>
 </ul>
 <h2 id="代码实现">代码实现</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 二叉树节点定义（需先定义，否则代码无法运行）</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TreeNode</span> {</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    TreeNode left;</span><br><span class="line">    TreeNode right;</span><br><span class="line">    TreeNode() {}</span><br><span class="line">    TreeNode(<span class="type">int</span> val) { <span class="built_in">this</span>.val = val; }</span><br><span class="line">    TreeNode(<span class="type">int</span> val, TreeNode left, TreeNode right) {</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">        <span class="built_in">this</span>.left = left;</span><br><span class="line">        <span class="built_in">this</span>.right = right;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="comment">// ==================== 前序遍历：中 → 左 → 右 ====================</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">preorderTraversal</span><span class="params">(TreeNode root)</span> {</span><br><span class="line">        List&lt;Integer&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        preorder(root, result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">preorder</span><span class="params">(TreeNode root, List&lt;Integer&gt; result)</span> {</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">return</span>; <span class="comment">// 递归终止条件：节点为空则返回</span></span><br><span class="line">        }</span><br><span class="line">        result.add(root.val); <span class="comment">// 1. 访问当前节点（中）</span></span><br><span class="line">        preorder(root.left, result); <span class="comment">// 2. 递归遍历左子树（左）</span></span><br><span class="line">        preorder(root.right, result); <span class="comment">// 3. 递归遍历右子树（右）</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ==================== 中序遍历：左 → 中 → 右 ====================</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">inorderTraversal</span><span class="params">(TreeNode root)</span> {</span><br><span class="line">        List&lt;Integer&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        inorder(root, result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">inorder</span><span class="params">(TreeNode root, List&lt;Integer&gt; result)</span> {</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">        inorder(root.left, result); <span class="comment">// 1. 递归遍历左子树（左）</span></span><br><span class="line">        result.add(root.val); <span class="comment">// 2. 访问当前节点（中）</span></span><br><span class="line">        inorder(root.right, result); <span class="comment">// 3. 递归遍历右子树（右）</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ==================== 后序遍历：左 → 右 → 中 ====================</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">postorderTraversal</span><span class="params">(TreeNode root)</span> {</span><br><span class="line">        List&lt;Integer&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        postorder(root, result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">postorder</span><span class="params">(TreeNode root, List&lt;Integer&gt; result)</span> {</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">        postorder(root.left, result); <span class="comment">// 1. 递归遍历左子树（左）</span></span><br><span class="line">        postorder(root.right, result); <span class="comment">// 2. 递归遍历右子树（右）</span></span><br><span class="line">        result.add(root.val); <span class="comment">// 3. 访问当前节点（中）</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <h2 id="总结">总结</h2>
 <ul>
-<li><p>二叉树递归遍历的核心是<strong>确定 “访问根节点”
-的时机</strong>，前 / 中 / 后序仅调整该步骤的位置；</p></li>
-<li><p>前序：先根后左右，中序：先左后根再右，后序：先左右后根；</p></li>
-<li><p>递归终止条件统一为
-“节点为空则返回”，是所有递归遍历的基础。</p></li>
+<li>二叉树递归遍历的核心是<strong>确定 “访问根节点” 的时机</strong>，前 / 中 / 后序仅调整该步骤的位置；</li>
+<li>前序：先根后左右，中序：先左后根再右，后序：先左右后根；</li>
+</ul>
+<ul>
+<li>递归终止条件统一为 “节点为空则返回”，是所有递归遍历的基础。</li>
 </ul>
 
     </div>
