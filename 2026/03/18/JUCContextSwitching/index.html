@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="JUC--上下文切换 背景  JUC--上下文切换 博主以黑马JUC进行学习">
+    <meta name="description" content="JUC–上下文切换 背景   JUC–上下文切换   博主以黑马JUC进行学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JUC--上下文切换">
 <meta property="og:url" content="http://seeya-ch.github.io/2026/03/18/JUCContextSwitching/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="JUC--上下文切换 背景  JUC--上下文切换 博主以黑马JUC进行学习">
+<meta property="og:description" content="JUC–上下文切换 背景   JUC–上下文切换   博主以黑马JUC进行学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-18T13:34:23.000Z">
 <meta property="article:modified_time" content="2026-03-18T16:38:00.679Z">
@@ -256,7 +256,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#juc--%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">JUC--上下文切换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">1.2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B4%E7%95%8C%E5%8C%BA-critical-section"><span class="nav-number">1.3.</span> <span class="nav-text">临界区 Critical Section</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6-race-condition"><span class="nav-number">1.4.</span> <span class="nav-text">竞态条件 Race Condition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">1.5.</span> <span class="nav-text">synchronized 解决方案</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">JUC–上下文切换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">1.2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B4%E7%95%8C%E5%8C%BA-Critical-Section"><span class="nav-number">1.3.</span> <span class="nav-text">临界区 Critical Section</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6-Race-Condition"><span class="nav-number">1.4.</span> <span class="nav-text">竞态条件 Race Condition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">1.5.</span> <span class="nav-text">synchronized 解决方案</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -269,7 +269,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -280,7 +280,7 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">50</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -364,51 +364,61 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="juc--上下文切换">JUC--上下文切换</h1>
+    <div class="post-body" itemprop="articleBody"><h1>JUC–上下文切换</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li><p>JUC--上下文切换</p></li>
-<li><p>博主以黑马JUC进行学习</p>
-<span id="more"></span></li>
+<li>
+<p>JUC–上下文切换</p>
+</li>
+<li>
+<p>博主以黑马JUC进行学习</p>
+<span id="more"></span>
+</li>
 </ul>
 <h2 id="分析">分析</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test1</span>{</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> <span class="variable">counter</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException{</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; {</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; <span class="number">5000</span>; i++){</span><br><span class="line">                counter++;</span><br><span class="line">            }</span><br><span class="line">        },<span class="string">"t1"</span>);</span><br><span class="line">        </span><br><span class="line">            <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; {</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; <span class="number">5000</span>; i++){</span><br><span class="line">                counter--;</span><br><span class="line">            }</span><br><span class="line">        },<span class="string">"t2"</span>);</span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">        </span><br><span class="line">        t1.join();</span><br><span class="line">        t2.join();</span><br><span class="line">        log.debug(<span class="string">"{}"</span>,counter);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <ul>
 <li>结果不为0，因为由于分时系统造成的线程切换而导致的安全问题</li>
 </ul>
-<h2 id="临界区-critical-section">临界区 Critical Section</h2>
+<h2 id="临界区-Critical-Section">临界区 Critical Section</h2>
 <ul>
 <li>一个程序运行多个线程本身是没有问题的</li>
 <li>问题出在多个线程访问共享资源
 <ul>
 <li>多个线程读共享资源其实也没有问题</li>
 <li>在多个线程对共享资源读写时发生指令交错，就会出现问题</li>
-</ul></li>
+</ul>
+</li>
 <li>一段代码块内如果存在对共享资源的多线程读写操作，称这段代码为临界区</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="type">int</span> <span class="variable">counter</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">increment</span><span class="params">()</span></span><br><span class="line"><span class="comment">//临界区</span></span><br><span class="line">{</span><br><span class="line">    counter++;</span><br><span class="line">}    </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">decrement</span><span class="params">()</span></span><br><span class="line"><span class="comment">//临界区</span></span><br><span class="line">{</span><br><span class="line">    counter--;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h2 id="竞态条件-race-condition">竞态条件 Race Condition</h2>
+<h2 id="竞态条件-Race-Condition">竞态条件 Race Condition</h2>
 <ul>
 <li>多个线程在临界区内执行，由于代码的执行<strong>序列不同</strong>而导致结果无法预测，称之为发生了<strong>竞态条件</strong></li>
 </ul>
 <h2 id="synchronized-解决方案">synchronized 解决方案</h2>
 <ul>
-<li><p>为了避免临界区的竞态条件发生，有多种手段可以达到目的。</p>
+<li>
+<p>为了避免临界区的竞态条件发生，有多种手段可以达到目的。</p>
 <ul>
 <li>阻塞式的解决方案：synchronized，Lock</li>
 <li>非阻塞式的解决方案：原子变量</li>
-</ul></li>
-<li><p>使用synchronized解决问题，即熟称的【对象锁】，它采用互斥的方式让同一时刻至多只有一个线程能持有【对象锁】，其它线程再想获得这个【对象锁】时就会阻塞住。这样就能保证拥有锁的线程可以安全的执行临界区的代码，不用担心线程上下文切换</p>
+</ul>
+</li>
+<li>
+<p>使用synchronized解决问题，即熟称的【对象锁】，它采用互斥的方式让同一时刻至多只有一个线程能持有【对象锁】，其它线程再想获得这个【对象锁】时就会阻塞住。这样就能保证拥有锁的线程可以安全的执行临界区的代码，不用担心线程上下文切换</p>
 <ul>
 <li>注意</li>
-<li>虽然java中互斥和同步都可以采用synchronized
-关键字来完成，但它们还是有区别的：
+<li>虽然java中互斥和同步都可以采用synchronized 关键字来完成，但它们还是有区别的：
 <ul>
 <li>互斥是保证临界区的竞态条件发生，同一时刻只能有一个线程执行临界区代码</li>
 <li>同步是由于线程执行的先后、顺序不同、需要一个线程等待其它线程运行到某个点</li>
-</ul></li>
-</ul></li>
-<li><p>synchronized</p>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>synchronized</p>
 <ul>
 <li>语法</li>
 </ul>
@@ -418,17 +428,17 @@ mjx-container[display="true"] + br {
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="type">int</span> <span class="variable">counter</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">room</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>(); <span class="comment">//对象</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException{</span><br><span class="line">    <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; {</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; <span class="number">5000</span>; i++){</span><br><span class="line">            <span class="keyword">synchronized</span>(room){</span><br><span class="line">                counter++;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    },<span class="string">"t1"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; {</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; <span class="number">5000</span>; i++){</span><br><span class="line">            <span class="keyword">synchronized</span>(room){</span><br><span class="line">                counter--;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    },<span class="string">"t2"</span>);</span><br><span class="line">    </span><br><span class="line">    t1.start();</span><br><span class="line">    t2.start();</span><br><span class="line">    t1.join();</span><br><span class="line">    t2.join();</span><br><span class="line">    log.debug(<span class="string">"{}"</span>,counter);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <ul>
-<li>synchronized
-实际是用对象锁保证了临界区内代码的原子性，临界区内的代码对外是不可分割的，不会被线程切换所打断。
+<li>synchronized 实际是用对象锁保证了临界区内代码的原子性，临界区内的代码对外是不可分割的，不会被线程切换所打断。
 <ul>
-<li>如果把synchronized(obj)放在for循环的外面，如何理解？--原子性</li>
-<li>如果t1 synchronized(obj1) 而t2 synchronized(obj2)
-会怎样运作？--锁对象</li>
-<li>如果t1 synchronized(obj) 而t2没有加会怎么样？如何理解？
---锁对象</li>
-</ul></li>
-</ul></li>
-<li><p>锁对象面向对象改进</p>
+<li>如果把synchronized(obj)放在for循环的外面，如何理解？–原子性</li>
+<li>如果t1 synchronized(obj1) 而t2 synchronized(obj2) 会怎样运作？–锁对象</li>
+<li>如果t1 synchronized(obj) 而t2没有加会怎么样？如何理解？ --锁对象</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>锁对象面向对象改进</p>
 <ul>
 <li>把需要保护的共享变量放入一个类</li>
 </ul>
@@ -442,8 +452,10 @@ mjx-container[display="true"] + br {
 <li>不加synchronized的方法
 <ul>
 <li>不加synchronized 的方法就好比不遵守规则的人，不去老实排队</li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -466,11 +478,14 @@ mjx-container[display="true"] + br {
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2026/03/18/AlgFindTheMaximumValueInEachRowOfTheTree/" rel="prev" title="在每个树行中找最大值">
-                  <i class="fa fa-angle-left"></i> 在每个树行中找最大值
+                <a href="/2026/03/18/AlgLevel-OrderTraversalOfAnN-AryTree/" rel="prev" title="n叉树的层序遍历">
+                  <i class="fa fa-angle-left"></i> n叉树的层序遍历
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2026/03/19/AlgFindTheMaximumValueInEachRowOfTheTree/" rel="next" title="在每个树行中找最大值">
+                  在每个树行中找最大值 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
