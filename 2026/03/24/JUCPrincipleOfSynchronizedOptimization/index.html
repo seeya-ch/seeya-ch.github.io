@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="JUC--synchronized优化原理 背景  JUC--synchronized优化原理 博主以黑马JUC进行学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JUC--synchronized优化原理">
+<meta property="og:url" content="http://seeya-ch.github.io/2026/03/24/JUCPrincipleOfSynchronizedOptimization/index.html">
+<meta property="og:site_name" content="seeya-ch 博客">
+<meta property="og:description" content="JUC--synchronized优化原理 背景  JUC--synchronized优化原理 博主以黑马JUC进行学习">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-24T13:34:23.000Z">
+<meta property="article:modified_time" content="2026-03-24T13:44:21.825Z">
+<meta property="article:author" content="seeya-ch">
+<meta property="article:tag" content="JUC">
+<meta property="article:tag" content="线程">
+<meta property="article:tag" content="synchronized">
+<meta property="article:tag" content="锁">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://seeya-ch.github.io/2026/03/24/JUCPrincipleOfSynchronizedOptimization/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://seeya-ch.github.io/2026/03/24/JUCPrincipleOfSynchronizedOptimization/","path":"2026/03/24/JUCPrincipleOfSynchronizedOptimization/","title":"JUC--synchronized优化原理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JUC--synchronized优化原理 | seeya-ch 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">seeya-ch 博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>札记</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#juc--synchronized%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">JUC--synchronized优化原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%A4%B4mark-word"><span class="nav-number">1.1.1.</span> <span class="nav-text">对象头Mark Word</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%81%E8%86%A8%E8%83%80"><span class="nav-number">1.1.2.</span> <span class="nav-text">锁膨胀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E4%BC%98%E5%8C%96"><span class="nav-number">1.1.3.</span> <span class="nav-text">自旋优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E9%94%81"><span class="nav-number">1.1.4.</span> <span class="nav-text">偏向锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E7%8A%B6%E6%80%81"><span class="nav-number">1.1.5.</span> <span class="nav-text">偏向状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80-%E8%B0%83%E7%94%A8%E5%AF%B9%E8%B1%A1hashcode"><span class="nav-number">1.1.6.</span> <span class="nav-text">撤销-调用对象hashCode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80-%E5%85%B6%E5%AE%83%E7%BA%BF%E7%A8%8B%E4%BD%BF%E7%94%A8%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.1.7.</span> <span class="nav-text">撤销-其它线程使用对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80-%E8%B0%83%E7%94%A8waitnotify"><span class="nav-number">1.1.8.</span> <span class="nav-text">撤销-调用wait&#x2F;notify</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8D%E9%87%8F%E5%81%8F%E5%90%91"><span class="nav-number">1.1.9.</span> <span class="nav-text">批重量偏向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%92%A4%E9%94%80"><span class="nav-number">1.1.10.</span> <span class="nav-text">批量撤销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%81%E6%B6%88%E9%99%A4"><span class="nav-number">1.1.11.</span> <span class="nav-text">锁消除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.1.12.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">seeya-ch</p>
+  <div class="site-description" itemprop="description">seeya-ch的博客网站</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://seeya-ch.github.io/2026/03/24/JUCPrincipleOfSynchronizedOptimization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="seeya-ch">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="seeya-ch 博客">
+      <meta itemprop="description" content="seeya-ch的博客网站">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JUC--synchronized优化原理 | seeya-ch 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JUC--synchronized优化原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-03-24 21:34:23 / 修改时间：21:44:21" itemprop="dateCreated datePublished" datetime="2026-03-24T21:34:23+08:00">2026-03-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JUC/" itemprop="url" rel="index"><span itemprop="name">JUC</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="juc--synchronized优化原理">JUC--synchronized优化原理</h1>
+<h2 id="背景">背景</h2>
+<ul>
+<li><p>JUC--synchronized优化原理</p></li>
+<li><p>博主以黑马JUC进行学习</p>
+<span id="more"></span></li>
+<li><h3 id="对象头mark-word">对象头Mark Word</h3>
+<table>
+<thead>
+<tr>
+<th>锁状态</th>
+<th>最后 3 位</th>
+<th>存储内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无锁</td>
+<td>001</td>
+<td>hashcode、分代年龄</td>
+</tr>
+<tr>
+<td>偏向锁</td>
+<td>101</td>
+<td>线程 ID、epoch、分代年龄</td>
+</tr>
+<tr>
+<td>轻量级锁</td>
+<td>00</td>
+<td>锁记录地址 (Lock Record)</td>
+</tr>
+<tr>
+<td>重量级锁</td>
+<td>10</td>
+<td>Monitor 地址</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>无锁 → 偏向锁 → 轻量级锁 → 重量级锁</li>
+</ul>
+<p>### 轻量级锁</p>
+<ul>
+<li><p>轻量级锁的使用场景：如果一个对象虽然有很多线程访问，但多线程访问的时间是错开的，那么可以使用轻量级锁来优化。</p></li>
+<li><p>轻量级锁对使用者是透明的，即语法仍然是synchronized</p></li>
+<li><p>假设有两个方法同步块，利用同一个对象加锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">method1</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">synchronized</span>(obj){</span><br><span class="line">        method2();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">method2</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">synchronized</span>(obj){</span><br><span class="line">        </span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建锁记录（Lock
+Record）对象，每个线程都的栈帧都会包含一个锁记录的结构，内部可以存储锁定对象的Mark
+Word
+<ul>
+<li>对象结构：
+<ul>
+<li>Hashcode Age Bias 01</li>
+<li>Klass Word</li>
+<li>Object body</li>
+</ul></li>
+<li>Thread：
+<ul>
+<li>Lock Record
+<ul>
+<li>lock record 地址 00 //00即轻量级锁</li>
+<li>Object reference</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>让锁记录中Object reference 指向锁对象，并尝试用cas替换Object的Mark
+Word，将Mark Word的值存入锁记录</li>
+<li>如果cas替换成功，对象头中存储了锁记录地址和状态00，表示由该线程给对象加锁
+<ul>
+<li>对象结构：
+<ul>
+<li>lock record 地址 00 //交换</li>
+<li>Object body</li>
+</ul></li>
+<li>Thread：
+<ul>
+<li>Lock Record
+<ul>
+<li>Hashcode Age Bias 01 //交换</li>
+<li>Object reference</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>如果cas失败，有两种情况
+<ul>
+<li>如果是其它线程已经有了该Object的轻量级锁，这时表明有竞争，进入锁膨胀过程</li>
+<li>如果是自己执行了synchronized锁重入，那么再添加一条Lock
+Record作为重入的计数</li>
+<li>当退出synchronized代码块（解锁时）如果有取值为null的锁记录，表示有重入，这时重置锁记录，表示重入计数减一</li>
+<li>当退出synchronized代码块（解锁时）锁记录的值不为null，这时使用cas将Mark
+Word的值恢复给对象
+<ul>
+<li>成功，则解锁成功</li>
+<li>失败，说明轻量级锁进行了锁膨胀或已经升级为重量级锁，进入重量级锁解锁流程</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="锁膨胀">锁膨胀</h3>
+<ul>
+<li><p>如果在尝试加轻量级锁的过程中，cas操作无法成功，这时一种情况就是有其它线程为此对象加上了轻量级锁（有竞争），这时需要进行锁膨胀，将轻量级锁变为重量级锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">synchronized</span>(obj){</span><br><span class="line">        </span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<ul>
+<li>当Thread-1进行轻量级加锁时，Thread-0已经对该对象加了轻量级锁</li>
+<li>这时Thread-1加轻量级锁失败，进入锁膨胀流程
+<ul>
+<li>即为Object对象申请Monitor锁，让Object指向重量级锁地址</li>
+<li>然后自己进入Monitor的EntryList BLOCKED</li>
+</ul></li>
+<li>当Thread-0 退出同步块解锁时，使用cas将Mark Word
+的值恢复给对象头，失败。这时会进入重量级锁解锁流程，即按照Monitor地址找到Monitor对象，设置Owner为null，唤醒EntryList中的BLOCKED线程</li>
+</ul></li>
+</ul>
+<h3 id="自旋优化">自旋优化</h3>
+<ul>
+<li>重量级锁竞争的时候，还可以使用自旋来优化，如果当前线程自旋成功（即这时候持锁线程已经退出了同步块，释放了锁），这时当前线程就可以避免阻塞</li>
+<li>适合多核cpu，单核cpu不适合</li>
+<li>在java6之后自旋锁是自适应的，比如对象刚刚的一次自旋操作成功过，那么认为这次自旋成功的可能性会高，就多自旋几次；反之，就少自旋甚至是不自旋，总之，比较智能。
+<ul>
+<li>上次自旋成功 → 多自旋几次</li>
+<li>上次失败 → 少自旋 / 不自旋</li>
+</ul></li>
+<li>自旋会占用CPU时间，单核CPU自旋就是浪费，多核CPU自旋才能发挥优势</li>
+<li>Java7之后不能控制是否开启自旋功能</li>
+</ul>
+<h3 id="偏向锁">偏向锁</h3>
+<ul>
+<li>轻量级锁在没有竞争时（就自己这个线程），每次重入仍然需要执行CAS操作。</li>
+<li>Java 6
+中引入了偏向锁来做进一步优化：只有第一次使用CAS将线程ID设置到对象的Mark
+Word头，之后就发现这个线程ID是自己的就表示没有竞争，不用重新CAS。以后只要不发生竞争，这个对象就归线程所有</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m1</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">synchronized</span>(obj){	</span><br><span class="line">        m2();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m2</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">synchronized</span>(obj){</span><br><span class="line">        m3();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">m3</span><span class="params">()</span>{</span><br><span class="line">    <span class="keyword">synchronized</span>(obj){</span><br><span class="line">        	</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="偏向状态">偏向状态</h3>
+<ul>
+<li>一个对象创建时：
+<ul>
+<li>如果开启了偏向锁（默认开启），那么对象创建后，markword值为0x05即最后3位为101，在时它的thread、epoch、age都为0</li>
+<li>偏向锁是默认是延迟的，不会再程序启动时立即生效，如果想避免延迟，可以加VM参数
+-XX:BiasedLockingStartupDelay=0来禁用延迟</li>
+<li>如果没有开启偏向锁，那么对象创建后，markword值为0x01即最后3位001，这时它的
+hashcode、age都为0，第一次用到hashcode时才会赋值</li>
+<li>使用jol第三方工具来查看对象头信息</li>
+<li>测试禁用：在测试代码运行时，添加VM参数：-XX:-UseBiasedLocking禁用偏向锁</li>
+</ul></li>
+</ul>
+<h3 id="撤销-调用对象hashcode">撤销-调用对象hashCode</h3>
+<ul>
+<li>调用了对象的hashCode，但偏向锁的对象MarkWord中存储的是线程id，如果调用hashCode会导致偏向锁被撤销
+<ul>
+<li>轻量级锁会在锁记录中记录hashCode</li>
+<li>重量级锁会在Monitor中记录hashCode</li>
+</ul></li>
+<li>在调用hashCode后使用偏向锁，记得去掉-XX:-UseBiasedLocking</li>
+</ul>
+<h3 id="撤销-其它线程使用对象">撤销-其它线程使用对象</h3>
+<ul>
+<li>当有其它线程使用偏向锁对象时，就会偏向锁升级为轻量级锁</li>
+</ul>
+<h3 id="撤销-调用waitnotify">撤销-调用wait/notify</h3>
+<h3 id="批重量偏向">批重量偏向</h3>
+<ul>
+<li>如果对象虽然被多个线程访问，但没有竞争，这时偏向了T1的对象仍有机会重新偏向T2，重偏向会重置对象的Thread
+ID</li>
+<li>当撤销偏向锁阈值超过20次后，jvm会这样觉得，我是不是偏向错了呢，于是会给这些对象加锁时重新偏向至加锁状态</li>
+</ul>
+<h3 id="批量撤销">批量撤销</h3>
+<ul>
+<li>当撤销偏向锁阈值超过40次后，jvm会这样觉得，自己确实偏向错了，根本就不该偏向。于是整个类的所有对象都会变为不可偏向的，新建的对象也是不可偏向的</li>
+</ul>
+<h3 id="锁消除">锁消除</h3>
+<ul>
+<li>JIT 即时编译器
+<ul>
+<li>对于不可共享的代码，JIT会将其锁优化掉</li>
+</ul></li>
+<li>开启（默认）：<code>-XX:+EliminateLocks</code></li>
+<li>关闭：<code>-XX:-EliminateLocks</code></li>
+</ul>
+<h3 id="总结">总结</h3>
+<table>
+<thead>
+<tr>
+<th>优化手段</th>
+<th>解决问题</th>
+<th>原理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>偏向锁</td>
+<td>单线程反复加锁</td>
+<td>只一次 CAS，后续直接用</td>
+</tr>
+<tr>
+<td>轻量级锁</td>
+<td>多线程交替访问</td>
+<td>CAS + 锁记录，无阻塞</td>
+</tr>
+<tr>
+<td>锁膨胀</td>
+<td>真正并发竞争</td>
+<td>升级为 Monitor 重量锁</td>
+</tr>
+<tr>
+<td>自旋优化</td>
+<td>重量锁竞争</td>
+<td>循环重试，避免阻塞开销</td>
+</tr>
+<tr>
+<td>批量重偏向 / 撤销</td>
+<td>偏向锁频繁失效</td>
+<td>批量调整，减少撤销开销</td>
+</tr>
+<tr>
+<td>锁消除</td>
+<td>无意义的锁</td>
+<td>JIT 直接删除不可能竞争的锁</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JUC/" rel="tag"># JUC</a>
+              <a href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag"># 线程</a>
+              <a href="/tags/synchronized/" rel="tag"># synchronized</a>
+              <a href="/tags/%E9%94%81/" rel="tag"># 锁</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/03/24/AlgFillEachNodeNextRightNodePointer/" rel="prev" title="填充每个节点的下一个右侧节点指针">
+                  <i class="fa fa-angle-left"></i> 填充每个节点的下一个右侧节点指针
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/03/24/AIVectorDatabase/" rel="next" title="AI--向量数据库">
+                  AI--向量数据库 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">seeya-ch</span>
+  </div>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script>
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    // window.MathJax = {
+    //   loader: {
+    //
+    //     source: {
+    //       '[tex]/amsCd': '[tex]/amscd',
+    //       '[tex]/AMScd': '[tex]/amscd'
+    //     }
+    //   },
+    //   tex: {
+    //     inlineMath: {'[+]': [['$', '$']]},
+    //
+    //     tags: 'ams'
+    //   },
+    //   options: {
+    //     renderActions: {
+    //       findScript: [10, doc => {
+    //         document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+    //           const display = !!node.type.match(/; *mode=display/);
+    //           const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+    //           const text = document.createTextNode('');
+    //           node.parentNode.replaceChild(text, node);
+    //           math.start = {node: text, delim: '', n: 0};
+    //           math.end = {node: text, delim: '', n: 0};
+    //           doc.math.push(math);
+    //         });
+    //       }, '', false],
+    //       insertedScript: [200, () => {
+    //         document.querySelectorAll('mjx-container').forEach(node => {
+    //           let target = node.parentNode;
+    //           if (target.nodeName.toLowerCase() === 'li') {
+    //             target.parentNode.classList.add('has-jax');
+    //           }
+    //         });
+    //       }, '', false]
+    //     }
+    //   }
+    // };
+    window.MathJax = {
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '[object Object]';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</body>
+</html>

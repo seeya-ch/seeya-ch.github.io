@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="StackOverflowError 背景   JVM的Error">
+    <meta name="description" content="StackOverflowError 背景  JVM的Error">
 <meta property="og:type" content="article">
 <meta property="og:title" content="StackOverflowError">
 <meta property="og:url" content="http://seeya-ch.github.io/2026/03/03/StackOverflowError/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="StackOverflowError 背景   JVM的Error">
+<meta property="og:description" content="StackOverflowError 背景  JVM的Error">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-03T10:34:23.000Z">
 <meta property="article:modified_time" content="2026-03-03T14:42:13.046Z">
@@ -252,7 +252,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">StackOverflowError</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BA%E7%8E%B0StackOverflowError%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.3.</span> <span class="nav-text">出现StackOverflowError原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#stackoverflowerror"><span class="nav-number">1.</span> <span class="nav-text">StackOverflowError</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BA%E7%8E%B0stackoverflowerror%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.3.</span> <span class="nav-text">出现StackOverflowError原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -265,18 +265,18 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -354,56 +354,57 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1>StackOverflowError</h1>
+    <div class="post-body" itemprop="articleBody"><h1 id="stackoverflowerror">StackOverflowError</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li>
-<p>JVM的Error</p>
-<span id="more"></span>
-</li>
+<li><p>JVM的Error</p>
+<span id="more"></span></li>
 </ul>
 <h2 id="定义">定义</h2>
 <ul>
-<li><code>StackOverflowError</code> 是 JVM 抛出的一种<strong>虚拟机栈相关的错误（Error）</strong>，属于 <code>VirtualMachineError</code> 的子类，它表示：<strong>JVM 虚拟机栈（或本地方法栈）的深度超过了虚拟机允许的最大深度</strong>，简单说就是 “方法调用的栈帧层数太多，把栈内存撑爆了”。</li>
+<li><code>StackOverflowError</code> 是 JVM
+抛出的一种<strong>虚拟机栈相关的错误（Error）</strong>，属于
+<code>VirtualMachineError</code> 的子类，它表示：<strong>JVM
+虚拟机栈（或本地方法栈）的深度超过了虚拟机允许的最大深度</strong>，简单说就是
+“方法调用的栈帧层数太多，把栈内存撑爆了”。</li>
 <li>注意：
 <ul>
-<li>它和 <code>OutOfMemoryError</code> 都属于 Error（严重错误），而非 Exception（普通异常），程序无法通过 try-catch 优雅恢复，通常会直接终止线程；</li>
-<li>它本质是<strong>栈内存的 “深度溢出”</strong>，而 OOM 是内存的 “容量不足”，两者成因和场景完全不同。</li>
+<li>它和 <code>OutOfMemoryError</code> 都属于 Error（严重错误），而非
+Exception（普通异常），程序无法通过 try-catch
+优雅恢复，通常会直接终止线程；</li>
+<li>它本质是<strong>栈内存的 “深度溢出”</strong>，而 OOM 是内存的
+“容量不足”，两者成因和场景完全不同。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h2 id="出现StackOverflowError原因">出现StackOverflowError原因</h2>
+<h2 id="出现stackoverflowerror原因">出现StackOverflowError原因</h2>
 <ul>
-<li>
-<p>核心原因是<strong>方法调用的递归深度 / 栈帧数量超出了虚拟机栈的最大限制</strong>，具体分为俩类：</p>
+<li><p>核心原因是<strong>方法调用的递归深度 /
+栈帧数量超出了虚拟机栈的最大限制</strong>，具体分为俩类：</p>
 <ul>
-<li>
-<p>1.无限递归调用：</p>
+<li><p>1.无限递归调用：</p>
 <ul>
-<li>
-<p>方法直接 / 间接调用自身，且没有终止条件，导致栈帧不断压入虚拟机栈，最终超出栈内存上限。</p>
-</li>
-<li>
-<p>代码演示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StackOverflowExample</span> {</span><br><span class="line">    <span class="comment">// 递归方法，无终止条件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">recursiveCall</span><span class="params">()</span> {</span><br><span class="line">        recursiveCall(); <span class="comment">// 方法自己调用自己，无限循环</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            recursiveCall();</span><br><span class="line">        } <span class="keyword">catch</span> (StackOverflowError e) {</span><br><span class="line">            System.out.println(<span class="string">"触发 StackOverflowError："</span> + e.getMessage());</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li>
-<p>2.其它原因</p>
+<li><p>方法直接 /
+间接调用自身，且没有终止条件，导致栈帧不断压入虚拟机栈，最终超出栈内存上限。</p></li>
+<li><p>代码演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StackOverflowExample</span> {</span><br><span class="line">    <span class="comment">// 递归方法，无终止条件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">recursiveCall</span><span class="params">()</span> {</span><br><span class="line">        recursiveCall(); <span class="comment">// 方法自己调用自己，无限循环</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            recursiveCall();</span><br><span class="line">        } <span class="keyword">catch</span> (StackOverflowError e) {</span><br><span class="line">            System.out.println(<span class="string">"触发 StackOverflowError："</span> + e.getMessage());</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>2.其它原因</p>
 <ul>
 <li>单个方法的栈帧过大：方法内定义了大量局部变量、大数组，导致单个栈帧占用内存过多，少量调用就占满栈空间；</li>
-<li>JVM 栈内存配置过小：通过 <code>-Xss</code> 参数设置的虚拟机栈内存上限太低（比如 <code>-Xss128k</code>），正常的方法调用深度也会超出限制。</li>
-</ul>
-</li>
-</ul>
-</li>
+<li>JVM 栈内存配置过小：通过 <code>-Xss</code>
+参数设置的虚拟机栈内存上限太低（比如
+<code>-Xss128k</code>），正常的方法调用深度也会超出限制。</li>
+</ul></li>
+</ul></li>
 </ul>
 <h2 id="总结">总结</h2>
 <ul>
-<li><code>StackOverflowError</code> 是虚拟机栈深度超限导致的错误，核心是方法调用层数过多（如无限递归）；</li>
-<li>它和 OOM 不同：OOM 是内存 “容量不足”（堆 / 元空间等），StackOverflowError 是栈 “深度超标”；</li>
-<li>解决思路：排查无限递归（加终止条件）、减少方法嵌套深度、通过 <code>-Xss</code> 适当调大栈内存（如 <code>-Xss1m</code>）。</li>
+<li><code>StackOverflowError</code>
+是虚拟机栈深度超限导致的错误，核心是方法调用层数过多（如无限递归）；</li>
+<li>它和 OOM 不同：OOM 是内存 “容量不足”（堆 /
+元空间等），StackOverflowError 是栈 “深度超标”；</li>
+<li>解决思路：排查无限递归（加终止条件）、减少方法嵌套深度、通过
+<code>-Xss</code> 适当调大栈内存（如 <code>-Xss1m</code>）。</li>
 </ul>
 
     </div>
