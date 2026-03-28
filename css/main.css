@@ -1247,7 +1247,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #2d58c4;
+    background: #1254ff;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2823,11 +2823,6 @@ body {
   background: url("/images/bg.jpg") no-repeat center center fixed;
   background-size: cover;
   background-color: #f6f6f6;
-}
-.main {
-  background: rgba(255,255,255,0.88);
-  padding: 25px;
-  border-radius: 10px;
 }
 .sidebar {
   background: rgba(255,255,255,0.92);
