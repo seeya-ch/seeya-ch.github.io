@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="AI--没有优质Prompt，就没有真正的 AI 高效应用？  AI--Prompt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI--Prompt">
+<meta property="og:url" content="http://seeya-ch.github.io/2026/03/29/AIPrompt/index.html">
+<meta property="og:site_name" content="seeya-ch 博客">
+<meta property="og:description" content="AI--没有优质Prompt，就没有真正的 AI 高效应用？  AI--Prompt">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-29T15:34:23.000Z">
+<meta property="article:modified_time" content="2026-03-29T15:44:11.025Z">
+<meta property="article:author" content="seeya-ch">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="AI基础">
+<meta property="article:tag" content="Prompt">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://seeya-ch.github.io/2026/03/29/AIPrompt/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://seeya-ch.github.io/2026/03/29/AIPrompt/","path":"2026/03/29/AIPrompt/","title":"AI--Prompt"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AI--Prompt | seeya-ch 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">seeya-ch 博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>札记</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ai--%E6%B2%A1%E6%9C%89%E4%BC%98%E8%B4%A8prompt%E5%B0%B1%E6%B2%A1%E6%9C%89%E7%9C%9F%E6%AD%A3%E7%9A%84-ai-%E9%AB%98%E6%95%88%E5%BA%94%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">AI--没有优质Prompt，就没有真正的
+AI 高效应用？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%85%88%E5%90%90%E6%A7%BD%E6%99%AE%E9%80%9A%E6%8F%90%E9%97%AE%E6%9C%89%E5%A4%9A%E5%9D%91ai%E5%B0%B1%E6%9C%89%E5%A4%9A%E6%91%86%E7%83%82"><span class="nav-number">1.1.</span> <span class="nav-text">一、先吐槽：普通提问有多坑，AI就有多“摆烂”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E4%BC%98%E8%B4%A8prompt%E7%9A%845%E4%B8%AA%E5%B0%81%E7%A5%9E%E7%90%86%E7%94%B1%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%87%82%E4%B8%BA%E5%95%A5%E8%A6%81%E6%8A%A0"><span class="nav-number">1.2.</span> <span class="nav-text">二、优质Prompt的5个“封神”理由，看完就懂为啥要抠</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B2%BBai%E7%AD%94%E9%9D%9E%E6%89%80%E9%97%AE%E7%97%87%E7%B2%BE%E5%87%86%E6%8C%87%E8%B7%AF%E4%B8%8D%E8%B7%91%E5%81%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.
+治AI“答非所问症”：精准指路不跑偏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%AEai%E5%85%A5%E6%88%8F%E8%B4%B4%E5%9C%BA%E6%99%AF%E4%B8%8D%E8%BE%93%E5%87%BA%E5%BA%9F%E8%AF%9D"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 帮AI“入戏”：贴场景不输出“废话”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9Aai%E8%A7%84%E7%9F%A9%E8%BE%93%E5%87%BA%E8%A7%84%E8%8C%83%E4%B8%8D%E6%B7%BB%E4%B9%B1"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 定AI“规矩”：输出规范不添乱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A9ai%E8%B6%8A%E7%94%A8%E8%B6%8A%E6%87%82%E4%BD%A0%E9%BB%98%E5%A5%91%E6%8B%89%E6%BB%A1%E4%B8%8D%E8%B8%A9%E5%9D%91"><span class="nav-number">1.2.4.</span> <span class="nav-text">4.
+让AI“越用越懂你”：默契拉满不踩坑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E4%B8%8D%E7%94%A8%E4%BC%98%E8%B4%A8prompt%E8%A1%8C%E4%B8%8D%E8%A1%8C%E8%A1%8C%E4%BD%86%E5%8F%AA%E8%83%BD%E7%8E%A9%E7%A5%A8"><span class="nav-number">1.3.</span> <span class="nav-text">三、不用优质Prompt行不行？行，但只能玩票</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E4%BC%98%E8%B4%A8prompt%E6%89%8D%E6%98%AFai%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">最后：优质Prompt，才是AI的“正确打开方式”</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="seeya-ch"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">seeya-ch</p>
+  <div class="site-description" itemprop="description">seeya-ch的博客网站</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/seeya-ch" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;seeya-ch" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1323996923@qq.com" title="E-Mail → mailto:1323996923@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://seeya-ch.github.io/2026/03/29/AIPrompt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="seeya-ch">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="seeya-ch 博客">
+      <meta itemprop="description" content="seeya-ch的博客网站">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="AI--Prompt | seeya-ch 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AI--Prompt
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-03-29 23:34:23 / 修改时间：23:44:11" itemprop="dateCreated datePublished" datetime="2026-03-29T23:34:23+08:00">2026-03-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="ai--没有优质prompt就没有真正的-ai-高效应用">AI--没有优质Prompt，就没有真正的
+AI 高效应用？</h1>
+<ul>
+<li><p>AI--Prompt</p>
+<span id="more"></span></li>
+</ul>
+<h2 id="一先吐槽普通提问有多坑ai就有多摆烂">一、先吐槽：普通提问有多坑，AI就有多“摆烂”</h2>
+<p>别孤立看Prompt多厉害，先说说咱们用AI的痛点：你想让它干复杂活、贴你场景、出能用的东西，结果随口一问，AI要么答非所问，要么输出一堆“正确的废话”。</p>
+<p>拆穿了就一个核心：普通提问太模糊，AI根本get不到你的点——</p>
+<ul>
+<li>让AI干专业活，你只说“弄个方案”，它能给你整出一堆没用的；</li>
+<li>让AI写文案，你只说“写一篇”，它输出的通用内容，连你受众是谁都不管；</li>
+<li>让AI出成果，你不规定格式，它给你乱糟糟的一堆，还得你自己改；</li>
+<li>反复追问、反复修改，越用越闹心，效率还不如自己干。</li>
+</ul>
+<p>总结：想让AI不摆烂，就得用优质Prompt“精准拿捏”它</p>
+<h2 id="二优质prompt的5个封神理由看完就懂为啥要抠">二、优质Prompt的5个“封神”理由，看完就懂为啥要抠</h2>
+<h3 id="治ai答非所问症精准指路不跑偏">1.
+治AI“答非所问症”：精准指路不跑偏</h3>
+<p>再强的大模型，也听不懂“随便弄弄”“做个东西”这种模糊话——就像你让实习生“买个菜”，他可能买一堆你不爱吃的。但你说“买2斤番茄、1斤青菜，要新鲜的”，他就不会错。</p>
+<p>优质Prompt就是给AI“划重点”：把要干啥、要啥格式、有啥要求说清楚，AI不用瞎猜，直接出活，省得反复扯皮。</p>
+<h3 id="帮ai入戏贴场景不输出废话">2. 帮AI“入戏”：贴场景不输出“废话”</h3>
+<p>你是职场博主，让AI写时间管理文，只说“写一篇”，它给你整一堆理论；但你说“以职场博主语气，写800字碎片时间干货，加2个打工人案例”，它立马就懂怎么写才接地气。</p>
+<p>优质Prompt能让AI快速“代入角色”，摆脱千篇一律的通用内容，产出的东西直接能用，不用再返工。</p>
+<h3 id="定ai规矩输出规范不添乱">3. 定AI“规矩”：输出规范不添乱</h3>
+<p>AI的核心是省时间，但如果它输出的内容格式混乱、东一榔头西一棒子，你还得花时间改，反而更累。</p>
+<p>优质Prompt就是给AI定“规矩”：比如“用表格做月度报表，含工作内容、完成情况4列”，AI直接按规矩来，你拿到手就能用，省出时间摸鱼不香吗？</p>
+<h3 id="让ai越用越懂你默契拉满不踩坑">4.
+让AI“越用越懂你”：默契拉满不踩坑</h3>
+<p>用AI就像处朋友，你每次都跟它说清楚“我要亲切语气”“代码要加注释”，它慢慢就摸清你的习惯，下次不用你多废话，输出的内容就合你心意——这就是优质Prompt的“驯化”魔力。</p>
+<ol start="5" type="1">
+<li>通吃所有场景：一招鲜吃遍天</li>
+</ol>
+<p>AI能写文案、做报表、改代码、画海报，不管啥场景，优质Prompt都能hold住。让AI解题，就说“当数学老师，
+step by
+step讲清楚”；让AI做海报，就说“当设计师，简约大气，主色调蓝色”。</p>
+<p>普通提问做不到的场景适配，优质Prompt一句话就能搞定，性价比直接拉满。</p>
+<h2 id="三不用优质prompt行不行行但只能玩票">三、不用优质Prompt行不行？行，但只能玩票</h2>
+<p>当然能不用，但那AI只能当“玩具”，干不了正事：</p>
+<ul>
+<li>只能答简单问题，复杂活根本扛不住；</li>
+<li>输出内容千篇一律，贴不上你的场景；</li>
+<li>格式混乱，改起来比自己做还累；</li>
+<li>每次都要反复试错，越用越闹心。</li>
+</ul>
+<p>想让AI真正帮你省时间、提效率，优质Prompt必不可少——偶尔偷懒随便问可以，长期用AI干活，抠Prompt才是正经事。</p>
+<h2 id="最后优质prompt才是ai的正确打开方式">最后：优质Prompt，才是AI的“正确打开方式”</h2>
+<p>AI的进化，就是从“只会答简单问题”，变成“能帮你干正事”，而优质Prompt，就是解锁这份能力的钥匙。</p>
+<p>没有优质Prompt的AI：</p>
+<blockquote>
+<p>像个听不懂话的实习生，帮不上忙还添乱；</p>
+</blockquote>
+<p>有了优质Prompt的AI：</p>
+<blockquote>
+<p>像个懂你的老搭档，精准出活、越用越顺手。</p>
+</blockquote>
+<p>别再觉得抠Prompt是跟风了，这才是用AI的“捷径”——花2分钟写个优质Prompt，能省你2小时返工，血赚不亏！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+              <a href="/tags/AI%E5%9F%BA%E7%A1%80/" rel="tag"># AI基础</a>
+              <a href="/tags/Prompt/" rel="tag"># Prompt</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/03/29/JUCliveness/" rel="prev" title="JUC--活跃性">
+                  <i class="fa fa-angle-left"></i> JUC--活跃性
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">seeya-ch</span>
+  </div>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script>
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    // window.MathJax = {
+    //   loader: {
+    //
+    //     source: {
+    //       '[tex]/amsCd': '[tex]/amscd',
+    //       '[tex]/AMScd': '[tex]/amscd'
+    //     }
+    //   },
+    //   tex: {
+    //     inlineMath: {'[+]': [['$', '$']]},
+    //
+    //     tags: 'ams'
+    //   },
+    //   options: {
+    //     renderActions: {
+    //       findScript: [10, doc => {
+    //         document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+    //           const display = !!node.type.match(/; *mode=display/);
+    //           const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+    //           const text = document.createTextNode('');
+    //           node.parentNode.replaceChild(text, node);
+    //           math.start = {node: text, delim: '', n: 0};
+    //           math.end = {node: text, delim: '', n: 0};
+    //           doc.math.push(math);
+    //         });
+    //       }, '', false],
+    //       insertedScript: [200, () => {
+    //         document.querySelectorAll('mjx-container').forEach(node => {
+    //           let target = node.parentNode;
+    //           if (target.nodeName.toLowerCase() === 'li') {
+    //             target.parentNode.classList.add('has-jax');
+    //           }
+    //         });
+    //       }, '', false]
+    //     }
+    //   }
+    // };
+    window.MathJax = {
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '[object Object]';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</body>
+</html>

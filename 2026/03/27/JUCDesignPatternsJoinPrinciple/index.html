@@ -21,30 +21,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="JUC--设计模式 背景  JUC--设计模式 博主以黑马JUC进行学习">
+    <meta name="description" content="JUC--join原理  JUC--join原理 博主以黑马JUC进行学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JUC--设计模式">
-<meta property="og:url" content="http://seeya-ch.github.io/2026/03/17/JUCDesignPatterns/index.html">
+<meta property="og:title" content="JUC--设计模式_join原理">
+<meta property="og:url" content="http://seeya-ch.github.io/2026/03/27/JUCDesignPatternsJoinPrinciple/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="JUC--设计模式 背景  JUC--设计模式 博主以黑马JUC进行学习">
+<meta property="og:description" content="JUC--join原理  JUC--join原理 博主以黑马JUC进行学习">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-03-17T13:34:23.000Z">
-<meta property="article:modified_time" content="2026-03-17T14:05:30.583Z">
+<meta property="article:published_time" content="2026-03-27T13:34:23.000Z">
+<meta property="article:modified_time" content="2026-03-29T15:32:20.469Z">
 <meta property="article:author" content="seeya-ch">
 <meta property="article:tag" content="JUC">
 <meta property="article:tag" content="线程">
 <meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="join原理">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://seeya-ch.github.io/2026/03/17/JUCDesignPatterns/">
+<link rel="canonical" href="http://seeya-ch.github.io/2026/03/27/JUCDesignPatternsJoinPrinciple/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://seeya-ch.github.io/2026/03/17/JUCDesignPatterns/","path":"2026/03/17/JUCDesignPatterns/","title":"JUC--设计模式"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://seeya-ch.github.io/2026/03/27/JUCDesignPatternsJoinPrinciple/","path":"2026/03/27/JUCDesignPatternsJoinPrinciple/","title":"JUC--设计模式_join原理"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>JUC--设计模式 | seeya-ch 博客</title>
+<title>JUC--设计模式_join原理 | seeya-ch 博客</title>
   
 
 
@@ -255,8 +256,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#juc--%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">JUC--设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E7%BB%88%E6%AD%A2%E6%A8%A1%E5%BC%8F-two-phase-termination"><span class="nav-number">1.2.</span> <span class="nav-text">两阶段终止模式 Two Phase
-Termination</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#juc--join%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">JUC--join原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.0.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86jdk-%E6%BA%90%E7%A0%81%E6%A0%B8%E5%BF%83"><span class="nav-number">1.0.2.</span> <span class="nav-text">底层实现原理（JDK 源码核心）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%9C%BA%E5%88%B6"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">关键机制：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="nav-number">1.0.3.</span> <span class="nav-text">核心特性</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -271,7 +271,7 @@ Termination</span></a></li></ol></li></ol></div>
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -282,7 +282,7 @@ Termination</span></a></li></ol></li></ol></div>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -317,7 +317,7 @@ Termination</span></a></li></ol></li></ol></div>
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://seeya-ch.github.io/2026/03/17/JUCDesignPatterns/">
+    <link itemprop="mainEntityOfPage" href="http://seeya-ch.github.io/2026/03/27/JUCDesignPatternsJoinPrinciple/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -330,12 +330,12 @@ Termination</span></a></li></ol></li></ol></div>
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="JUC--设计模式 | seeya-ch 博客">
+      <meta itemprop="name" content="JUC--设计模式_join原理 | seeya-ch 博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          JUC--设计模式
+          JUC--设计模式_join原理
         </h1>
 
         <div class="post-meta-container">
@@ -345,9 +345,15 @@ Termination</span></a></li></ol></li></ol></div>
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2026-03-17 21:34:23 / 修改时间：22:05:30" itemprop="dateCreated datePublished" datetime="2026-03-17T21:34:23+08:00">2026-03-17</time>
+      <time title="创建时间：2026-03-27 21:34:23" itemprop="dateCreated datePublished" datetime="2026-03-27T21:34:23+08:00">2026-03-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-03-29 23:32:20" itemprop="dateModified" datetime="2026-03-29T23:32:20+08:00">2026-03-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -368,19 +374,53 @@ Termination</span></a></li></ol></li></ol></div>
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="juc--设计模式">JUC--设计模式</h1>
-<h2 id="背景">背景</h2>
+    <div class="post-body" itemprop="articleBody"><h1 id="juc--join原理">JUC--join原理</h1>
 <ul>
-<li><p>JUC--设计模式</p></li>
+<li><p>JUC--join原理</p></li>
 <li><p>博主以黑马JUC进行学习</p>
 <span id="more"></span></li>
 </ul>
-<h2 id="两阶段终止模式-two-phase-termination">两阶段终止模式 Two Phase
-Termination</h2>
+<h3 id="定义">定义</h3>
 <ul>
-<li>在一个线程T1中如何优雅的终止线程T2？这里的优雅指的是给T2一个料理后事的机会。</li>
+<li><p>标准定义</p>
+<p><code>join()</code>
+是线程对象的方法，调用方线程会<strong>阻塞暂停</strong>，直到被调用的目标线程<strong>完全执行完毕、终止退出</strong>，调用方线程才会恢复执行。</p></li>
+<li><p>核心作用</p>
+<p>解决多线程执行顺序不可控的问题，强制实现<strong>线程串行依赖</strong>，保证业务逻辑的先后顺序。</p></li>
+<li><p>设计模式定位</p>
+<p>属于<strong>并发设计模式</strong>中的<strong>同步模式</strong>，是实现「生产者
+-
+消费者」「两阶段终止」「线程池任务等待」等设计模式的底层依赖。</p></li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test3</span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">        <span class="type">TwoPhaseTermination</span> <span class="variable">tpt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TwoPhaseTermination</span>();</span><br><span class="line">        tpt.start();</span><br><span class="line">        Thread.sleep(<span class="number">3500</span>);</span><br><span class="line">        tpt.stop();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TwoPhaseTermination</span>{</span><br><span class="line">    <span class="keyword">private</span> Thread monitor;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//启动监控线程</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">()</span>{</span><br><span class="line">        monitor = <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; {</span><br><span class="line">            <span class="keyword">while</span>(<span class="literal">true</span>){</span><br><span class="line">                <span class="type">Thread</span> <span class="variable">current</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">                <span class="comment">//是否被打断</span></span><br><span class="line">                <span class="keyword">if</span>(current.isInterrupted()){</span><br><span class="line">                    log.debug(<span class="string">"料理后事"</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">try</span>{</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                    log.debug(<span class="string">"执行监控记录"</span>);</span><br><span class="line">                }<span class="keyword">catch</span> (InterruptedException e){</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                    <span class="comment">//重新设置打断标记</span></span><br><span class="line">                    current.interrupt();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">        </span><br><span class="line">        monitor.start();</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//停止监控线程</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">stop</span><span class="params">()</span>{</span><br><span class="line">        monitorThread.interrupt();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h3 id="底层实现原理jdk-源码核心">底层实现原理（JDK 源码核心）</h3>
+<p>Java 中 <code>Thread.join()</code> 的底层是<strong>基于
+<code>Object.wait()</code> / <code>notifyAll()</code> 的等待 -
+通知机制</strong>，伪代码逻辑：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Thread.join() 底层简化源码</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">join</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException {</span><br><span class="line">    <span class="comment">// 循环判断目标线程是否存活</span></span><br><span class="line">    <span class="keyword">while</span> (isAlive()) {</span><br><span class="line">        <span class="comment">// 调用方线程阻塞等待（释放锁）</span></span><br><span class="line">        wait(<span class="number">0</span>); </span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<h4 id="关键机制">关键机制：</h4>
+<ol type="1">
+<li><strong>加锁</strong>：<code>join()</code>
+是同步方法，锁为<strong>目标线程对象本身</strong>；</li>
+<li><strong>阻塞</strong>：调用方线程进入 <code>wait()</code>
+状态，释放锁，暂停执行；</li>
+<li><strong>唤醒</strong>：JVM
+在目标线程<strong>执行完毕、终止退出</strong>时，会自动调用
+<code>notifyAll()</code> 唤醒所有等待该线程的线程；</li>
+<li><strong>退出</strong>：唤醒后再次检查线程状态，确认终止后，<code>join()</code>
+方法返回，调用方恢复执行。</li>
+</ol>
+<h3 id="核心特性">核心特性</h3>
+<ul>
+<li><strong>阻塞性</strong>：调用 <code>join()</code>
+的线程会<strong>完全阻塞</strong>，不占用 CPU 资源；</li>
+<li><strong>等待终止</strong>：必须等目标线程<strong>彻底运行结束</strong>才会放行，不是等待某一步执行；</li>
+<li><strong>可超时</strong>：支持
+<code>join(long millis)</code>，超时后自动放行，避免无限等待；</li>
+<li><strong>可中断</strong>：等待中的线程可以被 <code>interrupt()</code>
+中断，抛出中断异常；</li>
+<li><strong>无锁竞争优化</strong>：底层基于 JVM
+原生等待通知，无用户态锁竞争，性能高效。</li>
+</ul>
 
     </div>
 
@@ -393,19 +433,20 @@ Termination</h2>
               <a href="/tags/JUC/" rel="tag"># JUC</a>
               <a href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag"># 线程</a>
               <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
+              <a href="/tags/join%E5%8E%9F%E7%90%86/" rel="tag"># join原理</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2026/03/17/AlgLevelAveragesOfABinaryTree/" rel="prev" title="二叉树的层平均值">
-                  <i class="fa fa-angle-left"></i> 二叉树的层平均值
+                <a href="/2026/03/27/JUCDesignPatternsProtectiveSuspension/" rel="prev" title="JUC--设计模式_保护性暂停">
+                  <i class="fa fa-angle-left"></i> JUC--设计模式_保护性暂停
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2026/03/18/AlgLevel-OrderTraversalOfAnN-AryTree/" rel="next" title="n叉树的层序遍历">
-                  n叉树的层序遍历 <i class="fa fa-angle-right"></i>
+                <a href="/2026/03/28/JUCDesignPatternsBounded-bufferProblem%20/" rel="next" title="JUC--设计模式_生产者消费者">
+                  JUC--设计模式_生产者消费者 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
