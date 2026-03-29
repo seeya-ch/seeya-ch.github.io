@@ -21,12 +21,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="JUC--保护性暂停  JUC--保护性暂停 博主以黑马JUC进行学习">
+    <meta name="description" content="JUC–保护性暂停   JUC–保护性暂停   博主以黑马JUC进行学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JUC--设计模式_保护性暂停">
 <meta property="og:url" content="http://seeya-ch.github.io/2026/03/27/JUCDesignPatternsProtectiveSuspension/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="JUC--保护性暂停  JUC--保护性暂停 博主以黑马JUC进行学习">
+<meta property="og:description" content="JUC–保护性暂停   JUC–保护性暂停   博主以黑马JUC进行学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-27T13:34:23.000Z">
 <meta property="article:modified_time" content="2026-03-29T15:33:57.366Z">
@@ -256,7 +256,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#juc--%E4%BF%9D%E6%8A%A4%E6%80%A7%E6%9A%82%E5%81%9C"><span class="nav-number">1.</span> <span class="nav-text">JUC--保护性暂停</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.0.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.0.2.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95_%E5%A2%9E%E5%8A%A0%E8%B6%85%E6%97%B6"><span class="nav-number">1.0.3.</span> <span class="nav-text">扩展_增加超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95_%E8%A7%A3%E8%80%A6%E7%AD%89%E5%BE%85%E5%92%8C%E7%94%9F%E4%BA%A7"><span class="nav-number">1.0.4.</span> <span class="nav-text">扩展_解耦等待和生产</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">JUC–保护性暂停</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.0.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.0.2.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95-%E5%A2%9E%E5%8A%A0%E8%B6%85%E6%97%B6"><span class="nav-number">1.0.3.</span> <span class="nav-text">扩展_增加超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95-%E8%A7%A3%E8%80%A6%E7%AD%89%E5%BE%85%E5%92%8C%E7%94%9F%E4%BA%A7"><span class="nav-number">1.0.4.</span> <span class="nav-text">扩展_解耦等待和生产</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -374,11 +374,15 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="juc--保护性暂停">JUC--保护性暂停</h1>
+    <div class="post-body" itemprop="articleBody"><h1>JUC–保护性暂停</h1>
 <ul>
-<li><p>JUC--保护性暂停</p></li>
-<li><p>博主以黑马JUC进行学习</p>
-<span id="more"></span></li>
+<li>
+<p>JUC–保护性暂停</p>
+</li>
+<li>
+<p>博主以黑马JUC进行学习</p>
+<span id="more"></span>
+</li>
 </ul>
 <h3 id="定义">定义</h3>
 <p>即Guarded Suspension，用一个线程等待另一个线程的执行结果</p>
@@ -395,35 +399,39 @@ mjx-container[display="true"] + br {
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GuardedObject</span> {</span><br><span class="line">    <span class="comment">// 要传递的结果</span></span><br><span class="line">    <span class="keyword">private</span> Object response;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取结果：没有结果就等待</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">get</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>) {</span><br><span class="line">            <span class="comment">// 防止虚假唤醒，必须用 while</span></span><br><span class="line">            <span class="keyword">while</span> (response == <span class="literal">null</span>) {</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    <span class="built_in">this</span>.wait();</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">return</span> response;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 产生结果：设置完成后唤醒等待线程</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">complete</span><span class="params">(Object response)</span> {</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>) {</span><br><span class="line">            <span class="built_in">this</span>.response = response;</span><br><span class="line">            <span class="built_in">this</span>.notifyAll();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p>测试</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">GuardedObject</span> <span class="variable">go</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GuardedObject</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 线程1：等待结果</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; {</span><br><span class="line">            System.out.println(<span class="string">"等待结果..."</span>);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">res</span> <span class="operator">=</span> go.get();</span><br><span class="line">            System.out.println(<span class="string">"收到结果："</span> + res);</span><br><span class="line">        }).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 线程2：生产结果</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; {</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>); <span class="comment">// 模拟干活</span></span><br><span class="line">            } <span class="keyword">catch</span> (InterruptedException e) {}</span><br><span class="line">            </span><br><span class="line">            go.complete(<span class="string">"我是执行结果！"</span>);</span><br><span class="line">            System.out.println(<span class="string">"已产生结果"</span>);</span><br><span class="line">        }).start();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h3 id="扩展_增加超时">扩展_增加超时</h3>
+<h3 id="扩展-增加超时">扩展_增加超时</h3>
 <p>不让线程无限等，最多等一段时间，没结果就返回null</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GuardedObject</span> {</span><br><span class="line">    <span class="keyword">private</span> Object response;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 超时等待：maxWait 最大等待毫秒数</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">get</span><span class="params">(<span class="type">long</span> maxWait)</span> {</span><br><span class="line">        <span class="type">long</span> <span class="variable">begin</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        <span class="type">long</span> <span class="variable">waitTime</span> <span class="operator">=</span> <span class="number">0</span>; <span class="comment">// 已经等待的时间</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>) {</span><br><span class="line">            <span class="keyword">while</span> (response == <span class="literal">null</span>) {</span><br><span class="line">                <span class="type">long</span> <span class="variable">needWait</span> <span class="operator">=</span> maxWait - waitTime;</span><br><span class="line">                <span class="keyword">if</span> (needWait &lt;= <span class="number">0</span>) {</span><br><span class="line">                    <span class="keyword">break</span>; <span class="comment">// 超时，退出等待</span></span><br><span class="line">                }</span><br><span class="line"></span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    <span class="built_in">this</span>.wait(needWait); <span class="comment">// 只等待剩余时间</span></span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {}</span><br><span class="line"></span><br><span class="line">                waitTime = System.currentTimeMillis() - begin;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">return</span> response;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">complete</span><span class="params">(Object response)</span> {</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>) {</span><br><span class="line">            <span class="built_in">this</span>.response = response;</span><br><span class="line">            <span class="built_in">this</span>.notifyAll();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p>使用</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">res</span> <span class="operator">=</span> go.get(<span class="number">2000</span>); <span class="comment">// 最多等2秒</span></span><br></pre></td></tr></table></figure>
-<h3 id="扩展_解耦等待和生产">扩展_解耦等待和生产</h3>
+<h3 id="扩展-解耦等待和生产">扩展_解耦等待和生产</h3>
 <p>如果需要在多个类之间使用GuardedObject对象，作为参数传递不是很方便，因此设计一个用来解耦的中间类，这样不仅能够解耦【结果等待者】和【结果生产者】，还能够同时支持多个任务的管理</p>
 <ul>
 <li>一般为一对多</li>
 </ul>
 <p>设计思路：</p>
 <ul>
-<li><p>问题：直接用 <code>GuardedObject</code>
-必须<strong>传递同一个对象</strong>，类与类之间耦合严重。</p></li>
-<li><p>解耦：</p>
-<p>增加一个<strong>中间容器类</strong>（我们叫它
-<code>GuardedObjectBox</code> / <code>TaskManager</code>）：</p>
+<li>
+<p>问题：直接用 <code>GuardedObject</code> 必须<strong>传递同一个对象</strong>，类与类之间耦合严重。</p>
+</li>
+<li>
+<p>解耦：</p>
+<p>增加一个<strong>中间容器类</strong>（我们叫它 <code>GuardedObjectBox</code> / <code>TaskManager</code>）：</p>
 <ul>
 <li>等待者：只需要<strong>任务 ID</strong>去等待结果</li>
 <li>生产者：只需要<strong>任务 ID</strong>去生产结果</li>
 <li>两者<strong>不直接接触、不互相传递对象、不互相依赖</strong></li>
-</ul></li>
-<li><p>结构：</p>
+</ul>
+</li>
+<li>
+<p>结构：</p>
 <ul>
 <li><code>GuardedObject</code>：基础等待 / 通知对象</li>
 <li><code>TaskManager</code>：中间解耦容器（核心）</li>
 <li>等待线程：从 <code>TaskManager</code> 获取并等待</li>
 <li>生产线程：从 <code>TaskManager</code> 获取并赋值</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -444,13 +452,13 @@ mjx-container[display="true"] + br {
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2026/03/26/JUC-wait%C2%ACify/" rel="prev" title="JUC---wait¬ify">
-                  <i class="fa fa-angle-left"></i> JUC---wait¬ify
+                <a href="/2026/03/27/JUCDesignPatternsJoinPrinciple/" rel="prev" title="JUC--设计模式_join原理">
+                  <i class="fa fa-angle-left"></i> JUC--设计模式_join原理
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2026/03/27/JUCDesignPatternsJoinPrinciple/" rel="next" title="JUC--设计模式_join原理">
-                  JUC--设计模式_join原理 <i class="fa fa-angle-right"></i>
+                <a href="/2026/03/28/JUCDesignPatternsBounded-bufferProblem%20/" rel="next" title="JUC--设计模式_生产者消费者">
+                  JUC--设计模式_生产者消费者 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>

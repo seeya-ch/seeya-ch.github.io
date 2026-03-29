@@ -21,12 +21,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="JVM--StringTable 背景  JVM--StringTable 博主以黑马JVM进行学习">
+    <meta name="description" content="JVM–StringTable 背景   JVM–StringTable   博主以黑马JVM进行学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM--StringTable">
 <meta property="og:url" content="http://seeya-ch.github.io/2026/03/04/JVMStringTable/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="JVM--StringTable 背景  JVM--StringTable 博主以黑马JVM进行学习">
+<meta property="og:description" content="JVM–StringTable 背景   JVM–StringTable   博主以黑马JVM进行学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-04T10:34:23.000Z">
 <meta property="article:modified_time" content="2026-03-04T15:02:37.762Z">
@@ -254,7 +254,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jvm--stringtable"><span class="nav-number">1.</span> <span class="nav-text">JVM--StringTable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">核心概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E6%B1%A0%E4%B8%8E%E4%B8%B2%E6%B1%A0%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.3.</span> <span class="nav-text">常量池与串池的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%98%E9%87%8F%E6%8B%BC%E6%8E%A5"><span class="nav-number">1.4.</span> <span class="nav-text">字符串变量拼接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E6%9C%9F%E4%BC%98%E5%8C%96"><span class="nav-number">1.5.</span> <span class="nav-text">编译期优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.6.</span> <span class="nav-text">字符串延迟加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#intern_1.8"><span class="nav-number">1.7.</span> <span class="nav-text">intern_1.8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#intern_1.6"><span class="nav-number">1.8.</span> <span class="nav-text">intern_1.6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.9.</span> <span class="nav-text">位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">1.10.</span> <span class="nav-text">垃圾回收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E4%BC%98"><span class="nav-number">1.11.</span> <span class="nav-text">调优</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.12.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">JVM–StringTable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">核心概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E6%B1%A0%E4%B8%8E%E4%B8%B2%E6%B1%A0%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.3.</span> <span class="nav-text">常量池与串池的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%98%E9%87%8F%E6%8B%BC%E6%8E%A5"><span class="nav-number">1.4.</span> <span class="nav-text">字符串变量拼接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E6%9C%9F%E4%BC%98%E5%8C%96"><span class="nav-number">1.5.</span> <span class="nav-text">编译期优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.6.</span> <span class="nav-text">字符串延迟加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#intern-1-8"><span class="nav-number">1.7.</span> <span class="nav-text">intern_1.8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#intern-1-6"><span class="nav-number">1.8.</span> <span class="nav-text">intern_1.6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.9.</span> <span class="nav-text">位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">1.10.</span> <span class="nav-text">垃圾回收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E4%BC%98"><span class="nav-number">1.11.</span> <span class="nav-text">调优</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.12.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -366,31 +366,32 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="jvm--stringtable">JVM--StringTable</h1>
+    <div class="post-body" itemprop="articleBody"><h1>JVM–StringTable</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li><p>JVM--StringTable</p></li>
-<li><p>博主以黑马JVM进行学习</p>
-<span id="more"></span></li>
+<li>
+<p>JVM–StringTable</p>
+</li>
+<li>
+<p>博主以黑马JVM进行学习</p>
+<span id="more"></span>
+</li>
 </ul>
 <h2 id="核心概念">核心概念</h2>
 <ul>
-<li>Class 常量池（编译期）→ 运行时常量池（JVM 加载后）→
-串池（StringTable，运行时）
+<li>Class 常量池（编译期）→ 运行时常量池（JVM 加载后）→ 串池（StringTable，运行时）
 <ul>
-<li>Class
-常量池：<code>.class</code>文件里存储字面量、符号引用的区域（比如代码里的<code>"a"</code>
-<code>"b"</code> <code>"ab"</code>编译后是符号，不是对象）；</li>
-<li>运行时常量池：Class 常量池加载到 JVM 内存后的区域（符号仍未变成 Java
-对象）</li>
-<li>串池（StringTable）：JVM
-专门存储字符串对象的哈希表（hashtable），属于堆内存的一部分，<strong>只有触发特定操作（如<code>ldc</code>指令），运行时常量池的符号才会变成字符串对象存入串池</strong>。
+<li>Class 常量池：<code>.class</code>文件里存储字面量、符号引用的区域（比如代码里的<code>"a"</code> <code>"b"</code> <code>"ab"</code>编译后是符号，不是对象）；</li>
+<li>运行时常量池：Class 常量池加载到 JVM 内存后的区域（符号仍未变成 Java 对象）</li>
+<li>串池（StringTable）：JVM 专门存储字符串对象的哈希表（hashtable），属于堆内存的一部分，<strong>只有触发特定操作（如<code>ldc</code>指令），运行时常量池的符号才会变成字符串对象存入串池</strong>。
 <ul>
 <li>JDK 1.6：属于方法区（永久代）</li>
 <li>JDK 1.7+：移至<strong>堆内存</strong>；</li>
 <li>核心触发逻辑：只有执行<code>ldc</code>指令（访问字符串字面量）、调用<code>intern()</code>方法时，运行时常量池的符号才会转为字符串对象存入串池。</li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>特性：
 <ul>
 <li>常量池中的字符串仅仅是符号，第一次用到时才变为对象</li>
@@ -401,44 +402,43 @@ mjx-container[display="true"] + br {
 <ul>
 <li>1.8：将这个字符串对象尝试放入串池,如果有则并不会放入，如果没有则放入串池，会把串池中的对象返回</li>
 <li>1.6：将这个字符串对象尝试放入串池,如果有则并不会放入，如果没有会把对象复制一份，放入串池，会把串池中的对象返回</li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="常量池与串池的关系">常量池与串池的关系</h2>
 <ul>
-<li><p>案例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//StringTable在数据结构中是哈希表hashtable结构，不能扩容</span></span><br><span class="line"><span class="comment">//StringTable[ "a","b","ab"]</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">demo</span> {</span><br><span class="line"><span class="comment">//常量池中的信息，都会加载到运行时常量池中，这时a，b，ab都是常量池中的符号,还没变为java字符串对象</span></span><br><span class="line">    <span class="comment">//ldc #2 会把a符号变为“a”字符串对象</span></span><br><span class="line">    </span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">      <span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="string">"a"</span>; <span class="comment">//懒惰的机制 核心：触发ldc指令，符号→对象，存入串池</span></span><br><span class="line">      <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="string">"b"</span>;</span><br><span class="line">      <span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="string">"ab"</span>;</span><br><span class="line">   } </span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
-<li><p>代码执行的底层逻辑：</p>
+<li>
+<p>案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//StringTable在数据结构中是哈希表hashtable结构，不能扩容</span></span><br><span class="line"><span class="comment">//StringTable[ "a","b","ab"]</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">demo</span> {</span><br><span class="line"><span class="comment">//常量池中的信息，都会加载到运行时常量池中，这时a，b，ab都是常量池中的符号,还没变为java字符串对象</span></span><br><span class="line">    <span class="comment">//ldc #2 会把a符号变为“a”字符串对象</span></span><br><span class="line">    </span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">      <span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="string">"a"</span>; <span class="comment">//懒惰的机制 核心：触发ldc指令，符号→对象，存入串池</span></span><br><span class="line">      <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="string">"b"</span>;</span><br><span class="line">      <span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="string">"ab"</span>;</span><br><span class="line">   } </span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>代码执行的底层逻辑：</p>
 <ul>
-<li><p><strong>类加载阶段：</strong>demo.class 的 Class 常量池被加载到
-JVM 的<strong>运行时常量池</strong>，此时<code>"a"</code>
-<code>"b"</code>
-<code>"ab"</code>只是「符号引用」（类似占位符），没有创建任何 String
-对象；</p></li>
-<li><p><strong>执行<code>String s1 = "a"</code></strong>：</p>
+<li>
+<p><strong>类加载阶段：<strong>demo.class 的 Class 常量池被加载到 JVM 的</strong>运行时常量池</strong>，此时<code>"a"</code> <code>"b"</code> <code>"ab"</code>只是「符号引用」（类似占位符），没有创建任何 String 对象；</p>
+</li>
+<li>
+<p><strong>执行<code>String s1 = "a"</code></strong>：</p>
 <ul>
-<li>JVM 执行<code>ldc #2</code>指令（#2
-是运行时常量池中<code>"a"</code>的符号引用）；</li>
+<li>JVM 执行<code>ldc #2</code>指令（#2 是运行时常量池中<code>"a"</code>的符号引用）；</li>
 <li>触发「懒惰机制」：检查串池（StringTable）中是否有<code>"a"</code>对象；</li>
 <li>若没有，创建<code>"a"</code>字符串对象，存入串池；</li>
 <li>把串池中<code>"a"</code>对象的引用赋值给 s1；</li>
-</ul></li>
-<li><p><strong>执行<code>String s2 = "b"</code>
-<code>String s3 = "ab"</code></strong>：逻辑和<code>s1</code>完全一致 ——
-先查串池，无则创建对象存入，再返回引用。</p></li>
-</ul></li>
+</ul>
+</li>
+<li>
+<p><strong>执行<code>String s2 = "b"</code> <code>String s3 = "ab"</code></strong>：逻辑和<code>s1</code>完全一致 —— 先查串池，无则创建对象存入，再返回引用。</p>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="字符串变量拼接">字符串变量拼接</h2>
 <ul>
-<li><p>对比</p>
+<li>
+<p>对比</p>
 <table>
-<colgroup>
-<col style="width: 7%">
-<col style="width: 30%">
-<col style="width: 9%">
-<col style="width: 19%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr>
 <th>拼接类型</th>
@@ -464,33 +464,51 @@ JVM 的<strong>运行时常量池</strong>，此时<code>"a"</code>
 <td>生成新 String 对象（堆中），不在串池</td>
 </tr>
 </tbody>
-</table></li>
-<li><p><strong>“符号” vs “对象” 的核心区别</strong>：</p>
+</table>
+</li>
+<li>
+<p><strong>“符号” vs “对象” 的核心区别</strong>：</p>
 <ul>
-<li><p>符号：运行时常量池中的占位符，仅记录字符串内容，不是 Java
-对象，不占堆内存；</p></li>
-<li><p>对象：触发<code>ldc</code>指令后，在串池中创建的<code>String</code>实例，有内存地址、可调用方法（如<code>equals()</code>）。</p></li>
-<li><p>懒惰机制：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//new StringBuilder().append("a").append("b").toString()  new String("ab")</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s4</span> <span class="operator">=</span> s1 + s2;   <span class="comment">// 运行时拼接，创建新的String对象（不在串池，除非手动intern()）</span></span><br><span class="line">System.out.println(s3==s4)<span class="comment">//返回false</span></span><br></pre></td></tr></table></figure></li>
-</ul></li>
+<li>
+<p>符号：运行时常量池中的占位符，仅记录字符串内容，不是 Java 对象，不占堆内存；</p>
+</li>
+<li>
+<p>对象：触发<code>ldc</code>指令后，在串池中创建的<code>String</code>实例，有内存地址、可调用方法（如<code>equals()</code>）。</p>
+</li>
+<li>
+<p>懒惰机制：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//new StringBuilder().append("a").append("b").toString()  new String("ab")</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s4</span> <span class="operator">=</span> s1 + s2;   <span class="comment">// 运行时拼接，创建新的String对象（不在串池，除非手动intern()）</span></span><br><span class="line">System.out.println(s3==s4)<span class="comment">//返回false</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="编译期优化">编译期优化</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 反例：编译期常量拼接，直接在Class常量池生成"ab"，运行时无需拼接</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s5</span> <span class="operator">=</span> <span class="string">"a"</span> + <span class="string">"b"</span>; <span class="comment">// 编译后等价于String s4 = "ab"，直接从串池取"ab"</span></span><br><span class="line">                       <span class="comment">//javac在编译期间的优化，结果已经在编译期间确定为ab</span></span><br><span class="line">System.out.println(s3==s5) <span class="comment">//返回true</span></span><br></pre></td></tr></table></figure>
 <h2 id="字符串延迟加载">字符串延迟加载</h2>
 <ul>
-<li><p>字符串字面也是【延迟】成为对象的</p></li>
-<li><p>使用jmap的Memory查看每类对象的实例个数</p></li>
-<li><p>执行一行代码后才放入串池</p></li>
+<li>
+<p>字符串字面也是【延迟】成为对象的</p>
+</li>
+<li>
+<p>使用jmap的Memory查看每类对象的实例个数</p>
+</li>
+<li>
+<p>执行一行代码后才放入串池</p>
+</li>
 </ul>
-<h2 id="intern_1.8">intern_1.8</h2>
+<h2 id="intern-1-8">intern_1.8</h2>
 <ul>
-<li><p>案例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">demo</span> {</span><br><span class="line">     <span class="comment">//["a","b","ab"] </span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">      <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"a"</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"b"</span>);  <span class="comment">// new String("ab")</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">//堆 new String("a")    new String("b")   new String("ab")</span></span><br><span class="line">       <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> s.intern(); <span class="comment">//将这个字符串对象尝试放入串池,如果有则并不会放入，如果没有则放入串池，会把串池中的对象返回</span></span><br><span class="line">       System.out.println(s2 == <span class="string">"ab"</span>);<span class="comment">//返回true </span></span><br><span class="line">       System.out.println(s == <span class="string">"ab"</span>);<span class="comment">//返回true </span></span><br><span class="line">   } </span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">demo1</span> {</span><br><span class="line">     <span class="comment">//["ab","a","b"] </span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">      <span class="type">String</span> <span class="variable">x</span> <span class="operator">=</span> <span class="string">"ab"</span>;</span><br><span class="line">      <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"a"</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"b"</span>);  <span class="comment">// new String("ab")</span></span><br><span class="line">       <span class="comment">//堆 new String("a")    new String("b")   new String("ab")</span></span><br><span class="line">       <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> s.intern(); <span class="comment">//将这个字符串对象尝试放入串池,如果有则并不会放入，如果没有则放入串池，会把串池中的对象返回</span></span><br><span class="line">       System.out.println(s2 == <span class="string">"ab"</span>);<span class="comment">//返回true </span></span><br><span class="line">       System.out.println(s == <span class="string">"ab"</span>);<span class="comment">//返回false</span></span><br><span class="line">   } </span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+<li>
+<p>案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">demo</span> {</span><br><span class="line">     <span class="comment">//["a","b","ab"] </span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">      <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"a"</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"b"</span>);  <span class="comment">// new String("ab")</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">//堆 new String("a")    new String("b")   new String("ab")</span></span><br><span class="line">       <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> s.intern(); <span class="comment">//将这个字符串对象尝试放入串池,如果有则并不会放入，如果没有则放入串池，会把串池中的对象返回</span></span><br><span class="line">       System.out.println(s2 == <span class="string">"ab"</span>);<span class="comment">//返回true </span></span><br><span class="line">       System.out.println(s == <span class="string">"ab"</span>);<span class="comment">//返回true </span></span><br><span class="line">   } </span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">demo1</span> {</span><br><span class="line">     <span class="comment">//["ab","a","b"] </span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">      <span class="type">String</span> <span class="variable">x</span> <span class="operator">=</span> <span class="string">"ab"</span>;</span><br><span class="line">      <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"a"</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"b"</span>);  <span class="comment">// new String("ab")</span></span><br><span class="line">       <span class="comment">//堆 new String("a")    new String("b")   new String("ab")</span></span><br><span class="line">       <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> s.intern(); <span class="comment">//将这个字符串对象尝试放入串池,如果有则并不会放入，如果没有则放入串池，会把串池中的对象返回</span></span><br><span class="line">       System.out.println(s2 == <span class="string">"ab"</span>);<span class="comment">//返回true </span></span><br><span class="line">       System.out.println(s == <span class="string">"ab"</span>);<span class="comment">//返回false</span></span><br><span class="line">   } </span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h2 id="intern_1.6">intern_1.6</h2>
+<h2 id="intern-1-6">intern_1.6</h2>
 <ul>
-<li><p>案例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">demo</span> {</span><br><span class="line">     <span class="comment">//["ab","a","b"] </span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">      <span class="type">String</span> <span class="variable">x</span> <span class="operator">=</span> <span class="string">"ab"</span>;</span><br><span class="line">      <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"a"</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"b"</span>);  <span class="comment">// new String("ab")</span></span><br><span class="line">       <span class="comment">//堆 new String("a")    new String("b")   new String("ab")</span></span><br><span class="line">       <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> s.intern(); <span class="comment">//将这个字符串对象尝试放入串池,如果有则并不会放入，如果没有会把对象复制一份，放入串池，会把串池中的对象返回</span></span><br><span class="line">       System.out.println(s2 == <span class="string">"ab"</span>);<span class="comment">//返回true </span></span><br><span class="line">       System.out.println(s == <span class="string">"ab"</span>);<span class="comment">//返回false</span></span><br><span class="line">   } </span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">demo1</span> {</span><br><span class="line">     <span class="comment">//["a","b","ab"] </span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">     </span><br><span class="line">       <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"a"</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"b"</span>);  <span class="comment">// new String("ab")</span></span><br><span class="line">       <span class="comment">//堆 new String("a")    new String("b")   new String("ab")</span></span><br><span class="line">       <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> s.intern(); <span class="comment">//将这个字符串对象尝试放入串池,如果有则并不会放入，如果没有会把对象复制一份，放入串池，会把串池中的对象返回</span></span><br><span class="line">       <span class="comment">//s复制一份，放入串池</span></span><br><span class="line">      </span><br><span class="line">       <span class="type">String</span> <span class="variable">x</span> <span class="operator">=</span> <span class="string">"ab"</span>;</span><br><span class="line">       System.out.println(s2 == <span class="string">"ab"</span>);<span class="comment">//返回true </span></span><br><span class="line">       System.out.println(s == <span class="string">"ab"</span>);<span class="comment">//返回false</span></span><br><span class="line">   } </span><br><span class="line">}</span><br></pre></td></tr></table></figure></li>
+<li>
+<p>案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">demo</span> {</span><br><span class="line">     <span class="comment">//["ab","a","b"] </span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">      <span class="type">String</span> <span class="variable">x</span> <span class="operator">=</span> <span class="string">"ab"</span>;</span><br><span class="line">      <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"a"</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"b"</span>);  <span class="comment">// new String("ab")</span></span><br><span class="line">       <span class="comment">//堆 new String("a")    new String("b")   new String("ab")</span></span><br><span class="line">       <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> s.intern(); <span class="comment">//将这个字符串对象尝试放入串池,如果有则并不会放入，如果没有会把对象复制一份，放入串池，会把串池中的对象返回</span></span><br><span class="line">       System.out.println(s2 == <span class="string">"ab"</span>);<span class="comment">//返回true </span></span><br><span class="line">       System.out.println(s == <span class="string">"ab"</span>);<span class="comment">//返回false</span></span><br><span class="line">   } </span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">demo1</span> {</span><br><span class="line">     <span class="comment">//["a","b","ab"] </span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>{</span><br><span class="line">     </span><br><span class="line">       <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"a"</span>) + <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">"b"</span>);  <span class="comment">// new String("ab")</span></span><br><span class="line">       <span class="comment">//堆 new String("a")    new String("b")   new String("ab")</span></span><br><span class="line">       <span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> s.intern(); <span class="comment">//将这个字符串对象尝试放入串池,如果有则并不会放入，如果没有会把对象复制一份，放入串池，会把串池中的对象返回</span></span><br><span class="line">       <span class="comment">//s复制一份，放入串池</span></span><br><span class="line">      </span><br><span class="line">       <span class="type">String</span> <span class="variable">x</span> <span class="operator">=</span> <span class="string">"ab"</span>;</span><br><span class="line">       System.out.println(s2 == <span class="string">"ab"</span>);<span class="comment">//返回true </span></span><br><span class="line">       System.out.println(s == <span class="string">"ab"</span>);<span class="comment">//返回false</span></span><br><span class="line">   } </span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <h2 id="位置">位置</h2>
 <table>
@@ -516,33 +534,26 @@ JVM 的<strong>运行时常量池</strong>，此时<code>"a"</code>
 </table>
 <h2 id="垃圾回收">垃圾回收</h2>
 <ul>
-<li>串池中的字符串对象<strong>并非永久存活</strong>，满足以下条件会被
-GC：
+<li>串池中的字符串对象<strong>并非永久存活</strong>，满足以下条件会被 GC：
 <ul>
 <li>串池中的对象无任何外部引用（如字面量不再被使用）；</li>
-<li>JVM 触发堆 GC（如 Minor GC/Major
-GC）时，会清理串池中无引用的字符串对象。</li>
-</ul></li>
+<li>JVM 触发堆 GC（如 Minor GC/Major GC）时，会清理串池中无引用的字符串对象。</li>
+</ul>
+</li>
 </ul>
 <h2 id="调优">调优</h2>
 <ul>
 <li>如果StringTable中字符串常量过多的话，可以使用-XX:StringTableSize=桶个数，将桶的数量设置多</li>
 <li>考虑将字符串对象是否入池</li>
-<li>JDK 1.6 中<code>StringTableSize</code>默认 1009，JDK 1.8+ 默认
-60013，且 1.8+ 容量设置后不可动态修改。</li>
+<li>JDK 1.6 中<code>StringTableSize</code>默认 1009，JDK 1.8+ 默认 60013，且 1.8+ 容量设置后不可动态修改。</li>
 </ul>
 <h2 id="总结">总结</h2>
 <ul>
-<li>StringTable 是存储字符串对象的哈希表，JDK 1.7+
-移至堆内存，核心作用是字符串去重；</li>
-<li>字符串字面量（如 "a"）是 “延迟实例化” 的符号，第一次使用时（ldc
-指令）才转为对象入串池；</li>
-<li>常量拼接编译期优化（入串池），变量拼接底层是
-StringBuilder（不入串池）；</li>
-<li><code>intern()</code> 方法：JDK 1.8 放入对象引用，JDK 1.6
-复制对象入池，核心是复用串池对象减少内存占用；</li>
-<li>调优关键：调整 <code>StringTableSize</code>
-减少哈希冲突，对重复字符串主动调用 <code>intern()</code>。</li>
+<li>StringTable 是存储字符串对象的哈希表，JDK 1.7+ 移至堆内存，核心作用是字符串去重；</li>
+<li>字符串字面量（如 “a”）是 “延迟实例化” 的符号，第一次使用时（ldc 指令）才转为对象入串池；</li>
+<li>常量拼接编译期优化（入串池），变量拼接底层是 StringBuilder（不入串池）；</li>
+<li><code>intern()</code> 方法：JDK 1.8 放入对象引用，JDK 1.6 复制对象入池，核心是复用串池对象减少内存占用；</li>
+<li>调优关键：调整 <code>StringTableSize</code> 减少哈希冲突，对重复字符串主动调用 <code>intern()</code>。</li>
 </ul>
 
     </div>

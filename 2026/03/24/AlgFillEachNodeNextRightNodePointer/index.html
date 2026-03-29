@@ -21,12 +21,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="算法-填充每个节点的下一个右侧节点指针 背景  算法--填充每个节点的下一个右侧节点指针 博主以代码随想录算法公开课进行学习">
+    <meta name="description" content="算法-填充每个节点的下一个右侧节点指针 背景   算法–填充每个节点的下一个右侧节点指针   博主以代码随想录算法公开课进行学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="填充每个节点的下一个右侧节点指针">
 <meta property="og:url" content="http://seeya-ch.github.io/2026/03/24/AlgFillEachNodeNextRightNodePointer/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="算法-填充每个节点的下一个右侧节点指针 背景  算法--填充每个节点的下一个右侧节点指针 博主以代码随想录算法公开课进行学习">
+<meta property="og:description" content="算法-填充每个节点的下一个右侧节点指针 背景   算法–填充每个节点的下一个右侧节点指针   博主以代码随想录算法公开课进行学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-24T08:34:23.000Z">
 <meta property="article:modified_time" content="2026-03-24T13:41:58.894Z">
@@ -257,7 +257,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88"><span class="nav-number">1.</span> <span class="nav-text">算法-填充每个节点的下一个右侧节点指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">算法-填充每个节点的下一个右侧节点指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -369,41 +369,42 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="算法-填充每个节点的下一个右侧节点指针">算法-填充每个节点的下一个右侧节点指针</h1>
+    <div class="post-body" itemprop="articleBody"><h1>算法-填充每个节点的下一个右侧节点指针</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li><p>算法--填充每个节点的下一个右侧节点指针</p></li>
-<li><p>博主以代码随想录算法公开课进行学习</p>
-<span id="more"></span></li>
+<li>
+<p>算法–填充每个节点的下一个右侧节点指针</p>
+</li>
+<li>
+<p>博主以代码随想录算法公开课进行学习</p>
+<span id="more"></span>
+</li>
 </ul>
 <h2 id="题目">题目</h2>
 <ul>
-<li><p>给定一个 <strong>完美二叉树</strong>
-，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：</p>
+<li>
+<p>给定一个 <strong>完美二叉树</strong> ，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct Node {</span><br><span class="line">  int val;</span><br><span class="line">  Node *left;</span><br><span class="line">  Node *right;</span><br><span class="line">  Node *next;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>填充它的每个 next
-指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将
-next 指针设置为 <code>NULL</code>。</p>
-<p>初始状态下，所有 next 指针都被设置为 <code>NULL</code>。</p></li>
-<li><p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,2,3,4,5,6,7]</span><br><span class="line">输出：[1,#,2,3,#,4,5,6,7,#]</span><br><span class="line">解释：给定二叉树如图 A 所示，你的函数应该填充它的每个 next 指针，以指向其下一个右侧节点，如图 B 所示。序列化的输出按层序遍历排列，同一层节点由 next 指针连接，'#' 标志着每一层的结束。</span><br></pre></td></tr></table></figure>
-<p><strong>示例 2:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">入：root = []</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure></li>
+<p>填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 <code>NULL</code>。</p>
+<p>初始状态下，所有 next 指针都被设置为 <code>NULL</code>。</p>
+</li>
+<li></li>
 </ul>
+<p><strong>示例 1：</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,2,3,4,5,6,7]</span><br><span class="line">输出：[1,#,2,3,#,4,5,6,7,#]</span><br><span class="line">解释：给定二叉树如图 A 所示，你的函数应该填充它的每个 next 指针，以指向其下一个右侧节点，如图 B 所示。序列化的输出按层序遍历排列，同一层节点由 next 指针连接，'#' 标志着每一层的结束。</span><br></pre></td></tr></table></figure>
+<p><strong>示例 2:</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">入：root = []</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure>
 <h2 id="思路">思路</h2>
 <ul>
 <li>与层序遍历一致</li>
-<li>从左到右用 <code>next</code> 指针连接起来，层最后一个节点的
-<code>next</code> 指向 <code>null</code>。</li>
+<li>从左到右用 <code>next</code> 指针连接起来，层最后一个节点的 <code>next</code> 指向 <code>null</code>。</li>
 </ul>
 <h2 id="代码实现">代码实现</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> {</span><br><span class="line">    <span class="keyword">public</span> Node <span class="title function_">connect</span><span class="params">(Node root)</span> {</span><br><span class="line">        <span class="comment">// 1. 创建队列，用来做层序遍历（BFS）</span></span><br><span class="line">        Queue&lt;Node&gt; tmpQueue = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;Node&gt;();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 2. 如果根节点不为空，先把根节点加入队列</span></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">null</span>) tmpQueue.add(root);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 外层循环：只要队列不为空，就一直处理</span></span><br><span class="line">        <span class="keyword">while</span> (tmpQueue.size() != <span class="number">0</span>){</span><br><span class="line">            <span class="comment">// 【关键】记录当前这一层有多少个节点</span></span><br><span class="line">            <span class="comment">// 必须先存起来，因为队列会不断变化</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> tmpQueue.size();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 4. 取出当前层的【第一个节点】</span></span><br><span class="line">            <span class="type">Node</span> <span class="variable">cur</span> <span class="operator">=</span> tmpQueue.poll();</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 5. 把第一个节点的左右孩子加入队列（下一层用）</span></span><br><span class="line">            <span class="keyword">if</span> (cur.left != <span class="literal">null</span>) tmpQueue.add(cur.left);</span><br><span class="line">            <span class="keyword">if</span> (cur.right != <span class="literal">null</span>) tmpQueue.add(cur.right);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 6. 内层循环：处理当前层剩下的所有节点（从第2个到最后一个）</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> <span class="number">1</span>; index &lt; size; index++){</span><br><span class="line">                <span class="comment">// 取出下一个节点</span></span><br><span class="line">                <span class="type">Node</span> <span class="variable">next</span> <span class="operator">=</span> tmpQueue.poll();</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 下一个节点的孩子入队</span></span><br><span class="line">                <span class="keyword">if</span> (next.left != <span class="literal">null</span>) tmpQueue.add(next.left);</span><br><span class="line">                <span class="keyword">if</span> (next.right != <span class="literal">null</span>) tmpQueue.add(next.right);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 【核心】前一个节点.next = 后一个节点</span></span><br><span class="line">                cur.next = next;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// cur 向后移动，准备连接下一个节点</span></span><br><span class="line">                cur = next;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 最后返回根节点</span></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <h2 id="总结">总结</h2>
 <ul>
-<li>队列建议使用 <code>ArrayDeque</code>，比 <code>LinkedList</code>
-内存占用更低，避免 LeetCode 内存超限</li>
-<li>不可在循环中直接使用
-<code>queue.size()</code>，必须提前保存当前层大小</li>
+<li>队列建议使用 <code>ArrayDeque</code>，比 <code>LinkedList</code> 内存占用更低，避免 LeetCode 内存超限</li>
+<li>不可在循环中直接使用 <code>queue.size()</code>，必须提前保存当前层大小</li>
 </ul>
 
     </div>

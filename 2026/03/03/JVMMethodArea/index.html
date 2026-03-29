@@ -21,12 +21,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"seeya-ch.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="JVM--方法区（Method Area） 背景  JVM--方法区（Method Area） 博主以黑马JVM进行学习">
+    <meta name="description" content="JVM–方法区（Method Area） 背景   JVM–方法区（Method Area）   博主以黑马JVM进行学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM--方法区（Method Area）">
 <meta property="og:url" content="http://seeya-ch.github.io/2026/03/03/JVMMethodArea/index.html">
 <meta property="og:site_name" content="seeya-ch 博客">
-<meta property="og:description" content="JVM--方法区（Method Area） 背景  JVM--方法区（Method Area） 博主以黑马JVM进行学习">
+<meta property="og:description" content="JVM–方法区（Method Area） 背景   JVM–方法区（Method Area）   博主以黑马JVM进行学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-03T10:34:23.000Z">
 <meta property="article:modified_time" content="2026-03-03T14:40:42.123Z">
@@ -254,7 +254,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jvm--%E6%96%B9%E6%B3%95%E5%8C%BAmethod-area"><span class="nav-number">1.</span> <span class="nav-text">JVM--方法区（Method Area）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E6%88%90"><span class="nav-number">1.3.</span> <span class="nav-text">组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%E7%9A%84%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA"><span class="nav-number">1.4.</span> <span class="nav-text">方法区的内存溢出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0constant-pool"><span class="nav-number">1.5.</span> <span class="nav-text">运行时常量池（Constant pool）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">1.7.</span> <span class="nav-text">补充</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">JVM–方法区（Method Area）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E6%88%90"><span class="nav-number">1.3.</span> <span class="nav-text">组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%E7%9A%84%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA"><span class="nav-number">1.4.</span> <span class="nav-text">方法区的内存溢出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0%EF%BC%88Constant-pool%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">运行时常量池（Constant pool）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">1.7.</span> <span class="nav-text">补充</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -366,38 +366,39 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="jvm--方法区method-area">JVM--方法区（Method Area）</h1>
+    <div class="post-body" itemprop="articleBody"><h1>JVM–方法区（Method Area）</h1>
 <h2 id="背景">背景</h2>
 <ul>
-<li><p>JVM--方法区（Method Area）</p></li>
-<li><p>博主以黑马JVM进行学习</p>
-<span id="more"></span></li>
+<li>
+<p>JVM–方法区（Method Area）</p>
+</li>
+<li>
+<p>博主以黑马JVM进行学习</p>
+<span id="more"></span>
+</li>
 </ul>
 <h2 id="定义">定义</h2>
 <ul>
-<li>方法区是 JVM
-中<strong>线程共享</strong>的内存区域，用于存储已被虚拟机加载的<strong>类元数据</strong>（类的结构信息）、常量、静态变量、即时编译器编译后的代码缓存等；</li>
-<li>补充：方法区是 JVM 规范中的<strong>逻辑概念</strong>，不同 JVM
-实现有不同的物理载体（1.6 用永久代，1.8 用元空间）。</li>
+<li>方法区是 JVM 中<strong>线程共享</strong>的内存区域，用于存储已被虚拟机加载的<strong>类元数据</strong>（类的结构信息）、常量、静态变量、即时编译器编译后的代码缓存等；</li>
+<li>补充：方法区是 JVM 规范中的<strong>逻辑概念</strong>，不同 JVM 实现有不同的物理载体（1.6 用永久代，1.8 用元空间）。</li>
 </ul>
 <h2 id="组成">组成</h2>
 <ul>
-<li><p>JVM内存结构1.6</p>
+<li>
+<p>JVM内存结构1.6</p>
 <ul>
 <li>方法区（概念）：PermGen永久代（实现）包括：常量池（StringTable）、Class、ClassLoader</li>
-</ul></li>
-<li><p>JVM内存结构1.8</p>
+</ul>
+</li>
+<li>
+<p>JVM内存结构1.8</p>
 <ul>
 <li>方法区（概念）：Metaspace元空间（实现）（包括：常量池、Class、ClassLoader）（由本地内存管理），堆（包含StringTable）</li>
-</ul></li>
-<li><p>比较</p>
+</ul>
+</li>
+<li>
+<p>比较</p>
 <table>
-<colgroup>
-<col style="width: 4%">
-<col style="width: 25%">
-<col style="width: 34%">
-<col style="width: 34%">
-</colgroup>
 <thead>
 <tr>
 <th>JVM 版本</th>
@@ -410,41 +411,41 @@ mjx-container[display="true"] + br {
 <tr>
 <td>JDK 1.6</td>
 <td>永久代（PermGen，属于堆内存的一部分）</td>
-<td>1. 类元数据（Class 结构、字段 / 方法信息）2. 运行时常量池（包含
-StringTable）3. 静态变量4. ClassLoader 相关信息</td>
-<td>永久代受 JVM 堆内存限制，可通过 <code>-XX:MaxPermSize</code>
-限制大小</td>
+<td>1. 类元数据（Class 结构、字段 / 方法信息）2. 运行时常量池（包含 StringTable）3. 静态变量4. ClassLoader 相关信息</td>
+<td>永久代受 JVM 堆内存限制，可通过 <code>-XX:MaxPermSize</code> 限制大小</td>
 </tr>
 <tr>
 <td>JDK 1.8</td>
 <td>元空间（Metaspace，属于本地内存 / 直接内存）</td>
-<td>1. 类元数据、静态变量、ClassLoader 信息（存储在元空间）2.
-运行时常量池（仍属于方法区逻辑范畴）3. StringTable（移至堆内存）</td>
-<td>元空间默认使用本地内存（不受 JVM 堆限制），可通过
-<code>-XX:MaxMetaspaceSize</code> 限制</td>
+<td>1. 类元数据、静态变量、ClassLoader 信息（存储在元空间）2. 运行时常量池（仍属于方法区逻辑范畴）3. StringTable（移至堆内存）</td>
+<td>元空间默认使用本地内存（不受 JVM 堆限制），可通过 <code>-XX:MaxMetaspaceSize</code> 限制</td>
 </tr>
 </tbody>
-</table></li>
+</table>
+</li>
 </ul>
 <h2 id="方法区的内存溢出">方法区的内存溢出</h2>
 <ul>
-<li><p>1.8以前会导致永久代内存溢出(OutOfMemoryError: PermGen space)</p>
+<li>
+<p>1.8以前会导致永久代内存溢出(OutOfMemoryError: PermGen space)</p>
 <ul>
 <li>-XX:MaxPermSize=内存大小</li>
-</ul></li>
-<li><p>1.8之后会导致元空间内存溢出(OutOfMemoryError: Metaspace)</p>
+</ul>
+</li>
+<li>
+<p>1.8之后会导致元空间内存溢出(OutOfMemoryError: Metaspace)</p>
 <ul>
-<li><p>元空间大小根据物理内存大小</p></li>
-<li><p>-MaxMetaspaceSize=内存大小</p></li>
-</ul></li>
-<li><p>比较</p>
+<li>
+<p>元空间大小根据物理内存大小</p>
+</li>
+<li>
+<p>-MaxMetaspaceSize=内存大小</p>
+</li>
+</ul>
+</li>
+<li>
+<p>比较</p>
 <table>
-<colgroup>
-<col style="width: 5%">
-<col style="width: 21%">
-<col style="width: 39%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr>
 <th>版本</th>
@@ -463,51 +464,54 @@ StringTable）3. 静态变量4. ClassLoader 相关信息</td>
 <tr>
 <td>JDK 1.8+</td>
 <td><code>OutOfMemoryError: Metaspace</code></td>
-<td><code>-XX:MetaspaceSize</code>（元空间初始阈值，触发 GC
-的阈值）<code>-XX:MaxMetaspaceSize</code>（元空间最大大小）</td>
+<td><code>-XX:MetaspaceSize</code>（元空间初始阈值，触发 GC 的阈值）<code>-XX:MaxMetaspaceSize</code>（元空间最大大小）</td>
 <td>默认无上限（耗尽本地内存才溢出），建议显式设置上限</td>
 </tr>
 </tbody>
-</table></li>
-<li><p>场景：</p>
+</table>
+</li>
+<li>
+<p>场景：</p>
 <p>核心原因：<strong>动态生成大量类，导致类元数据占满方法区</strong></p>
 <ul>
 <li>spring：通过 CGLIB/JDK 动态代理生成大量代理类；</li>
 <li>mybatis：Mapper 接口动态生成实现类；</li>
 <li>其他：反射、动态字节码生成（ASM/ClassWriter）、热部署频繁加载类；</li>
-</ul></li>
 </ul>
-<h2 id="运行时常量池constant-pool">运行时常量池（Constant pool）</h2>
+</li>
+</ul>
+<h2 id="运行时常量池（Constant-pool）">运行时常量池（Constant pool）</h2>
 <ul>
-<li><p>常量池，就是一张表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、字面量等信息</p></li>
-<li><p>运行时常量池，常量池是*.class文件中的，当该类被加载，它的常量池信息就会放入运行时常量池，并把里面的符号地址变为真实地址</p></li>
-<li><p><code>.class</code> 文件的核心组成：</p></li>
-<li><p>二进制字节码 = 类基本信息 + 常量池 + 类方法定义（含虚拟机指令） +
-字段定义</p></li>
-<li><p>虚拟机指令通过常量池的索引查找数据：比如指令 <code>ldc #1</code>
-表示加载常量池第 1 项的字面量；</p></li>
-<li><p>JDK中的javap -v反编译后显示详细信息</p></li>
+<li>
+<p>常量池，就是一张表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、字面量等信息</p>
+</li>
+<li>
+<p>运行时常量池，常量池是*.class文件中的，当该类被加载，它的常量池信息就会放入运行时常量池，并把里面的符号地址变为真实地址</p>
+</li>
+<li>
+<p><code>.class</code> 文件的核心组成：</p>
+</li>
+<li>
+<p>二进制字节码 = 类基本信息 + 常量池 + 类方法定义（含虚拟机指令） + 字段定义</p>
+</li>
+<li>
+<p>虚拟机指令通过常量池的索引查找数据：比如指令 <code>ldc #1</code> 表示加载常量池第 1 项的字面量；</p>
+</li>
+<li>
+<p>JDK中的javap -v反编译后显示详细信息</p>
+</li>
 </ul>
 <h2 id="总结">总结</h2>
 <ul>
-<li>方法区是 JVM 线程共享的逻辑区域，JDK 1.6 用永久代（堆内）实现，JDK
-1.8 改用元空间（本地内存）实现，核心变化是 StringTable
-移至堆、元空间不受堆内存限制；</li>
-<li>方法区溢出在 1.6 表现为 <code>PermGen space</code>，1.8 表现为
-<code>Metaspace</code>，核心场景是动态生成大量类（Spring/MyBatis
-代理），可通过
-<code>-XX:MaxPermSize</code>/<code>-XX:MaxMetaspaceSize</code>
-限制大小；</li>
+<li>方法区是 JVM 线程共享的逻辑区域，JDK 1.6 用永久代（堆内）实现，JDK 1.8 改用元空间（本地内存）实现，核心变化是 StringTable 移至堆、元空间不受堆内存限制；</li>
+<li>方法区溢出在 1.6 表现为 <code>PermGen space</code>，1.8 表现为 <code>Metaspace</code>，核心场景是动态生成大量类（Spring/MyBatis 代理），可通过 <code>-XX:MaxPermSize</code>/<code>-XX:MaxMetaspaceSize</code> 限制大小；</li>
 <li>运行时常量池是类加载后常量池的运行时形态，存储字面量和符号引用（加载后转为直接引用），具备动态性，是虚拟机指令执行的核心数据来源。</li>
 </ul>
 <h2 id="补充">补充</h2>
 <ul>
-<li>元空间不是堆内存，而是本地内存，默认无上限，需手动设置
-<code>-XX:MaxMetaspaceSize</code> 防止耗尽系统内存；</li>
-<li>StringTable（字符串常量池）在 1.8 移至堆，因此字符串相关的内存溢出是
-<code>Java heap space</code>，而非元空间溢出；</li>
-<li>运行时常量池≠字符串常量池：前者包含后者（1.6），1.8
-后字符串常量池独立在堆中，运行时常量池仍在元空间（逻辑上属于方法区）。</li>
+<li>元空间不是堆内存，而是本地内存，默认无上限，需手动设置 <code>-XX:MaxMetaspaceSize</code> 防止耗尽系统内存；</li>
+<li>StringTable（字符串常量池）在 1.8 移至堆，因此字符串相关的内存溢出是 <code>Java heap space</code>，而非元空间溢出；</li>
+<li>运行时常量池≠字符串常量池：前者包含后者（1.6），1.8 后字符串常量池独立在堆中，运行时常量池仍在元空间（逻辑上属于方法区）。</li>
 </ul>
 
     </div>
@@ -526,13 +530,13 @@ StringTable）3. 静态变量4. ClassLoader 相关信息</td>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2026/03/03/JVMStack/" rel="prev" title="JVM--栈">
-                  <i class="fa fa-angle-left"></i> JVM--栈
+                <a href="/2026/03/03/JVMPile/" rel="prev" title="JVM--堆">
+                  <i class="fa fa-angle-left"></i> JVM--堆
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2026/03/03/JVMPile/" rel="next" title="JVM--堆">
-                  JVM--堆 <i class="fa fa-angle-right"></i>
+                <a href="/2026/03/03/GarbageCollection/" rel="next" title="GarbageCollection">
+                  GarbageCollection <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
